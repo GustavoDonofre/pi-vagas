@@ -14,7 +14,6 @@ export default function MenuLateral() {
                 <Link href="/main/banco_talentos" type="button" class="list-group-item list-group-item-action"> Banco de talentos </Link>
                 <Link href="/" type="button" class="list-group-item list-group-item-action"> Minhas candidaturas </Link>
                 <Link href="/" type="button" class="list-group-item list-group-item-action"> Editar perfil </Link>
-                <Link href="/" type="button" class="list-group-item list-group-item-action"> Configurações </Link>
                 <Link href="/" type="button" class="list-group-item list-group-item-action"> Ajuda </Link>
             </div>
 
