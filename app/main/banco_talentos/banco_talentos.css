@@ -1,0 +1,41 @@
+body {
+    background-color: #f6f6f6;
+}
+
+.titulo{
+
+    text-align: center;
+    margin-top: 30px;
+}
+
+.inscricao{
+    background-color: #fff2da;
+    text-align: center;
+    padding: 15px;
+    margin-bottom: 5px;
+    border-radius: 20px;
+    width: 500px;
+    margin: auto;
+
+}
+
+.form_banco_talentos {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    width: 500px;
+    margin: auto;
+}
+
+.botao_inscrever {
+    background-color: #ff8800;
+    color: #ffffff;
+    border-radius: 10px;
+    padding: 10px;
+    transition: 0.4s;
+}
+
+.botao_inscrever:hover {
+    background-color: #ff8800;
+}

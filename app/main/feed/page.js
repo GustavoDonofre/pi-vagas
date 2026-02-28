@@ -1,5 +1,14 @@
+import "./feed.css"
+
 export default function Feed() {
-    <div>
-        <h1>Feed de Vagas</h1>
-    </div>
+    return (
+
+        <form class="container-fluid">
+            <div class="input-group">
+                <span class="input-group-text">🔍</span>
+                <input type="text" class="form-control" placeholder="Buscar vagas..." />
+            </div>
+        </form>
+        
+    )
 }
