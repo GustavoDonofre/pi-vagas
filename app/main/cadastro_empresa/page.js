@@ -1,83 +1,125 @@
-export default function cadastroEmpresa() {
-    <div>
+export default function CadastroEmpresa() {
+  return (
+    <div className="d-flex justify-content-center py-4">
+      <div className="border rounded shadow p-4"
+        style={{ width: "100%", maxWidth: "650px"}}
+      >
+        <form>
+          <img src="https://placehold.co/40"
+            className="mb-3 rounded mx-auto d-block"
+          />
 
-        <div className="vh-100 d-flex justify-content-center align-items-center">
-            <div className="border rounded shadow bg-white p-4" style="width:100%; max-width:500px;">
+          <h2 className="text-center mb-4">Cadastro para empresas</h2>
 
-                <form className="text-center" onsubmit="cadastrar(event)">
+          <div className="row">
 
-                    <img src="https://placehold.co/40" className="mb-3 rounded mx-auto d-block"/>
-
-                        <h2 className="mb-4">Cadastro para empresas</h2>
-
-                        <div className="mb-3 text-start">
-                            <label htmlFor="nomeEmpresa">Digite o nome da sua empresa: *</label>
-                            <input type="text" id="nomeEmpresa" className="form-control" />
-                        </div>
-
-                        <div className="mb-3 text-start">
-                            <label htmlFor="emailEmpresa">Digite o Email da sua empresa: *</label>
-                            <input type="email" id="emailEmpresa" className="form-control" />
-                        </div>
-
-                        <div className="mb-3 text-start">
-                            <label htmlFor="enderecoEmpresa">Digite o endereço da sua empresa: *</label>
-                            <input type="text" id="enderecoEmpresa" className="form-control" />
-                        </div>
-
-                        <div className="mb-3 text-start">
-                            <label htmlFor="senhaEmpresa">Digite sua senha: *</label>
-                            <input type="password" id="senhaEmpresa" className="form-control" />
-                        </div>
-
-                        <div className="mb-3 text-start">
-                            <label htmlFor="senhaEmpresaNovamente">Digite sua senha novamente: *</label>
-                            <input type="password" id="senhaEmpresaNovamente" className="form-control" />
-                        </div>
-
-                        <div className="mb-3 text-start">
-                            <label htmlFor="cnpjEmpresa">Digite o CNPJ da sua empresa: *</label>
-                            <input type="text" id="cnpjEmpresa" className="form-control" />
-                        </div>
-
-                        <div className="mb-3 text-start">
-                            <label htmlFor="areaAtuacao">Área de atuação: *</label>
-                            <input type="text" id="areaAtuacao" className="form-control" />
-                        </div>
-
-                        <div className="mb-3 text-start">
-                            <label htmlFor="telefone">Telefone da empresa: *</label>
-                            <input type="text" id="telefone" className="form-control" />
-                        </div>
-
-                        <div className="mb-3 text-start">
-                            <label htmlFor="outroContato">Outro contato:</label>
-                            <input type="text" id="outroContato" className="form-control" />
-                        </div>
-
-                        <div className="form-check text-start mb-3">
-                            <input type="checkbox" id="premium" className="form-check-input" />
-                            <label htmlFor="premium" className="form-check-label">
-                                <strong>Você tem interesse em se tornar premium?</strong>
-                            </label>
-                            <small className="text-muted d-block">
-                                O premium aumenta a quantidade de postagens e vagas anunciadas
-                            </small>
-                        </div>
-
-                        <div className="d-flex justify-content-between">
-                            <button type="reset" className="btn btn-outline-dark">
-                                Cancelar
-                            </button>
-
-                            <button type="submit" className="btn btn-primary">
-                                Salvar
-                            </button>
-                        </div>
-
-                </form>
-
+            {/* Nome */}
+            <div className="col-12 mb-3">
+              <label htmlFor="nomeEmpresa" className="form-label">
+                Nome da empresa *
+              </label>
+              <input type="text" id="nomeEmpresa" className="form-control" />
             </div>
-        </div>
+
+            {/* Email */}
+            <div className="col-md-6 mb-3">
+              <label htmlFor="emailEmpresa" className="form-label">
+                Email *
+              </label>
+              <input type="email" id="emailEmpresa" className="form-control" />
+            </div>
+
+            {/* Endereço */}
+            <div className="col-md-6 mb-3">
+              <label htmlFor="enderecoEmpresa" className="form-label">
+                Endereço *
+              </label>
+              <input type="text" id="enderecoEmpresa" className="form-control" />
+            </div>
+
+            {/* Senha */}
+            <div className="col-md-6 mb-3">
+              <label htmlFor="senhaEmpresa" className="form-label">
+                Senha *
+              </label>
+              <input type="password" id="senhaEmpresa" className="form-control" />
+            </div>
+
+            {/* Confirmar Senha */}
+            <div className="col-md-6 mb-3">
+              <label htmlFor="senhaEmpresaNovamente" className="form-label">
+                Confirmar senha *
+              </label>
+              <input
+                type="password"
+                id="senhaEmpresaNovamente"
+                className="form-control"
+              />
+            </div>
+
+            {/* CNPJ */}
+            <div className="col-md-6 mb-3">
+              <label htmlFor="cnpjEmpresa" className="form-label">
+                CNPJ *
+              </label>
+              <input type="text" id="cnpjEmpresa" className="form-control" />
+            </div>
+
+            {/* Área */}
+            <div className="col-md-6 mb-3">
+              <label htmlFor="areaAtuacao" className="form-label">
+                Área de atuação *
+              </label>
+              <input type="text" id="areaAtuacao" className="form-control" />
+            </div>
+
+            {/* Telefone */}
+            <div className="col-md-6 mb-3">
+              <label htmlFor="telefone" className="form-label">
+                Telefone *
+              </label>
+              <input type="text" id="telefone" className="form-control" />
+            </div>
+
+            {/* Outro contato */}
+            <div className="col-md-6 mb-3">
+              <label htmlFor="outroContato" className="form-label">
+                Outro contato
+              </label>
+              <input type="text" id="outroContato" className="form-control" />
+            </div>
+
+            {/* Premium */}
+            <div className="col-12 mb-4">
+              <div className="form-check">
+                <input
+                  type="checkbox"
+                  id="premium"
+                  className="form-check-input"
+                />
+                <label htmlFor="premium" className="form-check-label">
+                  <strong>Deseja se tornar premium?</strong>
+                </label>
+                <small className="text-muted d-block">
+                  Premium aumenta a quantidade de postagens e vagas.
+                </small>
+              </div>
+            </div>
+
+            {/* Botões */}
+            <div className="col-12 d-flex justify-content-between">
+              <button type="reset" className="btn btn-outline-secondary">
+                Cancelar
+              </button>
+
+              <button type="submit" className="btn btn-primary">
+                Salvar
+              </button>
+            </div>
+
+          </div>
+        </form>
+      </div>
     </div>
+  );
 }
