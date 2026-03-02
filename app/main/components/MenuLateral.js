@@ -5,7 +5,7 @@ export default function MenuLateral() {
     return (
         <div class="menulateral">
             <div class="text-center">
-                <img src="https://placehold.co/50" class="rounded-circle" />
+                <img src="https://placehold.co/50" className="rounded-circle" />
                 <h2 class="fs-5"> Nome do candidato </h2>
             </div>
             <hr />
