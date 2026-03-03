@@ -10,3 +10,11 @@
 .menulateral .list-group a{
     border-radius: 10px;
 }
+
+.botaoSair{
+    background-color: #ffa742;
+    color: #ffffff;
+    border: none;
+    padding: 10px;
+    border-radius: 15px;
+}

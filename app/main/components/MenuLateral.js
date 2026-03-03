@@ -18,7 +18,7 @@ export default function MenuLateral() {
             </div>
 
             <div class="text-center  menu_lateral_perfil">
-                <button class="btn btn-primary"> Sair </button>
+                <button class="botaoSair"> Sair </button>
             </div>
         </div>
     )

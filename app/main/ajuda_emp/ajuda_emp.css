@@ -1,0 +1,35 @@
+body{
+    background-color: #f6f6f6f6;
+}
+
+.introducao{
+    text-align: center;
+    margin-top: 30px;
+}
+
+.duvidas{
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    width: 500px;
+    margin: auto;
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: #ffa742;
+    color: white;
+}
+
+.accordion-button:focus {
+    box-shadow: none;
+}
+
+.card_duvidas{
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    width: 500px;
+    margin: auto;
+    text-align: center;
+}

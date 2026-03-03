@@ -1,0 +1,32 @@
+body{
+    background-color: #f6f6f6;
+}
+
+.botaoVaga{
+    background-color: #ffa742;
+    color: #ffff;
+    border: none;
+    padding: 15px;
+    border-radius: 10px;
+    font-weight: bold
+}
+
+.botaoVaga:hover{
+    background-color: #ff8800;
+    transition: 0.3s
+}
+
+.table {
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+.table th {
+  padding: 15px;
+}
+
+.table thead th {
+    background-color: #ffa742;
+    color: white;
+}
