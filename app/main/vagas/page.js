@@ -69,9 +69,9 @@ export default function CadastroVagas () {
           <label className="form-label">Período</label>
           <select className="form-select">
             <option selected disabled>Selecione</option>
-            <option>Manhã</option>
-            <option>Tarde</option>
-            <option>Noite</option>
+            <option>Matutino</option>
+            <option>Vespertino</option>
+            <option>Noturno</option>
           </select>
         </div>
 
