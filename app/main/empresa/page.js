@@ -31,7 +31,7 @@ export default function Empresa() {
                             <div className="modal-body">
                                 Cadastro de vagas da Gi
                             </div>
-
+                            <p>oiiiiiiii</p>
                         </div>
                     </div>
                 </div>

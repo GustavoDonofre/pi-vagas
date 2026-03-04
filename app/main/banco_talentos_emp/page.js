@@ -5,7 +5,6 @@ export default function bancoTalentosEmp() {
     return(
 
     <div>
-
         <div class="titulo">
             <h2>Banco de Talentos</h2>
             <p>Encontre profissionais de São Carlos para sua empresa.</p>
@@ -47,7 +46,7 @@ export default function bancoTalentosEmp() {
             <div class="row g-0 align-items-left">
 
                 <div class="col-md-1  p-3">
-                    <img src="https://placehold.co/80" class="img_card rounded-circle img-fluid">
+                    <img src="https://placehold.co/80" class="img_card rounded-circle img-fluid"/>
                 </div>
 
                 <div class="col-md-10">
@@ -80,7 +79,7 @@ export default function bancoTalentosEmp() {
             </div>
         </div>
     </div>
-    
+
     )
 
 }
