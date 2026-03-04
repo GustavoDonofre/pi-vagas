@@ -1,0 +1,40 @@
+body{
+    background-color: #f6f6f6;
+}
+
+.titulo{
+    margin-left: 500px;
+    margin-right: 300px;
+    margin-top: 50px;
+}
+
+.navbar{
+    background-color: #f6f6f6;
+    margin-left: 500px;
+    margin-right: 300px;
+}
+
+.card_filtros{
+    background-color: #ffffff;
+    margin-left: 500px;
+    margin-right: 300px;
+    border-radius: 20px;
+    padding: 10px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.card{
+    margin-left: 500px;
+    margin-right: 300px;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.img_card{
+    padding: 15px;
+    padding-left: 20px;
+}
+
+.modal{
+
+}

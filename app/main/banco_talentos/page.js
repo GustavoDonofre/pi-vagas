@@ -4,8 +4,7 @@ export default function bancoTalentos() {
     return (
         <div>
             <div>
-                <h1> Página de Banco de Talentos (candidatos) da Isabely </h1>
-
+              
                 <div className="titulo">
                     <h2> Banco de Talentos </h2>
                     <br />
