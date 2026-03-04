@@ -1,0 +1,63 @@
+body {
+    background-color: #f6f6f6;
+}
+
+.titulo {
+
+    text-align: center;
+    /* margin-top: 10px; */
+}
+
+.texto {
+    background-color: #fff2da;
+    text-align: center;
+    padding: 15px;
+    margin-bottom: 5px;
+    border-radius: 20px;
+    width: 500px;
+    margin: auto;
+
+}
+
+.form_cadastro {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    width: 500px;
+    margin: auto;
+}
+
+.btn-padrao {
+    background: linear-gradient(135deg, #ff8800, #ff6a00);
+    color: #ffffff;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 20px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+
+    box-shadow: 0 6px 15px rgba(255, 136, 0, 0.3);
+    transition: all 0.25s ease;
+}
+
+/* Hover */
+.btn-padrao:hover {
+    filter: brightness(110%);
+    transform: translateY(-3px);
+    color: #ffffff;
+    box-shadow: 0 10px 25px rgba(255, 136, 0, 0.4);
+}
+
+/* Clique */
+.btn-padrao:active {
+    transform: translateY(0px);
+    box-shadow: 0 4px 10px rgba(255, 136, 0, 0.3);
+}
+
+/* Focus (acessibilidade) */
+.btn-padrao:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(255, 136, 0, 0.3);
+}

@@ -28,8 +28,8 @@ export default function RootLayout({ children }) {
 
         <MenuSuperior/>
 
-        <div class="container-fluid">
-          <div class="row">
+        <div className="container-fluid">
+          <div className="row">
             <div className="col-2">
 
               <MenuLateral/>
