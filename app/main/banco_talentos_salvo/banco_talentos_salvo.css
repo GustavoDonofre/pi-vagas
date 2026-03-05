@@ -1,0 +1,20 @@
+body {
+    background-color: #f6f6f6;
+}
+
+.titulo{
+
+    text-align: center;
+    margin-top: 30px;
+}
+
+.inscricao{
+    background-color: #fff2da;
+    text-align: center;
+    padding: 15px;
+    margin-bottom: 5px;
+    border-radius: 20px;
+    width: 500px;
+    margin: auto;
+
+}
