@@ -125,7 +125,7 @@ export default function EmpresasCadastradas() {
 
     return (
         <div>
-            <h1>Lista de empresas cadastradas</h1>
+            <h1>Empresas cadastradas</h1>
             <hr />
 
             <table className="table">
