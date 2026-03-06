@@ -1,6 +1,35 @@
+'use client'
+
+import { useState } from 'react';
 import './banco_talentos.css'
 
 export default function bancoTalentos() {
+
+    const [curriculo, alteraCurriculo] = useState("")
+    const [certificacoes, alteraCertificacoes] = useState("")
+    const [portfolio, alteraPortfolio] = useState("")
+    const [area, alteraArea] = useState("")
+    const [competencias, alteraCompetencias] = useState("")
+    const [contratacao, alteraContratacao] = useState("")
+    const [turno, alteraTurno] = useState("")
+
+    function Salvar(e){
+        e.preventDefault()
+
+        const bancoCandidato = {
+            curriculo: curriculo,
+            certificacoes: certificacoes,
+            portfolio: portfolio,
+            area: area,
+            competencias: competencias,
+            contratacao: contratacao,
+            turno: turno
+        }
+
+        console.log(bancoCandidato)
+    }
+
+
     return (
         <div>
             <div>
@@ -21,59 +50,63 @@ export default function bancoTalentos() {
 
                 <div>
 
-                    <form className="form_banco_talentos row g-3">
+                    <form onSubmit={Salvar} className="form_banco_talentos row g-3">
 
                         <div>
-                            <label for="input_curriculo" className="form-label"> Currículo </label>
-                            <input required type="file" accept=".pdf,.doc,.docx" className="input_curriculo form-control" />
+                            <label className="form-label"> Currículo </label>
+                            <input type="file" accept=".pdf,.doc,.docx" className="form-control" onChange={ e => alteraCurriculo(e.target.files[0])}/>
                             <p className="text-body-tertiary"> PDF ou DOC, até 5 MB </p>
                         </div>
 
                         <div>
-                            <label for="input_certificacoes" className="form-label"> Certificações (opcional) </label>
-                            <input type="file" accept=".pdf,.doc,.docx" className="input_certificacoes form-control" multiple />
+                            <label className="form-label"> Certificações (opcional) </label>
+                            <input type="file" accept=".pdf,.doc,.docx" className="form-control" multiple onChange={ e => alteraCertificacoes(e.target.files[0])}/>
                         </div>
 
                         <div>
-                            <label for="input_portfolio" className=" form-label"> Portfolio (opcional) </label>
-                            <input type="url" placeholder="Behance, GitHub ou site pessoal." className="input_portfolio form-control" />
+                            <label className=" form-label"> Portfolio (opcional) </label>
+                            <input type="url" placeholder="Behance, GitHub ou site pessoal." className="form-control" onChange={ e => alteraPortfolio(e.target.value)} />
                         </div>
 
                         <div>
                             <label className="form-label"> Área de atuação </label>
-                            <textarea className="form-control" placeholder="Ex: atendimento, vendas, administrativo, TI..."></textarea>
+                            <textarea className="form-control" placeholder="Ex: atendimento, vendas, administrativo, TI..." onChange={ e => alteraArea(e.target.value)}></textarea>
                         </div>
 
                         <div>
                             <label className="form-label"> Competências e Habilidades </label>
-                            <textarea className="form-control" placeholder="Ex: comunicação, organização, Excel, redes sociais..."></textarea>
+                            <textarea className="form-control" placeholder="Ex: comunicação, organização, Excel, redes sociais..." onChange={ e => alteraCompetencias(e.target.value)}></textarea>
                         </div>
 
+                    
                         <div className="col-md-6">
                             <label className="form-label"> Tipo de contratação </label>
-                            <select className="form-select" required>
-                                <option value="" selected disabled hidden> Selecione </option>
+                            <select className="form-select" onChange={ e => alteraContratacao(e.target.value)}>
+                                <option value="" hidden> Selecione </option>
                                 <option value="efetivo"> Efetivo </option>
-                                <option value="temporario"> Temporário </option>
+                                <option value="freelancer"> Freelancer </option>
                             </select>
                         </div>
 
                         <div className="col-md-6">
                             <label className="form-label"> Turno de preferência </label>
-                            <select className="form-select" required>
-                                <option value="" selected disabled hidden> Selecione </option>
+                            <select className="form-select" onChange={ e => alteraTurno(e.target.value)}>
+                                <option value="" hidden> Selecione </option>
                                 <option value="matutino"> Matutino </option>
                                 <option value="vespertino"> Vespertino </option>
                                 <option value="noturno"> Noturno </option>
                             </select>
                         </div>
 
-                        <button type="submit" className="botao_inscrever btn btn-light"> Salvar inscrição </button>
+                        <button className="btn-padrao"> Salvar inscrição </button>
 
                     </form >
 
-                </div >
+                </div>
+
             </div>
+            
         </div >
+
     )
 }
