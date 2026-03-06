@@ -1,6 +1,26 @@
+'use client'
 import './empresa.css'
 
 export default function Empresa() {
+    const [atuacao, alteraAtucao] = useState("")
+    const [descricao, alteraDescricao] = useState("")
+    const [salario, alteraSalario] = useState()
+    const [tipo_vaga, alteraTipo_vaga] = useState()
+    const [modo_trabalho, alteraModo_trabalho] = useState()
+    const [periodo, alteraPerido] = useState()
+
+    const cadastrar = () => {
+        const Vaga = {
+            empresa: "empresa",
+            descricao: "descricao",
+            salario: " ",
+            vaga: "vaga",
+            modo:"modo",
+            periodo: "periodo"
+        };
+    }
+     console.log(cadastrar)
+
     return (
         <div>
 
@@ -28,7 +48,7 @@ export default function Empresa() {
                                 <button className="btn-close" data-bs-dismiss="modal"></button>
                             </div>
 
-                            <div class data-bs-toggle="modal" data-bs-target="#modalVaga"> 
+                            <div className data-bs-toggle="modal" data-bs-target="#modalVaga"> 
                                 <meta charset="UTF-8" />
                                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                                 <title>Gerenciador de Vagas</title>
@@ -36,10 +56,6 @@ export default function Empresa() {
 
                                 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" />
                                 <link rel="stylesheet" href="./pi_vagas.css" />
-
-
-                                <div className="container d-flex justify-content-center align-items-center min-vh-100">
-                                    <div className="card shadow-lg p-4 col-md-6">
 
                                         <h1 className="text-center mb-4">Cadastro de Vagas</h1>
 
@@ -105,10 +121,6 @@ export default function Empresa() {
                                             <button type="submit" className="btn btn-warning">Cadastrar Vaga</button>
 
                                         </form>
-
-                                    </div>
-                                </div>
-
                             </div>
                         </div>
                     </div>
