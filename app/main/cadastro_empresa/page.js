@@ -1,6 +1,40 @@
+"use client"
+import { useState } from "react";
 import "./cadastro_empresa.css"
 
 export default function CadastroEmpresa() {
+
+    const [nome, setNome] = useState("");
+    const [email, setEmail] = useState("");
+    const [endereco, setEndereco] = useState("");
+    const [senha, setSenha] = useState("");
+    const [confirmaSenha, setConfirmaSenha] = useState("");
+    const [cnpj, setCnpj] = useState("");
+    const [area, setArea] = useState("");
+    const [tel, setTel] = useState("");
+    const [tel2, setTel2] = useState("");
+    const [premium, setPremium] = useState("");
+
+    function salvar(e) {
+        e.preventDefault()
+
+        const empresa = {
+            nome: nome,
+            email: email,
+            endereco: endereco,
+            senha: senha,
+            cnpj: cnpj,
+            area: area,
+            telefone: tel,
+            telefone2: tel2,
+            premium: premium
+        }
+
+        console.log(empresa)
+    }
+
+
+
     return (
         <div>
             <div className="col-12">
@@ -15,13 +49,13 @@ export default function CadastroEmpresa() {
                     <br />
                 </div>
                 <div className="col-12">
-                    <form className="form_cadastro row g-3">
+                    <form onSubmit={salvar} className="form_cadastro row g-3">
                         {/* Nome */}
                         <div className="col-12 mb-3">
                             <label htmlFor="nomeEmpresa" className="form-label">
                                 Nome da empresa *
                             </label>
-                            <input type="text" id="nomeEmpresa" className="form-control" />
+                            <input type="text" onChange={e => setNome(e.target.value)} id="nomeEmpresa" className="form-control" />
                         </div>
 
                         {/* Email */}
@@ -29,7 +63,7 @@ export default function CadastroEmpresa() {
                             <label htmlFor="emailEmpresa" className="form-label">
                                 Email *
                             </label>
-                            <input type="email" id="emailEmpresa" className="form-control" />
+                            <input type="email" id="emailEmpresa" onChange={e => setEmail(e.target.value)} className="form-control" />
                         </div>
 
                         {/* Endereço */}
@@ -37,7 +71,7 @@ export default function CadastroEmpresa() {
                             <label htmlFor="enderecoEmpresa" className="form-label">
                                 Endereço *
                             </label>
-                            <input type="text" id="enderecoEmpresa" className="form-control" />
+                            <input type="text" id="enderecoEmpresa" onChange={e => setEndereco(e.target.value)} className="form-control" />
                         </div>
 
                         {/* Senha */}
@@ -45,7 +79,7 @@ export default function CadastroEmpresa() {
                             <label htmlFor="senhaEmpresa" className="form-label">
                                 Senha *
                             </label>
-                            <input type="password" id="senhaEmpresa" className="form-control" />
+                            <input type="password" onChange={e => setSenha(e.target.value)} id="senhaEmpresa" className="form-control" />
                         </div>
 
                         {/* Confirmar Senha */}
@@ -57,6 +91,7 @@ export default function CadastroEmpresa() {
                                 type="password"
                                 id="senhaEmpresaNovamente"
                                 className="form-control"
+                                onChange={e => setConfirmaSenha(e.target.value)}
                             />
                         </div>
 
@@ -65,7 +100,7 @@ export default function CadastroEmpresa() {
                             <label htmlFor="cnpjEmpresa" className="form-label">
                                 CNPJ *
                             </label>
-                            <input type="text" id="cnpjEmpresa" className="form-control" />
+                            <input type="text" id="cnpjEmpresa" onChange={e => setCnpj(e.target.value)} className="form-control" />
                         </div>
 
                         {/* Área */}
@@ -73,7 +108,7 @@ export default function CadastroEmpresa() {
                             <label htmlFor="areaAtuacao" className="form-label">
                                 Área de atuação *
                             </label>
-                            <input type="text" id="areaAtuacao" className="form-control" />
+                            <input type="text" id="areaAtuacao" onChange={e => setArea(e.target.value)} className="form-control" />
                         </div>
 
                         {/* Telefone */}
@@ -81,7 +116,7 @@ export default function CadastroEmpresa() {
                             <label htmlFor="telefone" className="form-label">
                                 Telefone *
                             </label>
-                            <input type="text" id="telefone" className="form-control" />
+                            <input type="text" id="telefone" onChange={e => setTel(e.target.value)} className="form-control" />
                         </div>
 
                         {/* Outro contato */}
@@ -89,7 +124,7 @@ export default function CadastroEmpresa() {
                             <label htmlFor="outroContato" className="form-label">
                                 Outro contato
                             </label>
-                            <input type="text" id="outroContato" className="form-control" />
+                            <input type="text" id="outroContato" onChange={e => setTel2(e.target.value)} className="form-control" />
                         </div>
 
                         {/* Premium */}
@@ -99,6 +134,7 @@ export default function CadastroEmpresa() {
                                     type="checkbox"
                                     id="premium"
                                     className="form-check-input"
+                                    onChange={e => setPremium(e.target.checked)}
                                 />
                                 <label htmlFor="premium" className="form-check-label">
                                     <strong>Deseja se tornar premium?</strong>
