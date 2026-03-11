@@ -26,18 +26,23 @@ export default function Feed() {
                     </div>
 
                     <div>
-                        <label className="form-label"> Área </label>
+                        <label className="form-label"> Tipo de contratação </label>
                         <select className="form-select">
                             <option value="" selected disabled hidden> Selecione </option>
-                            <option value="">  </option>
-                            <option value="">  </option>
-                            <option value="">  </option>
+                            <option value=""> Temporário </option>
+                            <option value=""> Efetivo </option>
                         </select>
                     </div>
 
                 </div>
 
             </card>
+
+            <div className="card">
+                <div className="">
+
+                </div>
+            </div>
 
         </div>
 
