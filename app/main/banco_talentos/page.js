@@ -1,7 +1,8 @@
-'use client'
 
 import { useState } from 'react';
 import './banco_talentos.css'
+
+
 
 export default function bancoTalentos() {
 
@@ -13,7 +14,7 @@ export default function bancoTalentos() {
     const [contratacao, alteraContratacao] = useState("")
     const [turno, alteraTurno] = useState("")
 
-    function Salvar(e){
+    async function Salvar(e){
         e.preventDefault()
 
         const bancoCandidato = {
@@ -70,12 +71,12 @@ export default function bancoTalentos() {
 
                         <div>
                             <label className="form-label"> Área de atuação </label>
-                            <textarea className="form-control" placeholder="Ex: atendimento, vendas, administrativo, TI..." onChange={ e => alteraArea(e.target.value)}></textarea>
+                            <textarea className="form-control" placeholder="Ex: atendimento, vendas, administrativo, TI..." onChange={ e => alteraArea(e.target.value)}/>
                         </div>
 
                         <div>
                             <label className="form-label"> Competências e Habilidades </label>
-                            <textarea className="form-control" placeholder="Ex: comunicação, organização, Excel, redes sociais..." onChange={ e => alteraCompetencias(e.target.value)}></textarea>
+                            <textarea className="form-control" placeholder="Ex: comunicação, organização, Excel, redes sociais..." onChange={ e => alteraCompetencias(e.target.value)}/>
                         </div>
 
                     
@@ -98,7 +99,7 @@ export default function bancoTalentos() {
                             </select>
                         </div>
 
-                        <button className="btn-padrao"> Salvar inscrição </button>
+                        <button onClick={Salvar} className="btn-padrao"> Salvar inscrição </button>
 
                     </form >
 
