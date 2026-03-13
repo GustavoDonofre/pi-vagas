@@ -24,6 +24,14 @@ body {
     padding: 20px;
     border-radius: 20px;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-    width: 500px;
+    width: 600px;
     margin: auto;
+}
+
+.logo {
+    max-width: 600px !important;
+}
+
+.bg-padrao {
+    background-color: #ff8800;
 }
