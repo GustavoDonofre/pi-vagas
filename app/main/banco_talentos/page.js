@@ -1,7 +1,10 @@
+'use client'
 
+import { createClient } from '@supabase/supabase-js'
 import { useState } from 'react';
 import './banco_talentos.css'
 
+const supabase = createClient('https://qrcmtnxakmuwbunyoooc.supabase.co', 'sb_publishable_kD9z8OLZIlbh3yry6yNMDQ_LTAi81op')
 
 
 export default function bancoTalentos() {
@@ -14,6 +17,17 @@ export default function bancoTalentos() {
     const [contratacao, alteraContratacao] = useState("")
     const [turno, alteraTurno] = useState("")
 
+    const[livros, alteraBancoTalentos] = useState
+
+    async function buscar() {
+
+        const { data, error } = await supabase
+            .from('bancoTalentos')
+            .select()
+        console.log(data)
+        alteraBancoTalentos(data)
+    }
+
     async function Salvar(e){
         e.preventDefault()
 
@@ -25,6 +39,16 @@ export default function bancoTalentos() {
             competencias: competencias,
             contratacao: contratacao,
             turno: turno
+        }
+
+        if (bancoCandidato.area.length <5) {
+            alert("Área inválida.")
+            return
+        }
+
+        if (bancoCandidato.competencias.length <5) {
+            alert("Área inválida.")
+            return
         }
 
         console.log(bancoCandidato)
