@@ -1,27 +1,28 @@
-export default function paginaInicial() {
+
+
+export default function paginainicial() {
+
     return (
-        <div>
 
-            <p style={{ fontSize: 100 }}>❤💖💝💓LULA LADRÃO ROUBOU MEU CORAÇÃO ❤💖💝💓</p>
-            <br /><br /><br /><br /><br /><br /><br /><br /><br />
-
-            <div class="col-md-8">
-                <div class="col-md-8 my-6 container-fluid">
+       <div> 
+       
                     <h1 class="hero-title" />
                     As oportunidades de São Carlos agora têm
                     <span class="highlight">lugar certo!</span>
-                </div>
+            
                 <p div class="mt-3 text-muted">
                     💼 Encontre vagas de freelancer, bicos e trabalhos temporários. <br />
                     📍 Participe do banco de talentos da sua cidade.<br />
                     Simples, organizado e perto de você.
                 </p>
+                </div>
             </div>
 
 
-            <form>
+            
 
                 <div class="col-4 bg-white d-flex align-items-end row justify-content-end">
+                   
                     <div class=" shadow login-card p-4 w-75">
                         <div class="mb-3">
 
@@ -38,10 +39,12 @@ export default function paginaInicial() {
                         </div>
                         <button type="submit" class="btn btn-primary">Entrar</button>
                     </div>
+                   
+
                 </div>
 
 
-            </form>
+            
 
             <div class="card border-0 shadow-sm mt-5 p-4">
                 <h2 class="fw-bold text-center mb-3">✨ Como funciona?</h2>
@@ -68,6 +71,6 @@ export default function paginaInicial() {
                 crossorigin="anonymous"> </script>
 
         </div>
-
+     
     )
 }
