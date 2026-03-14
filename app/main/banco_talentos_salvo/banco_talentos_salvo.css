@@ -1,6 +1,3 @@
-body {
-    background-color: #f6f6f6;
-}
 
 .titulo{
     text-align: center;
@@ -14,20 +11,6 @@ body {
     border-radius: 20px;
     width: 500px;
     margin: auto;
-}
-
-.botao_editar{
-    background: linear-gradient(135deg, #cdffac, #69a362);
-    color: #ffffff;
-    border: none;
-    border-radius: 12px;
-    padding: 12px 20px;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    cursor: pointer;
-
-    box-shadow: 0 6px 15px rgba(104, 143, 109, 0.3);
-    transition: all 0.25s ease;
 }
 
 .card_salvo{

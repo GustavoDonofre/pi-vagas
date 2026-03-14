@@ -14,7 +14,7 @@ export default function bancoTalentosSalvo() {
 
             <br />
 
-            <div className="alert alert-success inscricao" role="alert">
+            <div className="alert alert-light inscricao" role="alert">
                 <p> Você está inscrito no Banco de Talentos! <br /> Empresas podem visualizar seu perfil e entrar em contato. </p>
             </div>
 
@@ -63,7 +63,7 @@ export default function bancoTalentosSalvo() {
 
                     </div>
 
-                    <button className='botao_editar'> Editar </button>
+                    <button className='btn-padrao'> Editar </button>
 
                 </div>
             </div>

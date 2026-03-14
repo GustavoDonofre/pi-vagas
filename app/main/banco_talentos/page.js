@@ -1,8 +1,9 @@
 'use client'
 
 import { createClient } from '@supabase/supabase-js'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './banco_talentos.css'
+import { Baumans } from 'next/font/google';
 
 const supabase = createClient('https://qrcmtnxakmuwbunyoooc.supabase.co', 'sb_publishable_kD9z8OLZIlbh3yry6yNMDQ_LTAi81op')
 
@@ -17,18 +18,18 @@ export default function bancoTalentos() {
     const [contratacao, alteraContratacao] = useState("")
     const [turno, alteraTurno] = useState("")
 
-    const[livros, alteraBancoTalentos] = useState
+    const [bancoTalentos, alteraBancoTalentos] = useState([])
 
     async function buscar() {
 
         const { data, error } = await supabase
-            .from('bancoTalentos')
+            .from('bancotalentos')
             .select()
         console.log(data)
         alteraBancoTalentos(data)
     }
 
-    async function Salvar(e){
+    async function Salvar(e) {
         e.preventDefault()
 
         const bancoCandidato = {
@@ -38,27 +39,64 @@ export default function bancoTalentos() {
             area: area,
             competencias: competencias,
             contratacao: contratacao,
-            turno: turno
+            turno: turno,
+            id_usuario: 3
         }
 
-        if (bancoCandidato.area.length <5) {
-            alert("Área inválida.")
+        if (!bancoCandidato.curriculo) {
+            alert("Anexe um currículo");
+            return;
+        }
+
+        if (!bancoCandidato.area) {
+            alert("Informe uma área")
             return
         }
 
-        if (bancoCandidato.competencias.length <5) {
-            alert("Área inválida.")
+        if (bancoCandidato.area.length < 5) {
+            alert("Informe uma área válida")
             return
         }
 
+        if (!bancoCandidato.competencias) {
+            alert("Informe uma competência")
+            return
+        }
+
+        if (bancoCandidato.competencias.length < 5) {
+            alert("Informe uma competência válida")
+            return
+        }
+
+        if (!bancoCandidato.contratacao) {
+            alert("Informe um tipo de contratação")
+            return
+        }
+
+        if (!bancoCandidato.turno) {
+            alert("Informe um turno")
+            return
+        }
+
+        const { error } = await supabase
+            .from('bancotalentos')
+            .insert(bancoCandidato)
+
+        console.log(error)
+        
         console.log(bancoCandidato)
+
     }
+
+    useEffect(() => {
+        buscar()
+    }, [])
 
 
     return (
         <div>
             <div>
-              
+
                 <div className="titulo">
                     <h2> Banco de Talentos </h2>
                     <br />
@@ -66,11 +104,6 @@ export default function bancoTalentos() {
                 </div>
 
                 <br />
-
-                <div className="alert alert-warning inscricao" role="alert">
-                    <p> Você ainda não está inscrito <br /> Preencha o formulário abaixo para se cadastrar. </p>
-                </div>
-
                 <br />
 
                 <div>
@@ -79,34 +112,34 @@ export default function bancoTalentos() {
 
                         <div>
                             <label className="form-label"> Currículo </label>
-                            <input type="file" accept=".pdf,.doc,.docx" className="form-control" onChange={ e => alteraCurriculo(e.target.files[0])}/>
+                            <input type="file" accept=".pdf" className="form-control" onChange={e => alteraCurriculo(e.target.files[0])} />
                             <p className="text-body-tertiary"> PDF ou DOC, até 5 MB </p>
                         </div>
 
                         <div>
                             <label className="form-label"> Certificações (opcional) </label>
-                            <input type="file" accept=".pdf,.doc,.docx" className="form-control" multiple onChange={ e => alteraCertificacoes(e.target.files[0])}/>
+                            <input type="file" accept=".pdf" className="form-control" multiple onChange={e => alteraCertificacoes(e.target.files[0])} />
                         </div>
 
                         <div>
                             <label className=" form-label"> Portfolio (opcional) </label>
-                            <input type="url" placeholder="Behance, GitHub ou site pessoal." className="form-control" onChange={ e => alteraPortfolio(e.target.value)} />
+                            <input type="url" placeholder="Behance, GitHub ou site pessoal." className="form-control" onChange={e => alteraPortfolio(e.target.value)} />
                         </div>
 
                         <div>
                             <label className="form-label"> Área de atuação </label>
-                            <textarea className="form-control" placeholder="Ex: atendimento, vendas, administrativo, TI..." onChange={ e => alteraArea(e.target.value)}/>
+                            <textarea className="form-control" placeholder="Ex: atendimento, vendas, administrativo, TI..." onChange={e => alteraArea(e.target.value)} />
                         </div>
 
                         <div>
                             <label className="form-label"> Competências e Habilidades </label>
-                            <textarea className="form-control" placeholder="Ex: comunicação, organização, Excel, redes sociais..." onChange={ e => alteraCompetencias(e.target.value)}/>
+                            <textarea className="form-control" placeholder="Ex: comunicação, organização, Excel, redes sociais..." onChange={e => alteraCompetencias(e.target.value)} />
                         </div>
 
-                    
+
                         <div className="col-md-6">
                             <label className="form-label"> Tipo de contratação </label>
-                            <select className="form-select" onChange={ e => alteraContratacao(e.target.value)}>
+                            <select className="form-select" onChange={e => alteraContratacao(e.target.value)}>
                                 <option value="" hidden> Selecione </option>
                                 <option value="efetivo"> Efetivo </option>
                                 <option value="freelancer"> Freelancer </option>
@@ -115,7 +148,7 @@ export default function bancoTalentos() {
 
                         <div className="col-md-6">
                             <label className="form-label"> Turno de preferência </label>
-                            <select className="form-select" onChange={ e => alteraTurno(e.target.value)}>
+                            <select className="form-select" onChange={e => alteraTurno(e.target.value)}>
                                 <option value="" hidden> Selecione </option>
                                 <option value="matutino"> Matutino </option>
                                 <option value="vespertino"> Vespertino </option>
@@ -130,7 +163,7 @@ export default function bancoTalentos() {
                 </div>
 
             </div>
-            
+
         </div >
 
     )

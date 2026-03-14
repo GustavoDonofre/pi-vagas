@@ -1,49 +1,107 @@
-
-
 import "./feed.css"
 
-
 export default function Feed() {
+
     return (
 
         <div>
 
-            <form class="container-fluid">
-                <div class="input-group">
-                    <span class="input-group-text">🔍</span>
-                    <input type="text" class="form-control" placeholder="Buscar vagas..." />
+            <form className="container-fluid d-flex justify-content-center">
+                <div className="input-group">
+                    <span className="input-group-text">🔍</span>
+                    <input type="text" className="form-control" placeholder="Buscar vagas..." />
                 </div>
             </form>
 
-            <card>
-                <div className="col-2">
+            <br />
 
-                    <div>
+            <div className="card_filtros">
+                <div className="row g-3">
+
+                    <div className="col-md-6">
                         <label className="form-label"> Turno </label>
                         <select className="form-select">
-                            <option value="" selected disabled hidden> Selecione </option>
+                            <option value="" selected disabled hidden> Todos </option>
                             <option value="matutino"> Matutino </option>
                             <option value="vespertino"> Vespertino </option>
                             <option value="noturno"> Noturno </option>
                         </select>
                     </div>
 
-                    <div>
+                    <div className="col-md-6">
                         <label className="form-label"> Tipo de contratação </label>
                         <select className="form-select">
-                            <option value="" selected disabled hidden> Selecione </option>
-                            <option value=""> Temporário </option>
-                            <option value=""> Efetivo </option>
+                            <option value="" selected disabled hidden> Todos </option>
+                            <option value="efetivo"> Efetivo </option>
+                            <option value="temporario"> Temporário </option>
                         </select>
                     </div>
 
                 </div>
 
-            </card>
+            </div>
+
+            <br />
+
+
+
 
             <div className="card">
-                <div className="">
 
+                <div className="perfil">
+                    <div className="col-12">
+                        <div className="row">
+                            <div className="col-1">
+                                <div>
+                                    <img src="https://placehold.co/70" className="rounded-circle img-fluid" />
+                                </div>
+                            </div>
+
+                            <div className="col-11">
+                                <div className="col-4">
+                                    <div className="topo">
+                                        <h5 className="nome">Nome empresa</h5>
+                                        <p className="contratacao">Tipo de contratação</p>
+                                    </div>
+                                </div>
+                                <div className="row">
+
+                                <div className="col-8">
+                                    <div className="info">
+                                        <p>Nome da vaga</p>
+                                        <p>|</p>
+                                        <p>Turno</p>
+                                    </div>
+                                </div>
+                                <div className="col-4 d-flex justify-content-end">
+                                    <button className="btn-padrao" data-bs-toggle="modal" data-bs-target="#modal_perfil">Ver vaga</button>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div className="modal fade" id="modal_perfil">
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h2> Nome da empresa </h2>
+                            <button className="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div className="modal-body">
+
+                            <p> Importar dados empresa </p>
+                            <p> Importar dados do cadastro de vagas </p>
+
+                        </div>
+                        <div className="modal-footer">
+                            <button className="btn-padrao" data-bs-dismiss="modal"> Candidatar-se </button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
