@@ -1,11 +1,9 @@
 'use client'
 
-import { createClient } from '@supabase/supabase-js'
 import { useEffect, useState } from 'react';
+import supabase from '../conexao/supabase';
 import './banco_talentos.css'
-import { Baumans } from 'next/font/google';
-
-const supabase = createClient('https://qrcmtnxakmuwbunyoooc.supabase.co', 'sb_publishable_kD9z8OLZIlbh3yry6yNMDQ_LTAi81op')
+// import { Baumans } from 'next/font/google'; ???????
 
 
 export default function bancoTalentos() {
