@@ -1,4 +1,4 @@
-import "./feed.css"
+import './feed_candidato.css'
 
 export default function Feed() {
 
@@ -43,9 +43,6 @@ export default function Feed() {
 
             <br />
 
-
-
-
             <div className="card">
 
                 <div className="perfil">
@@ -81,7 +78,6 @@ export default function Feed() {
                         </div>
                     </div>
                 </div>
-
 
             </div>
 

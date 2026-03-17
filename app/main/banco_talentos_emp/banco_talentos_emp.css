@@ -6,20 +6,50 @@ body{
         text-align: center;
 }
 
+.navbar{
+    background-color: #f6f6f6;
+    margin-left: 350px;
+}
+
 .card_filtros{
-    width: 80%;
-    padding: 10px;
     background-color: #ffffff;
+    padding: 20px;
     border-radius: 20px;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
 }
 
 .card{
+    padding: 20px;
     border-radius: 20px;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
 }
 
-.img_card{
-    padding: 15px;
-    padding-left: 20px;
+/*.perfil{
+    display: flex;
+    gap: 15px;
+    align-items: flex-start;
+}*/
+
+.topo{
+    display: flex;
+    gap: 10px;
+}
+
+.nome{
+    font-weight: bold;
+}
+
+.contratacao{
+    background: #fff3eb;
+    color: #ff7a00;
+    padding: 4px 10px;
+    border-radius: 15px;
+    font-size: 12px;
+}
+
+.info{
+    display: flex;
+    gap: 15px;
+    color: #6c757d;
+    font-size: 14px;
 }
