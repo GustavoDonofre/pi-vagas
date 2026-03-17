@@ -39,6 +39,35 @@ export default function Empresa() {
                     <button className="botaoVaga" data-bs-toggle="modal" data-bs-target="#modalVaga"> Criar vaga </button>
                 </div>
 
+                 <div class="card_info container">
+
+            <div class="row justify-content-center g-4">
+
+                <div class="col-md-4">
+                    <div class="card p-2 text-center">
+                        <p>Vagas ativas</p>
+                        <p>0</p>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card p-2 text-center">
+                        <p>Total de candidatos</p>
+                        <p>0</p>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card p-2 text-center">
+                        <p>Vagas publicadas</p>
+                        <p>0</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
                 <div className="modal fade" id="modalVaga">
                     <div className="modal-dialog">
                         <div className="modal-content">
