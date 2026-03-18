@@ -17,8 +17,8 @@ export default function MenuLateral() {
                 <Link href="/" type="button" className="list-group-item list-group-item-action"> Ajuda </Link>
             </div>
 
-            <div className="text-center  menu_lateral_perfil">
-                <button className="btn btn-primary"> Sair </button>
+            <div className="text-center menu_lateral_perfil">
+                <button className="btn-padrao"> Sair </button>
             </div>
         </div>
     )

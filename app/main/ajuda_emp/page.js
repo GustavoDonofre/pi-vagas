@@ -83,7 +83,7 @@ export default function ajudaEmp() {
             <div class="alert alert-warning card_duvidas" role="alert">
                 <h5> Ainda precisa de ajuda? </h5>
 
-                <p> <strong> Fale conosco </strong> <br /> contato@tramposc.com.br </p>
+                <p> <strong> Fale conosco </strong> <br /> contato@conecta_sanca.com.br </p>
 
                 <p> <strong> Denunciar problema </strong> <br /> Reportar vaga ou perfil suspeito </p>
             </div>
