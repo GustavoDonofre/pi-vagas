@@ -1,4 +1,5 @@
 'use client'
+import { useState } from 'react'
 import './empresa.css'
 
 export default function Empresa() {
@@ -15,11 +16,11 @@ export default function Empresa() {
             descricao: "descricao",
             salario: " ",
             vaga: "vaga",
-            modo:"modo",
+            modo: "modo",
             periodo: "periodo"
         };
     }
-     console.log(cadastrar)
+    console.log(cadastrar)
 
     return (
         <div>
@@ -39,34 +40,34 @@ export default function Empresa() {
                     <button className="botaoVaga" data-bs-toggle="modal" data-bs-target="#modalVaga"> Criar vaga </button>
                 </div>
 
-                 <div class="card_info container">
+                <div class="card_info container">
 
-            <div class="row justify-content-center g-4">
+                    <div class="row justify-content-center g-4">
 
-                <div class="col-md-4">
-                    <div class="card p-2 text-center">
-                        <p>Vagas ativas</p>
-                        <p>0</p>
+                        <div class="col-md-4">
+                            <div class="card p-2 text-center">
+                                <p>Vagas ativas</p>
+                                <p>0</p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="card p-2 text-center">
+                                <p>Total de candidatos</p>
+                                <p>0</p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="card p-2 text-center">
+                                <p>Vagas publicadas</p>
+                                <p>0</p>
+                            </div>
+                        </div>
+
                     </div>
+
                 </div>
-
-                <div class="col-md-4">
-                    <div class="card p-2 text-center">
-                        <p>Total de candidatos</p>
-                        <p>0</p>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="card p-2 text-center">
-                        <p>Vagas publicadas</p>
-                        <p>0</p>
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
 
                 <div className="modal fade" id="modalVaga">
                     <div className="modal-dialog">
@@ -77,7 +78,7 @@ export default function Empresa() {
                                 <button className="btn-close" data-bs-dismiss="modal"></button>
                             </div>
 
-                            <div className data-bs-toggle="modal" data-bs-target="#modalVaga"> 
+                            <div className data-bs-toggle="modal" data-bs-target="#modalVaga">
                                 <meta charset="UTF-8" />
                                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                                 <title>Gerenciador de Vagas</title>
@@ -86,70 +87,70 @@ export default function Empresa() {
                                 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" />
                                 <link rel="stylesheet" href="./pi_vagas.css" />
 
-                                        <h1 className="text-center mb-4">Cadastro de Vagas</h1>
+                                <h1 className="text-center mb-4">Cadastro de Vagas</h1>
 
-                                        <form>
+                                <form>
 
-                                            <div className="mb-3">
-                                                <label className="form-label">Empresa</label>
-                                                <input type="text" className="form-control" placeholder="Nome da empresa" />
-                                            </div>
+                                    <div className="mb-3">
+                                        <label className="form-label">Empresa</label>
+                                        <input type="text" className="form-control" placeholder="Nome da empresa" />
+                                    </div>
 
-                                            <div className="mb-3">
-                                                <label className="form-label">Área de Atuação</label>
-                                                <select className="form-select">
-                                                    <option selected disabled>Selecione</option>
-                                                    <option>T.I</option>
-                                                    <option>Barman</option>
-                                                    <option>Atendimento ao Cliente</option>
-                                                </select>
-                                            </div>
+                                    <div className="mb-3">
+                                        <label className="form-label">Área de Atuação</label>
+                                        <select className="form-select">
+                                            <option selected disabled>Selecione</option>
+                                            <option>T.I</option>
+                                            <option>Barman</option>
+                                            <option>Atendimento ao Cliente</option>
+                                        </select>
+                                    </div>
 
-                                            <div className="mb-3">
-                                                <label className="form-label">Descrição da Vaga</label>
-                                                <textarea className="form-control" rows="3"></textarea>
-                                            </div>
+                                    <div className="mb-3">
+                                        <label className="form-label">Descrição da Vaga</label>
+                                        <textarea className="form-control" rows="3"></textarea>
+                                    </div>
 
-                                            <div className="mb-3">
-                                                <label className="form-label">Salário</label>
-                                                <div className="input-group">
-                                                    <span className="input-group-text">R$</span>
-                                                    <input type="number" className="form-control" placeholder="0,00" />
-                                                </div>
-                                            </div>
+                                    <div className="mb-3">
+                                        <label className="form-label">Salário</label>
+                                        <div className="input-group">
+                                            <span className="input-group-text">R$</span>
+                                            <input type="number" className="form-control" placeholder="0,00" />
+                                        </div>
+                                    </div>
 
-                                            <div className="mb-3">
-                                                <label className="form-label">Tipo de Vaga</label>
-                                                <select className="form-select">
-                                                    <option selected disabled>Selecione</option>
-                                                    <option>Efetiva</option>
-                                                    <option>Freelancer</option>
-                                                </select>
-                                            </div>
+                                    <div className="mb-3">
+                                        <label className="form-label">Tipo de Vaga</label>
+                                        <select className="form-select">
+                                            <option selected disabled>Selecione</option>
+                                            <option>Efetiva</option>
+                                            <option>Freelancer</option>
+                                        </select>
+                                    </div>
 
-                                            <div className="mb-3">
-                                                <label className="form-label">Modo de Trabalho</label>
-                                                <select className="form-select">
-                                                    <option selected disabled>Selecione</option>
-                                                    <option>Remoto</option>
-                                                    <option>Híbrido</option>
-                                                    <option>Presencial</option>
-                                                </select>
-                                            </div>
+                                    <div className="mb-3">
+                                        <label className="form-label">Modo de Trabalho</label>
+                                        <select className="form-select">
+                                            <option selected disabled>Selecione</option>
+                                            <option>Remoto</option>
+                                            <option>Híbrido</option>
+                                            <option>Presencial</option>
+                                        </select>
+                                    </div>
 
-                                            <div className="mb-4">
-                                                <label className="form-label">Período</label>
-                                                <select className="form-select">
-                                                    <option selected disabled>Selecione</option>
-                                                    <option>Matutino</option>
-                                                    <option>Vespertino</option>
-                                                    <option>Noturno</option>
-                                                </select>
-                                            </div>
+                                    <div className="mb-4">
+                                        <label className="form-label">Período</label>
+                                        <select className="form-select">
+                                            <option selected disabled>Selecione</option>
+                                            <option>Matutino</option>
+                                            <option>Vespertino</option>
+                                            <option>Noturno</option>
+                                        </select>
+                                    </div>
 
-                                            <button type="submit" className="btn btn-warning">Cadastrar Vaga</button>
+                                    <button type="submit" className="btn btn-warning">Cadastrar Vaga</button>
 
-                                        </form>
+                                </form>
                             </div>
                         </div>
                     </div>
