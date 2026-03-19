@@ -1,11 +1,10 @@
 'use client'
 import { useEffect, useState } from "react";
 import { createClient } from '@supabase/supabase-js'
-const supabase = createClient('https://qrcmtnxakmuwbunyoooc.supabase.co', 'sb_publishable_kD9z8OLZIlbh3yry6yNMDQ_LTAi81op')
+import supabase from "../conexao/supabase";
+// const supabase = createClient('https://qrcmtnxakmuwbunyoooc.supabase.co', 'sb_publishable_kD9z8OLZIlbh3yry6yNMDQ_LTAi81op')
 
 export default function Vagas() {
-
-
 
   const [empresa, alteraEmpresa] = useState("")
   const [area, alteraArea] = useState("")
@@ -15,10 +14,13 @@ export default function Vagas() {
   const [presencial, alteraPresencial] = useState("")
   const [turno, alteraTurno] = useState("")
 
-  const [vagas, alteraVagas] = useState ([])
+  const [vagas, alteraVagas] = useState([])
 
+  async function name(params) {
+    
+  }
 
-  async function salvar (e) {
+  async function salvar(e) {
     e.preventDefault()
 
     const vaga = {
@@ -31,24 +33,24 @@ export default function Vagas() {
       turno: turno
     };
 
-    const {error} = await supabase
-      .from ('cadastrovagas')
-      .insert ( vaga)
+    const { error } = await supabase
+      .from('cadastrovagas')
+      .insert(vaga)
     console.log(error)
 
     if (error == null) {
-                alert ("vaga cadastrada com sucesso!")
-                alteraEmpresa ("")
-                alteraArea ("")
-                alteraDescricao ("")
-                alteraSalario ("")
-                alteraEfetivo ("")
-                alteraPresencial("")
-                alteraTurno ("")
-                //location.reload()
-            } else {
-                alert ("Dados inválidos, verifique os campos e tente novamente...")
-            }
+      alert("vaga cadastrada com sucesso!")
+      alteraEmpresa("")
+      alteraArea("")
+      alteraDescricao("")
+      alteraSalario("")
+      alteraEfetivo("")
+      alteraPresencial("")
+      alteraTurno("")
+      //location.reload()
+    } else {
+      alert("Dados inválidos, verifique os campos e tente novamente...")
+    }
   }
 
 
@@ -65,31 +67,31 @@ export default function Vagas() {
 
             <div className="mb-3">
               <label className="form-label">Empresa</label>
-              <input value= {empresa} type="text" className="form-control" placeholder="Nome da empresa"
-                onChange={(e) => alteraEmpresa(e.target.value)} />
+              <input value={empresa} type="text" className="form-control" disabled placeholder={localStorage.getItem('empresa')}
+              />
             </div>
 
             <div className="mb-3">
               <label className="form-label">Área de Atuação</label>
-              <textarea value= {area} className="form-control" rows="3" onChange={(e) => alteraArea(e.target.value)}></textarea>
+              <textarea value={area} className="form-control" rows="3" onChange={(e) => alteraArea(e.target.value)}></textarea>
             </div>
 
             <div className="mb-3">
               <label className="form-label">Descrição da Vaga</label>
-              <textarea value= {descricao} className="form-control" rows="3" onChange={(e) => alteraDescricao(e.target.value)}></textarea>
+              <textarea value={descricao} className="form-control" rows="3" onChange={(e) => alteraDescricao(e.target.value)}></textarea>
             </div>
 
             <div className="mb-3">
               <label className="form-label">Salário</label>
               <div className="input-group">
                 <span className="input-group-text">R$</span>
-                <input value= {salario} type="number" className="form-control" onChange={(e) => alteraSalario(e.target.value)} />
+                <input value={salario} type="number" className="form-control" onChange={(e) => alteraSalario(e.target.value)} />
               </div>
             </div>
 
             <div className="mb-3">
               <label className="form-label">Tipo de Vaga</label>
-              <select value= {efetivo} className="form-select" onChange={(e) => alteraEfetivo(e.target.value)}>
+              <select value={efetivo} className="form-select" onChange={(e) => alteraEfetivo(e.target.value)}>
                 <option disabled value="">Selecione</option>
                 <option value="efetiva" >Efetiva</option>
                 <option value="freelancer" >Freelancer</option>
@@ -98,7 +100,7 @@ export default function Vagas() {
 
             <div className="mb-3">
               <label className="form-label">Modo de Trabalho</label>
-              <select value= {presencial} className="form-select" onChange={(e) => alteraPresencial(e.target.value)}>
+              <select value={presencial} className="form-select" onChange={(e) => alteraPresencial(e.target.value)}>
                 <option disabled value="">Selecione</option>
                 <option value="remoto">Remoto</option>
                 <option value="presencial">Presencial</option>
@@ -107,7 +109,7 @@ export default function Vagas() {
 
             <div className="mb-4">
               <label className="form-label">Turno</label>
-              <select value= {turno} className="form-select" onChange={(e) => alteraTurno(e.target.value)}>
+              <select value={turno} className="form-select" onChange={(e) => alteraTurno(e.target.value)}>
                 <option disabled value="">Selecione</option>
                 <option value="matutino">Matutino</option>
                 <option value="vespertino">Vespertino</option>
@@ -121,16 +123,16 @@ export default function Vagas() {
 
           <div>
             <ul>
-                {
-                    vagas.length == 0 ?
-                        <p></p>
-                    :    
-                        vagas.map(
-                            item => <li> Empresa: {item.empresa} Area: {item.area} Descrição: {item.descricao} Salario: {item.salario} Tipo: {item.efetivo} Modo: {item.presencial} Turno: {item.turno}</li>
-                            
-                           
-                    )
-                }
+              {
+                vagas.length == 0 ?
+                  <p></p>
+                  :
+                  vagas.map(
+                    item => <li> Empresa: {item.empresa} Area: {item.area} Descrição: {item.descricao} Salario: {item.salario} Tipo: {item.efetivo} Modo: {item.presencial} Turno: {item.turno}</li>
+
+
+                  )
+              }
             </ul>
           </div>
 

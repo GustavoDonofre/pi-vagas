@@ -1,7 +1,8 @@
 'use client'
+import { useState } from 'react'
 import './empresa.css'
 
-export default function Empresa() {
+function Empresa() {
     const [atuacao, alteraAtucao] = useState("")
     const [descricao, alteraDescricao] = useState("")
     const [salario, alteraSalario] = useState()
@@ -315,3 +316,5 @@ export default function Empresa() {
         </div>
     )
 }
+
+export default Empresa;
