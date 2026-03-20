@@ -71,67 +71,97 @@ export default function bancoTalentosEmp() {
 
             {
                 bancoTalentos.length == 0 ?
-                    <p>Sem registros no momento...</p>
+                    <h2>Sem registros no momento...</h2>
                     :
                     bancoTalentos.map(
-                        <div className="card">
+                        item =>
+                            <div className="card">
 
-                            <div className="perfil">
-                                <div className="col-12">
-                                    <div className="row">
-                                        <div className="col-1">
-                                            <div>
-                                                <img src="https://placehold.co/70" className="rounded-circle img-fluid" />
-                                            </div>
-                                        </div>
-
-                                        <div className="col-11">
-                                            <div className="col-4">
-                                                <div className="topo">
-                                                    <h5 className="nome">Nome Candidato</h5>
-                                                    <p className="contratacao">Tipo de contratação</p>
+                                <div className="perfil">
+                                    <div className="col-12">
+                                        <div className="row">
+                                            <div className="col-1">
+                                                <div>
+                                                    <img src="https://placehold.co/70" className="rounded-circle img-fluid" />
                                                 </div>
                                             </div>
-                                            <div className="row">
 
-                                                <div className="col-8">
-                                                    <div className="info">
-                                                        <p>Area</p>
-                                                        <p>|</p>
-                                                        <p>Turno</p>
+                                            <div className="col-11">
+                                                <div className="col-4">
+                                                    <div className="topo">
+                                                        <h5 className="nome">{item.id_usuario.nome}</h5>
+                                                        <p className="contratacao">{item.contratacao}</p>
                                                     </div>
                                                 </div>
-                                                <div className="col-4 d-flex justify-content-end">
-                                                    <button className="btn-padrao" data-bs-toggle="modal" data-bs-target="#modal_perfil">Ver perfil</button>
+                                                <div className="row">
+
+                                                    <div className="col-8">
+                                                        <div className="info">
+                                                            <p>{item.turno}</p>
+                                                            <p>|</p>
+                                                            <p>{item.area}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-4 d-flex justify-content-end">
+                                                        <button className="btn-padrao" data-bs-toggle="modal" data-bs-target="#modal_perfil">Ver perfil</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                <div className="modal fade" id="modal_perfil">
+                                    <div className="modal-dialog">
+                                        <div className="modal-content">
+                                            <div className="modal-header">
+                                                <h2> {item.id_usuario.nome} </h2>
+                                                <button className="btn-close" data-bs-dismiss="modal"></button>
+                                            </div>
+                                            <div className="modal-body">
+
+                                                <img src="https://placehold.co/100" className="rounded-circle img-fluid d-block mx-auto" />
+
+                                                <br />
+
+                                                <p><strong>Nome:</strong> {item.id_usuario.nome}</p>
+                                                <p><strong>Email:</strong> {item.id_usuario.email}</p>
+
+                                                <br />
+
+                                                <p><strong>Área: </strong> {item.area} </p>
+                                                <p><strong>Turno de preferência: </strong> {item.turno} </p>
+                                                <p><strong>Tipo de contratação: </strong> {item.contratacao} </p>
+                                                <p><strong>Competências e Habilidades: </strong> {item.competencias} </p>
+
+                                                <br />
+
+                                                <p><strong>Currículo: </strong> {item.curriculo} </p>
+
+                                                {
+                                                    bancoTalentos.certificacoes == null ?
+                                                    <p><strong>Certificações: </strong> Não informado. </p>
+                                                    :
+                                                    <p><strong>Certificações: </strong> {item.certificacoes} </p>
+                                                }
+
+                                                {
+                                                    bancoTalentos.portfolio == null ?
+                                                    <p><strong>Portfólio: </strong> Não informado. </p>
+                                                    :
+                                                    <p><strong>Portfólio: </strong> {item.portfolio} </p>
+                                                }
+
+                                            </div>
+                                            <div className="modal-footer">
+                                                <p><strong>Entrar em contato:</strong> {item.id_usuario.telefone}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
                     )
             }
 
-            <div className="modal fade" id="modal_perfil">
-                <div className="modal-dialog">
-                    <div className="modal-content">
-                        <div className="modal-header">
-                            <h2> Nome do candidato </h2>
-                            <button className="btn-close" data-bs-dismiss="modal"></button>
-                        </div>
-                        <div className="modal-body">
-
-                            <p> Importar dados candidato </p>
-                            <p> Importar dados do cadastro do banco de talentos </p>
-
-                        </div>
-                        <div className="modal-footer">
-                            <button className="btn-padrao" data-bs-dismiss="modal"> Contratar </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
         </div>
 
