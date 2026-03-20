@@ -6,7 +6,7 @@ GUSTAVO -> Cadastro
 > Login -> *Criar página*
 
 Matheus -> sobre e pagamento
-> *Feed do baco de talentos*
+> *Feed do banco de talentos*
 > Pagamento/Premium
 
 IsCaroline -> *Usuário* Banco de talentos e 
