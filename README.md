@@ -4,6 +4,8 @@ GUSTAVO -> Cadastro
 > Cadastro de usuários *fazer funcionar*
 > Cadastro de empresas *fazer funcionar*
 > Login -> *Criar página*
+
+Matheus -> sobre e pagamento
 > *Feed do baco de talentos*
 > Pagamento/Premium
 
