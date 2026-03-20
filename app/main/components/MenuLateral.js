@@ -17,6 +17,7 @@ export default function MenuLateral() {
                 <hr/>
                 <Link href="/main/feed" type="button" className="list-group-item list-group-item-action" aria-current="true"> EMPRESA - Início </Link>
                 <Link href="/main/banco_talentos" type="button" className="list-group-item list-group-item-action"> EMPRESA - Ver banco de talentos </Link>
+                <Link href="/main/premium" type="button" className="list-group-item list-group-item-action"> EMPRESA - Premium </Link>
                 <Link href="/" type="button" className="list-group-item list-group-item-action"> EMPRESA - Editar perfil </Link>
             </div>
 
