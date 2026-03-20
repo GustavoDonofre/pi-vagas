@@ -2,9 +2,11 @@
 import { useEffect, useState } from "react";
 import { createClient } from '@supabase/supabase-js'
 import supabase from "../conexao/supabase";
+import { useParams } from "next/navigation";
 // const supabase = createClient('https://qrcmtnxakmuwbunyoooc.supabase.co', 'sb_publishable_kD9z8OLZIlbh3yry6yNMDQ_LTAi81op')
 
 export default function Vagas() {
+  const params = useParams ()
 
   const [empresa, alteraEmpresa] = useState("")
   const [area, alteraArea] = useState("")
@@ -16,15 +18,22 @@ export default function Vagas() {
 
   const [vagas, alteraVagas] = useState([])
 
-  async function name(params) {
-    
+  async function buscarEmpresa () {
+    const {data, error} = await supabase
+    .from('cadastrovendas')
+    .select (`*,
+      id_empresa (*)
+      `)
+      .eq (`id`, params.id_empresa)
+
+      alteraVagas (data)
   }
 
   async function salvar(e) {
     e.preventDefault()
 
     const vaga = {
-      id_empresa: empresa,
+      id_empresa: 1, //adicionar Id da empresa
       area: area,
       descricao: descricao,
       salario: salario,
@@ -33,12 +42,12 @@ export default function Vagas() {
       turno: turno
     };
 
-    const { error } = await supabase
+    const { data, error } = await supabase
       .from('cadastrovagas')
       .insert(vaga)
     console.log(error)
 
-    if (error == null) {
+    if ( data == true) {
       alert("vaga cadastrada com sucesso!")
       alteraEmpresa("")
       alteraArea("")
@@ -53,7 +62,9 @@ export default function Vagas() {
     }
   }
 
-
+      useEffect (() => {
+        buscarEmpresa()
+    }, [])
 
   return (
 
@@ -67,8 +78,7 @@ export default function Vagas() {
 
             <div className="mb-3">
               <label className="form-label">Empresa</label>
-              <input value={empresa} type="text" className="form-control" disabled placeholder={localStorage.getItem('empresa')}
-              />
+            {/* <input value={empresa} type="text" className="form-control" disabled placeholder={localStorage.getItem('empresa')} /> */}
             </div>
 
             <div className="mb-3">
@@ -117,23 +127,30 @@ export default function Vagas() {
               </select>
             </div>
 
-            <button type="submit" className="btn btn-warning">Cadastrar Vaga</button>
+            <button type="submit" className="btn btn-padrao">Cadastrar Vaga</button>
 
           </form>
 
           <div>
-            <ul>
+            {/* <ul>
               {
                 vagas.length == 0 ?
-                  <p></p>
+                  <p>oi</p>
                   :
                   vagas.map(
-                    item => <li> Empresa: {item.empresa} Area: {item.area} Descrição: {item.descricao} Salario: {item.salario} Tipo: {item.efetivo} Modo: {item.presencial} Turno: {item.turno}</li>
-
-
+                    item =>
+                    <li> 
+                    Empresa: {item.empresa} 
+                    Area: {item.area} 
+                    Descrição: {item.descricao} 
+                    Salario: {item.salario} 
+                    Tipo: {item.efetivo} 
+                    Modo: {item.presencial} 
+                    Turno: {item.turno}
+                    </li>
                   )
               }
-            </ul>
+            </ul> */}
           </div>
 
         </div>
