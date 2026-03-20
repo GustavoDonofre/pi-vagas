@@ -1,6 +1,5 @@
 'use client'
 import { useEffect, useState } from "react";
-import { createClient } from '@supabase/supabase-js'
 import supabase from "../conexao/supabase";
 import { useParams } from "next/navigation";
 // const supabase = createClient('https://qrcmtnxakmuwbunyoooc.supabase.co', 'sb_publishable_kD9z8OLZIlbh3yry6yNMDQ_LTAi81op')
@@ -33,7 +32,7 @@ export default function Vagas() {
     e.preventDefault()
 
     const vaga = {
-      id_empresa: 1, //adicionar Id da empresa
+      id_empresa: 4, //adicionar Id da empresa
       area: area,
       descricao: descricao,
       salario: salario,
@@ -46,8 +45,9 @@ export default function Vagas() {
       .from('cadastrovagas')
       .insert(vaga)
     console.log(error)
+   
 
-    if ( data == true) {
+    if ( error == null) {
       alert("vaga cadastrada com sucesso!")
       alteraEmpresa("")
       alteraArea("")
