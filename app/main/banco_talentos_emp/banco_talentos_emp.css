@@ -24,12 +24,6 @@ body{
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
 }
 
-/*.perfil{
-    display: flex;
-    gap: 15px;
-    align-items: flex-start;
-}*/
-
 .topo{
     display: flex;
     gap: 10px;
@@ -53,3 +47,12 @@ body{
     color: #6c757d;
     font-size: 14px;
 }
+
+#modal_perfil strong{
+    color:#4d4d4d
+}
+
+#modal_perfil .modal-footer strong {
+    color: #ff7a00;
+}
+

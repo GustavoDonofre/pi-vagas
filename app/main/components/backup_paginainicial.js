@@ -1,14 +1,10 @@
-<<<<<<< HEAD
 <<<<<<<< HEAD:app/main/page.js
-=======
->>>>>>> 5236227dac0be05ea4a4d424731e59b080cd1742
 
 
 export default function paginainicial() {
 
     return (
         <div>
-<<<<<<< HEAD
 
             {/* <div class="col-md-8">
 ========
@@ -78,17 +74,10 @@ export default function paginainicial() {
 <<<<<<<< HEAD:app/main/page.js
             </div >
 
-=======
-            <h1>Pagina inicial</h1>
-           
->>>>>>> 5236227dac0be05ea4a4d424731e59b080cd1742
         </div>
 
     )
 }
-<<<<<<< HEAD
 ========
             </div > */}
 >>>>>>>> 5236227dac0be05ea4a4d424731e59b080cd1742:app/main/components/backup_paginainicial.js
-=======
->>>>>>> 5236227dac0be05ea4a4d424731e59b080cd1742

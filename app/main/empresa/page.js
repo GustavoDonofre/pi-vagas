@@ -27,18 +27,13 @@ function Empresa() {
 
             <div>
 
-                <div classname="container d-flex justify-content-center">
-                    <div className="input-group">
-                        <span className="input-group-text">🔍</span>
-                        <input type="text" className="form-control" placeholder="Buscar nas suas vagas..." />
-                    </div>
-                </div>
-
                 <br />
 
                 <div className="container d-flex justify-content-end">
                     <button className="botaoVaga" data-bs-toggle="modal" data-bs-target="#modalVaga"> Criar vaga </button>
                 </div>
+
+                <br/>
 
                 <div class="card_info container">
 
