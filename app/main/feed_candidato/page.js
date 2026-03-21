@@ -1,6 +1,24 @@
+'use client'
+
+import { useEffect, useState } from 'react'
 import './feed_candidato.css'
 
 export default function Feed() {
+
+
+    const [/*buscarEmpresas*/, alteraBuscaEmpresa] = useState([])
+
+    async function buscarEmpresas() {
+        const { data, error } = await supabase
+            .from('empresas')
+            .select()
+        console.log(data)
+        alteraBuscar(data)
+    }
+
+    useEffect(() => {
+        buscarEmpresas()
+    }, [])
 
     return (
 
@@ -43,63 +61,75 @@ export default function Feed() {
 
             <br />
 
-            <div className="card">
+            {
+                buscaEmpresa.length == 0 ?
+                    <p></p>
+                    :
+                    bancoTalentos.map(
+                        item =>
+                            <div>
+                                <div className="card">
 
-                <div className="perfil">
-                    <div className="col-12">
-                        <div className="row">
-                            <div className="col-1">
-                                <div>
-                                    <img src="https://placehold.co/70" className="rounded-circle img-fluid" />
+                                    <div className="perfil">
+                                        <div className="col-12">
+                                            <div className="row">
+                                                <div className="col-1">
+                                                    <div>
+                                                        <img src="https://placehold.co/70" className="rounded-circle img-fluid" />
+                                                    </div>
+                                                </div>
+
+                                                <div className="col-11">
+                                                    <div className="col-4">
+                                                        <div className="topo">
+                                                            <h5 className="nome">{item.nome}</h5>
+                                                            <p className="contratacao">Tipo de contratação</p>
+                                                        </div>
+                                                    </div>
+                                                    <div className="row">
+
+                                                        <div className="col-8">
+                                                            <div className="info">
+                                                                <p>Nome da vaga</p>
+                                                                <p>|</p>
+                                                                <p>Turno</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="col-4 d-flex justify-content-end">
+                                                            <button className="btn-padrao" data-bs-toggle="modal" data-bs-target="#modal_perfil">Ver vaga</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
-                            </div>
 
-                            <div className="col-11">
-                                <div className="col-4">
-                                    <div className="topo">
-                                        <h5 className="nome">Nome empresa</h5>
-                                        <p className="contratacao">Tipo de contratação</p>
+                                <div className="modal fade" id="modal_perfil">
+                                    <div className="modal-dialog">
+                                        <div className="modal-content">
+                                            <div className="modal-header">
+                                                <h2> Nome da empresa </h2>
+                                                <button className="btn-close" data-bs-dismiss="modal"></button>
+                                            </div>
+                                            <div className="modal-body">
+
+                                                <p> Importar dados empresa </p>
+                                                <p> Importar dados do cadastro de vagas </p>
+
+                                            </div>
+                                            <div className="modal-footer">
+                                                <button className="btn-padrao" data-bs-dismiss="modal"> Candidatar-se </button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div className="row">
-
-                                <div className="col-8">
-                                    <div className="info">
-                                        <p>Nome da vaga</p>
-                                        <p>|</p>
-                                        <p>Turno</p>
-                                    </div>
-                                </div>
-                                <div className="col-4 d-flex justify-content-end">
-                                    <button className="btn-padrao" data-bs-toggle="modal" data-bs-target="#modal_perfil">Ver vaga</button>
-                                </div>
-                                </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
+                    )
+            }
 
-            </div>
 
-            <div className="modal fade" id="modal_perfil">
-                <div className="modal-dialog">
-                    <div className="modal-content">
-                        <div className="modal-header">
-                            <h2> Nome da empresa </h2>
-                            <button className="btn-close" data-bs-dismiss="modal"></button>
-                        </div>
-                        <div className="modal-body">
-
-                            <p> Importar dados empresa </p>
-                            <p> Importar dados do cadastro de vagas </p>
-
-                        </div>
-                        <div className="modal-footer">
-                            <button className="btn-padrao" data-bs-dismiss="modal"> Candidatar-se </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
         </div>
 

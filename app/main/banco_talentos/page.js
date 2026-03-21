@@ -15,7 +15,6 @@ export default function bancoTalentos() {
     const [turno, alteraTurno] = useState("")
 
     const [bancoTalentos, alteraBancoTalentos] = useState([])
-    /*const [listaUsuarios, alteraListaUsuarios] = useState([])*/
 
     async function buscar() {
 
@@ -25,23 +24,9 @@ export default function bancoTalentos() {
         console.log(data)
         alteraBancoTalentos(data)
     }
-
-    /*async function buscaUsuarios(){
-
-        const { data, error } = await supabase
-            .from('usuarios')
-            .select(`*,id_usuario (*)`)
-
-        alteraListaUsuarios(data)
-
-    }*/
     
     async function Salvar(e) {
         e.preventDefault()
-
-        /*const listaUsuarios = {
-            id_usuario:
-        }*/
 
         const bancoCandidato = {
             curriculo: curriculo,
@@ -101,7 +86,6 @@ export default function bancoTalentos() {
 
     useEffect(() => {
         buscar()
-        /*buscaUsuarios()*/
     }, [])
 
 
