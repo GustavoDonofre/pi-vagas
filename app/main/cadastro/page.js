@@ -27,19 +27,21 @@ export default function CadastroUsuario() {
     const [areaUsuario, setAreaUsuario] = useState("");
     const [telUsuario, setTelUsuario] = useState("");
 
-    // const [cadastro, setCadastro] = useState(false);
+    const [cadastro, setCadastro] = useState(false);
 
 
     async function salvar(e) {
         e.preventDefault()
 
-        if (nomeUsuario == null || emailUsuario == null) {
+        console.log(cadastro)
+
+        if (cadastro == true) {
             const empresa = {
                 nome: nomeEmpresa,
                 razao_social: razaoSocial,
                 email: emailEmpresa,
                 senha: senhaEmpresa,
-                cnpj: cnpj,
+                cnpj: cnpj.replace(/\D/g, ""),
                 area: areaEmpresa,
                 telefone: telEmpresa,
                 endereco: enderecoEmpresa,
@@ -47,29 +49,30 @@ export default function CadastroUsuario() {
             }
 
             const { data, error } = await supabase
-                .from('empresa')
+                .from('empresas')
                 .insert(empresa);
 
-            console.log(error)
-            return
+
+            return alert("Empresa Cadastrada! faça o login!")
+        } else {
+            const usuario = {
+                nome: nomeUsuario,
+                email: emailUsuario,
+                endereco: enderecoUsuario,
+                senha: senhaUsuario,
+                cpf: cpf.replace(/\D/g, ""),
+                area: areaUsuario,
+                telefone: telUsuario,
+            }
+
+            const { data, error } = await supabase
+                .from('usuarios')
+                .insert(usuario);
+
+            return alert("Usuario Cadastrado! faça o login!")
         }
-
-        const usuario = {
-            nome: nomeUsuario,
-            email: emailUsuario,
-            endereco: enderecoUsuario,
-            senha: senhaUsuario,
-            cpf: cpf,
-            area: areaUsuario,
-            telefone: telUsuario,
-        }
-
-        const { data, error } = await supabase
-            .from('usuarios')
-            .insert(usuario);
-
-        console.log(error);
     }
+
 
 
 
@@ -89,7 +92,7 @@ export default function CadastroUsuario() {
                                         <a className="nav-link active" aria-current="page" href="#secao-candidato" data-bs-toggle="tab" role="tab" onClick={() => setCadastro(false)}>Candidato</a>
                                     </li>
                                     <li className="nav-item">
-                                        <a className="nav-link" href="#secao-empresa" data-bs-toggle="tab" role="tab">Empresa</a>
+                                        <a className="nav-link" href="#secao-empresa" data-bs-toggle="tab" role="tab" onClick={() => setCadastro(true)}>Empresa</a>
                                     </li>
                                 </ul>
                             </div>
