@@ -1,7 +1,18 @@
+<<<<<<<< HEAD:app/main/page.js
+
+
+export default function paginainicial() {
+
+    return (
+        <div>
+
+            {/* <div class="col-md-8">
+========
 {/* <p></p>
             <br /><br /><br /><br /><br /><br /><br /><br /><br />
 
             <div class="col-md-8">
+>>>>>>>> 5236227dac0be05ea4a4d424731e59b080cd1742:app/main/components/backup_paginainicial.js
                 <div class="col-md-8 my-6 container-fluid">
                     <h1 class="hero-title" />
                     As oportunidades de São Carlos agora têm
@@ -12,13 +23,17 @@
                     📍 Participe do banco de talentos da sua cidade.<br />
                     Simples, organizado e perto de você.
                 </p>
-            </div>
+            </div> */}
 
 
-            <form>
+            <form className="d-flex flex-row justify-content-end m-4">
 
-                <div class="col-4 bg-white d-flex align-items-end row justify-content-end">
-                    <div class=" shadow login-card p-4 w-75">
+                <div>
+                    <div class="card p-4 shadow" style={{width: "450px"}}>
+                        <div className="d-flex flex-row align-items-end justify-content-center">
+                            <img src="/images/conecta_sanca_logo.png" className="img-fluid" style={{width: "80px"}}></img>
+                            <p className="fs-4 pb-2"><strong>Conecta Sanca</strong></p>
+                        </div>
                         <div class="mb-3">
 
                             <label for="exampleInputEmail1" class="form-label">Digite seu Email</label>
@@ -28,11 +43,10 @@
                             <label for="exampleInputPassword1" class="form-label">Digite sua senha</label>
                             <input type="password" class="form-control" id="exampleInputPassword1" />
                         </div>
-                        <div class="mb-3 form-check">
-                            <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-                            <label class="form-check-label" for="exampleCheck1">Confirme</label>
+                        <div class="mb-3">
+                            <p>Não tem cadastro? clique <a class="link-opacity-70-hover link-warning" href="#">aqui</a></p>
                         </div>
-                        <button type="submit" class="btn btn-primary">Entrar</button>
+                        <button type="submit" class="btn btn-padrao">Entrar</button>
                     </div>
                 </div>
 
@@ -57,4 +71,13 @@
                         <p class="text-muted">🖱️ Cadastre sua empresa e publique vagas facilmente.</p>
                     </div>
                 </div>
+<<<<<<<< HEAD:app/main/page.js
+            </div >
+
+        </div>
+
+    )
+}
+========
             </div > */}
+>>>>>>>> 5236227dac0be05ea4a4d424731e59b080cd1742:app/main/components/backup_paginainicial.js
