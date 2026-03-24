@@ -17,7 +17,7 @@ body{
 }
 
 .accordion-button:not(.collapsed) {
-    background-color: #ffa742;
+    background-color: #ff8800;
     color: white;
 }
 
