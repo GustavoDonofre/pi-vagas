@@ -1,23 +1,28 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import supabase from '../conexao/supabase'
 import './feed_candidato.css'
 
 export default function Feed() {
 
+    //puxar dados da empresa e da vaga criada
 
-    const [/*buscarEmpresas*/, alteraBuscaEmpresa] = useState([])
 
-    async function buscarEmpresas() {
+    const [feedCandidato, alteraFeedCandidato] = useState([])
+
+    async function buscarVagas() {
         const { data, error } = await supabase
-            .from('empresas')
-            .select()
-        console.log(data)
-        alteraBuscar(data)
+
+            .from('cadastrovagas')
+            .select(`*, id_empresa(*)`)
+
+        alteraFeedCandidato(data)
+
     }
 
     useEffect(() => {
-        buscarEmpresas()
+        buscarVagas()
     }, [])
 
     return (
@@ -62,10 +67,10 @@ export default function Feed() {
             <br />
 
             {
-                buscaEmpresa.length == 0 ?
-                    <p></p>
-                    :
-                    bancoTalentos.map(
+                feedCandidato.length == 0 ?
+                    <h4>Sem registros no momento...</h4>
+                :
+                    feedCandidato.map(
                         item =>
                             <div>
                                 <div className="card">
@@ -82,17 +87,17 @@ export default function Feed() {
                                                 <div className="col-11">
                                                     <div className="col-4">
                                                         <div className="topo">
-                                                            <h5 className="nome">{item.nome}</h5>
-                                                            <p className="contratacao">Tipo de contratação</p>
+                                                            <h5 className="nome">{item.id_empresa.nome}</h5>
+                                                            <p className="contratacao">{item.efetivo}</p>
                                                         </div>
                                                     </div>
                                                     <div className="row">
 
                                                         <div className="col-8">
                                                             <div className="info">
-                                                                <p>Nome da vaga</p>
+                                                                <p>{item.titulo}</p> 
                                                                 <p>|</p>
-                                                                <p>Turno</p>
+                                                                <p>{item.turno}</p>
                                                             </div>
                                                         </div>
                                                         <div className="col-4 d-flex justify-content-end">
@@ -110,7 +115,7 @@ export default function Feed() {
                                     <div className="modal-dialog">
                                         <div className="modal-content">
                                             <div className="modal-header">
-                                                <h2> Nome da empresa </h2>
+                                                <h2> {item.id_empresa.nome} </h2>
                                                 <button className="btn-close" data-bs-dismiss="modal"></button>
                                             </div>
                                             <div className="modal-body">

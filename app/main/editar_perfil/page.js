@@ -6,28 +6,6 @@ import { useEffect, useState } from 'react'
 
 export default function EditarPerfil() {
 
-    //pq caraios eu to puxando os dados do usuaro? tem q alterar
-
-    const [buscaUsuarios, alteraBuscaUsuarios] = useState([])
-
-    async function buscaUsuarios() {
-
-        const { data, error } = await supabase
-
-            .from('usuarios')
-            .select(`*, id_usuario(*)`)
-    }
-
-    /*async function Salvar(e) {
-        e.preventDefault()
-
-        const SalvarPerfil = {
-            
-        }
-
-    useEffect*/
-
-
     return (
 
         <div>
@@ -44,10 +22,10 @@ export default function EditarPerfil() {
             </div>
 
             {
-                buscaUsuarios.length == 0 ?
+                x == 0 ?
                     <p></p>
                     :
-                    bancoTalentos.map(
+                    x.map(
                         item =>
 
                             <div className="card">

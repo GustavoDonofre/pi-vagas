@@ -71,7 +71,7 @@ export default function bancoTalentosEmp() {
 
             {
                 bancoTalentos.length == 0 ?
-                    <h2>Sem registros no momento...</h2>
+                    <h4>Sem registros no momento...</h4>
                     :
                     bancoTalentos.map(
                         item =>
