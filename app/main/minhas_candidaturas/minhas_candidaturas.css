@@ -1,0 +1,40 @@
+.titulo{
+    text-align: center;
+    margin-top: 30px;
+}
+
+.card_vaga{
+    background-color: white;
+    margin-top: 30px;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+
+    transition: all 0.25s ease;
+}
+
+.card_vaga:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2); 
+}
+
+.total_vagas {
+    background-color: #fff7eb;
+    border: 2px solid #ffd4b8;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.contatado_vagas{
+    background-color: #fff7eb;
+    border: 2px solid #ffd4b8;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.analise_vagas{
+    background-color: #fff7eb;
+    border: 2px solid #ffd4b8;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
