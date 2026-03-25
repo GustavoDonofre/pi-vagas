@@ -6,11 +6,13 @@ import './feed_candidato.css'
 
 export default function Feed() {
 
-    //puxar dados da empresa e da vaga criada
-    //fazer o botao de candidatura funcionar / bloquear caso ja tenha se candidatado
+    // BOTAO CANDIDATURA: qual usuario esta logado? ligar o seu ID com o ID da vaga clicada
+    // ALERT se deseja mesmo se candidatar
+    // BLOQUEAR o botao após candidatura 
 
-    //arruma esses card feio mds
+    // FILTROS funcionando
 
+    // if tempo = favoravel -> arrumar os dados dentro da modal
 
     const [feedCandidato, alteraFeedCandidato] = useState([])
 
@@ -19,9 +21,33 @@ export default function Feed() {
 
             .from('cadastro_vagas')
             .select(`*, id_empresa(*)`)
+            .eq('ativo', true)
 
         alteraFeedCandidato(data)
 
+    }
+
+     async function confirmacao(id) {
+        const opcao = confirm("Tem certeza que deseja se candidatar a vaga?")
+        if (opcao == false) {
+            return
+        }
+
+        const obj = {
+            id_vaga: id_vaga,
+            id_usuario: id_usuario
+        }
+
+        const response = await supabase
+            .from('vaga_candidato')
+            .insert(obj)
+    }
+
+
+    function formataData(data) {
+        let data_formatada = new Date(data)
+        data_formatada = data_formatada.toLocaleDateString()
+        return data_formatada
     }
 
     useEffect(() => {
@@ -72,7 +98,7 @@ export default function Feed() {
             {
                 feedCandidato.length == 0 ?
                     <h4>Sem registros no momento...</h4>
-                :
+                    :
                     feedCandidato.map(
                         item =>
                             <div>
@@ -90,7 +116,7 @@ export default function Feed() {
                                                 <div className="col-11">
                                                     <div className="col-4">
                                                         <div className="topo">
-                                                            <h5 className="nome">{item.empresa.nome}</h5>
+                                                            <h5 className="nome">{item.id_empresa.nome}</h5>
                                                             <p className="contratacao">{item.efetivo}</p>
                                                         </div>
                                                     </div>
@@ -98,7 +124,7 @@ export default function Feed() {
 
                                                         <div className="col-8">
                                                             <div className="info">
-                                                                <p>{item.titulo}</p> 
+                                                                <p>{item.titulo}</p>
                                                                 <p>|</p>
                                                                 <p>{item.turno}</p>
                                                             </div>
@@ -118,17 +144,35 @@ export default function Feed() {
                                     <div className="modal-dialog">
                                         <div className="modal-content">
                                             <div className="modal-header">
-                                                <h2> {item.id_empresa.nome} </h2>
+                                                <h4> {item.id_empresa.nome} </h4>
                                                 <button className="btn-close" data-bs-dismiss="modal"></button>
                                             </div>
                                             <div className="modal-body">
 
-                                                <p> Importar dados empresa </p>
-                                                <p> Importar dados do cadastro de vagas </p>
+                                                <img src="https://placehold.co/100" className="rounded-circle img-fluid d-block mx-auto" />
+
+                                                <p><strong> {item.id_empresa.nome} </strong></p>
+                                                <p> {item.titulo} </p>
+
+                                                <br />
+
+                                                <p><strong>Área: </strong> {item.area} </p>
+                                                <p><strong>Descrição: </strong> {item.descricao} </p>
+
+                                                <br />
+
+                                                <p><strong>Salário: </strong> {item.salario} </p>
+                                                <p><strong>Tipo de contratação: </strong> {item.efetivo} </p>
+                                                <p><strong>Modelo de trabalho: </strong> {item.descricao} </p>
+
+                                                <br />
+
+                                                <p>Data de publicação: {formataData(item.criado_em)} </p>
+
 
                                             </div>
                                             <div className="modal-footer">
-                                                <button className="btn-padrao" data-bs-dismiss="modal"> Candidatar-se </button>
+                                                <button className="btn-padrao" data-bs-dismiss="modal" onClick={() => confirmacao(item.id)}> Candidatar-se </button>
                                             </div>
                                         </div>
                                     </div>

@@ -6,30 +6,32 @@ import { useEffect, useState } from 'react'
 
 export default function EditarPerfil() {
 
-    //fazer o botao editar funcionar
-    //deixar os campos obrigatorios
-    //selecionar apenas o usuario logado
-
-    const [editaCandidato, alteraEditaCandidato] = useState([])
+    // criar na tabela de usuarios: id para banco de talentos (para usar no if else do banco de talentos) E um para curriculo, que sera preenchido aqui
+    // puxar um unico id
 
     const [nome, alteraNome] = useState()
-    const [email, alteraEmail] = useState()
     const [senha, alteraSenha] = useState()
     const [telefone, alteraTelefone] = useState()
     const [endereco, alteraEndereco] = useState()
     const [area, alteraArea] = useState()
 
+    const [listaUsuarios, alteraListaUsuarios] = useState([])
+
     const [editando, alteraEditando] = useState()
 
-    async function buscaCandidato() { //Busca no bando de dados infomações do usuario
+    async function buscaUsuario() { //buscar usuario no banco
 
         const { data, error } = await supabase
             .from('usuarios')
             .select()
-        alteraEditaCandidato(data)
+
+        alteraListaUsuarios(data)
+
     }
 
-    function editar(objeto) { //objeto (no botao) q estou editando
+    function editar(objeto) { //editar objeto
+
+        alteraEditando(objeto.id)
 
         alteraNome(objeto.nome)
         alteraEmail(objeto.email)
@@ -38,10 +40,9 @@ export default function EditarPerfil() {
         alteraEndereco(objeto.endereco)
         alteraArea(objeto.area)
 
-        alteraEditando(objeto.id)
     }
 
-    function cancelaEdicao() { //limpar campos
+    function cancelaEdicao() { //limpa os campos
 
         alteraNome("")
         alteraEmail("")
@@ -50,15 +51,14 @@ export default function EditarPerfil() {
         alteraEndereco("")
         alteraArea("")
 
-        alteraEditando(null)
-
     }
 
-    async function atualizar() {
+    async function salvar(e) { //salvar 
+
+        e.preventDefault()
 
         const obj = {
             nome: nome,
-            email: email,
             senha: senha,
             telefone: telefone,
             endereco: endereco,
@@ -71,36 +71,45 @@ export default function EditarPerfil() {
             .eq('id', editando)
 
         if (error == null) {
-            alert("Atualização realizada com sucesso!")
+            alert("Atualização reslizada com sucesso!")
             cancelaEdicao() /* limpa os campos */
-            buscaCandidato() /* atualiza a pg */
+            buscaUsuario() /* atualiza a pg */
         } else {
             alert("Dados inválidos! Verifique os campos e tente novamente...")
         }
+
+        console.log(error)
+
     }
 
-    async function salvar(e) {
+    async function atualizar() {
 
         const obj = {
             nome: nome,
-            email: email,
             senha: senha,
             telefone: telefone,
             endereco: endereco,
             area: area
         }
 
-        console.log(obj)
+        const { error } = await supabase
+        .from('usuarios')
+        .update(obj)
+        .eq('id', editando)
 
-        const { error } = await supabase.from('usuarios').insert(obj)
-        console.log(error)
+        if(error == null){
+            alert("Atualização reslizada com sucesso!")
+            cancelaEdicao() /* limpa os campos */
+            buscaTodos() /* atualiza a pg */
+        }else{
+            alert("Dados inválidos! Verifique os campos e tente novamente...")
+        }
 
     }
 
     useEffect(() => {
-        buscaCandidato()
+        buscaUsuario()
     }, [])
-
 
     return (
 
@@ -118,17 +127,15 @@ export default function EditarPerfil() {
             </div>
 
             {
-                buscaCandidato.length == 0 ?
-                    <p></p>
-                    :
-                    buscaCandidato.map(
-                        item =>
+                listaUsuarios.map(
+                    item =>
+                        <div className="card">
 
-                            <div className="card">
+                            <div className="card-body">
 
-                                <div className="card-body">
+                                <h5 className="mb-4">Dados pessoais</h5>
 
-                                    <h5 className="mb-4">Dados pessoais</h5>
+                                <form onSubmit={salvar}>
 
                                     <div className="row">
 
@@ -139,7 +146,7 @@ export default function EditarPerfil() {
 
                                         <div className="col-md-6 mb-3">
                                             <label>E-mail: </label>
-                                            <input className="form-control" value={email} onChange={e => alteraEmail(e.target.value)} />
+                                            <input className="form-control" value={item.email} disabled />
                                         </div>
 
                                         <div className="col-md-6 mb-3">
@@ -149,7 +156,7 @@ export default function EditarPerfil() {
 
                                         <div className="col-md-6 mb-3">
                                             <label>CPF: </label>
-                                            <input className="form-control" disabled value={item.cpf} />
+                                            <input className="form-control" value={item.cpf} disabled />
                                         </div>
 
                                         <div className="col-md-6 mb-3">
@@ -162,29 +169,38 @@ export default function EditarPerfil() {
                                             <input className="form-control" value={endereco} onChange={e => alteraEndereco(e.target.value)} />
                                         </div>
 
-                                        <div className="col-md-6 mb-3">
+                                        <div className="col-md-6">
                                             <label>Área: </label>
                                             <input className="form-control" value={area} onChange={e => alteraArea(e.target.value)} />
                                         </div>
 
-                                        <div className="mt-4 d-flex justify-content-center ">
+                                        { 
+                                        /*
+                                        <div className="col-md-6">
+                                            <label>Currículo: </label>
+                                            <input className="form-control" type="file" accept=".pdf" onChange={e => alteraCurriculo(e.target.files[0])}/>
+                                        </div> 
+                                        */
+                                        }
 
-                                            <button className="btn-padrao me-4" onClick={() => salvar()}>Salvar Alterações</button>
+                                        <div className="mt-4 d-flex justify-content-center">
+
+                                            <button className="btn-padrao me-4" type="submit" onClick={() => atualizar()}>Salvar Alterações</button>
                                             <button className="btn-padrao" onClick={() => cancelaEdicao()}>Cancelar</button>
 
                                         </div>
 
                                     </div>
 
-                                </div>
+                                </form>
 
                             </div>
-                
-                    )
 
+                        </div>
+                )
             }
 
-        </div>
+        </div >
 
     )
 

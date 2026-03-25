@@ -6,6 +6,15 @@ import './banco_talentos.css'
 
 export default function bancoTalentos() {
 
+    // Se existir um registro na tabela banco talentos com id_usuario = X -> usuário já cadastrou
+    // Se não existir -> usuário não cadastrou ainda
+    // 
+
+    // buscar o id do candidat no banco de talentos
+
+    const [temCadastro, alteraTemCadastro] = useState(false)
+    const [] = useState(null)
+
     const [curriculo, alteraCurriculo] = useState("")
     const [certificacoes, alteraCertificacoes] = useState("")
     const [portfolio, alteraPortfolio] = useState("")
@@ -83,6 +92,8 @@ export default function bancoTalentos() {
         console.log(bancoCandidato)
 
     }
+
+    
 
     useEffect(() => {
         buscar()

@@ -13,10 +13,10 @@
     transition: all 0.25s ease;
 }
 
-.card_vaga:hover {
+/*.card_vaga:hover {
     transform: translateY(-10px);
     box-shadow: 0 10px 20px rgba(0,0,0,0.2); 
-}
+}*/
 
 .total_vagas {
     background-color: #fff7eb;
