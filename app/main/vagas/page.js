@@ -42,7 +42,7 @@ export default function Vagas() {
     };
 
     const { data, error } = await supabase
-      .from('cadastrovagas')
+      .from('cadastro_vagas')
       .insert(vaga)
     console.log(error)
    
