@@ -14,7 +14,7 @@ export default function Feed() {
     async function buscarVagas() {
         const { data, error } = await supabase
 
-            .from('cadastrovagas')
+            .from('cadastro_vagas')
             .select(`*, id_empresa(*)`)
 
         alteraFeedCandidato(data)
