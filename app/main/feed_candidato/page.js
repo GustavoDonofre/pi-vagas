@@ -7,6 +7,9 @@ import './feed_candidato.css'
 export default function Feed() {
 
     //puxar dados da empresa e da vaga criada
+    //fazer o botao de candidatura funcionar / bloquear caso ja tenha se candidatado
+
+    //arruma esses card feio mds
 
 
     const [feedCandidato, alteraFeedCandidato] = useState([])
@@ -87,7 +90,7 @@ export default function Feed() {
                                                 <div className="col-11">
                                                     <div className="col-4">
                                                         <div className="topo">
-                                                            <h5 className="nome">{item.id_empresa.nome}</h5>
+                                                            <h5 className="nome">{item.empresa.nome}</h5>
                                                             <p className="contratacao">{item.efetivo}</p>
                                                         </div>
                                                     </div>
