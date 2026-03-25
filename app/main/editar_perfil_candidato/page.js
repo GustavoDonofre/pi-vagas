@@ -20,6 +20,7 @@ export default function EditarPerfil() {
     const [area, alteraArea] = useState()
 
     const [editando, alteraEditando] = useState()
+
     async function buscaCandidato() { //Busca no bando de dados infomações do usuario
 
         const { data, error } = await supabase
