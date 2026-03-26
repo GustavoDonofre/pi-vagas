@@ -6,14 +6,7 @@ import './banco_talentos.css'
 
 export default function bancoTalentos() {
 
-    // Se existir um registro na tabela banco talentos com id_usuario = X -> usuário já cadastrou
-    // Se não existir -> usuário não cadastrou ainda
-    // 
-
-    // buscar o id do candidat no banco de talentos
-
-    const [temCadastro, alteraTemCadastro] = useState(false)
-    const [] = useState(null)
+    const [cadastroTalentos, alteraCadastroTalentos] = useState(null) //null = ainda n sei / true = sim, tem dados / false = nao, nao tem dados
 
     const [curriculo, alteraCurriculo] = useState("")
     const [certificacoes, alteraCertificacoes] = useState("")
@@ -28,13 +21,47 @@ export default function bancoTalentos() {
     async function buscar() {
 
         const { data, error } = await supabase
-            .from('bancotalentos')
+
+            .from('banco_talentos')
             .select()
+            .eq('id_usuario', 3) // equals -> igual a 
+
         console.log(data)
-        alteraBancoTalentos(data)
+        console.log(error)
+
+        if (error) { // se alguma coisa der errado na comunicação com o banco
+            alteraCadastroTalentos(false)
+            return
+        }
+
+        if (!data) { // ! -> nao , data -> dado / se não existir dados
+            alteraCadastroTalentos(false)
+            return
+        }
+
+        if (data.length > 0) { // se tiver dados no banco, é maior que 0, variavel TRUE
+            alteraCadastroTalentos(true)
+            alteraBancoTalentos(data)
+        } else { //se nao for maior, ele é menor ou igual, então varivel como false
+            alteraCadastroTalentos(false)
+        }
+
     }
-    
-    async function Salvar(e) {
+
+    function editar(objeto) {
+
+        alteraCadastroTalentos(false)
+
+        alteraCurriculo(objeto.curriculo)
+        alteraCertificacoes(objeto.certificacoes)
+        alteraPortfolio(objeto.portfolio)
+        alteraArea(objeto.area)
+        alteraCompetencias(objeto.competencias)
+        alteraContratacao(objeto.contratacao)
+        alteraTurno(objeto.turno)
+    }
+
+    async function salvar(e) {
         e.preventDefault()
 
         const bancoCandidato = {
@@ -45,7 +72,7 @@ export default function bancoTalentos() {
             competencias: competencias,
             contratacao: contratacao,
             turno: turno,
-            id_usuario: 3
+            id_usuario: 6
         }
 
         if (!bancoCandidato.curriculo) {
@@ -84,94 +111,173 @@ export default function bancoTalentos() {
         }
 
         const { error } = await supabase
-            .from('bancotalentos')
+            .from('banco_talentos')
             .insert(bancoCandidato)
 
         console.log(error)
-        
+
         console.log(bancoCandidato)
 
     }
-
-    
 
     useEffect(() => {
         buscar()
     }, [])
 
+    if (cadastroTalentos === null) { // isso trata o null da variavel antes de ir para o operador / isso evita aparecer uma tela errada
+        return <p>Carregando...</p>
+    }
 
     return (
+
         <div>
-            <div>
+            {
+                cadastroTalentos == true ?
+                    <div>
 
-                <div className="titulo">
-                    <h2> Banco de Talentos </h2>
-                    <br />
-                    <p> Cadastre-se para que empresas de São Carlos encontrem você. </p>
-                </div>
+                        <div className="titulo">
+                            <h2> Banco de Talentos </h2>
+                            <br />
+                            <p> Cadastre-se para que empresas de São Carlos encontrem você. </p>
+                        </div>
 
-                <br />
-                <br />
+                        <br />
 
-                <div>
+                        <div className="alert alert-light inscricao_salvo" role="alert">
+                            <p> Você está inscrito no Banco de Talentos! <br /> Empresas podem visualizar seu perfil e entrar em contato. </p>
+                        </div>
 
-                    <form onSubmit={Salvar} className="form_banco_talentos row g-3">
+                        <br />
+
+                        {
+                            bancoTalentos.map(
+                                item =>
+
+                                    <div>
+
+                                        <div className="card card_salvo p-4">
+                                            <h5 className="mb-4"> Seus dados cadastrados </h5>
+
+                                            <div className="row">
+
+                                                <div className="col-md-6 mb-3">
+                                                    <p className="text-muted mb-1"> Curriculo </p>
+                                                    <p> {item.curriculo} </p>
+                                                </div>
+
+                                                <div className="col-md-6 mb-3">
+                                                    <p className="text-muted mb-1"> Certificações </p>
+                                                    <p> {item.certificacoes} </p>
+                                                </div>
+
+                                                <div className="col-md-6 mb-3">
+                                                    <p className="text-muted mb-1"> Portfolio </p>
+                                                    <p> {item.portfolio} </p>
+                                                </div>
+
+                                                <div className="col-md-6 mb-3">
+                                                    <p className="text-muted mb-1"> Área </p>
+                                                    <p> {item.area} </p>
+                                                </div>
+
+                                                <div className="col-md-6 mb-3">
+                                                    <p className="text-muted mb-1"> Competencias </p>
+                                                    <p> {item.competencias} </p>
+                                                </div>
+
+                                                <div className="col-md-6 mb-3">  </div>
+                                                <p className="text-muted mb-1"> Contratação </p>
+                                                <p> {item.contratacao} </p>
+
+                                                <div className="col-md-6 mb-3">
+                                                    <p className="text-muted mb-1"> Turno </p>
+                                                    <p> {item.turno} </p>
+                                                </div>
+
+                                            </div>
+
+                                            <button className='btn-padrao' onClick={() => editar(item)}> Editar </button>
+
+                                        </div>
+                                    </div>
+                            )
+                        }
+
+                    </div >
+                    :
+                    <div>
+
+                        <div className="titulo">
+                            <h2> Banco de Talentos </h2>
+                            <br />
+                            <p> Cadastre-se para que empresas de São Carlos encontrem você. </p>
+                        </div>
+
+                        <br />
+                        <br />
 
                         <div>
-                            <label className="form-label"> Currículo </label>
-                            <input type="file" accept=".pdf" className="form-control" onChange={e => alteraCurriculo(e.target.files[0])} />
-                            <p className="text-body-tertiary"> PDF ou DOC, até 5 MB </p>
+
+                            <form onSubmit={salvar} className="form_banco row g-3">
+
+                                <div>
+                                    <label className="form-label"> Currículo </label>
+                                    <input type="file" accept=".pdf" className="form-control" value={curriculo} onChange={e => alteraCurriculo(e.target.files[0])} />
+                                    <p className="text-body-tertiary"> PDF ou DOC, até 5 MB </p>
+                                </div>
+
+                                <div>
+                                    <label className="form-label"> Certificações (opcional) </label>
+                                    <input type="file" accept=".pdf" className="form-control" multiple value={certificacoes} onChange={e => alteraCertificacoes(e.target.files[0])} />
+                                </div>
+
+                                <div>
+                                    <label className=" form-label"> Portfolio (opcional) </label>
+                                    <input type="url" placeholder="Behance, GitHub ou site pessoal." className="form-control" value={portfolio} onChange={e => alteraPortfolio(e.target.value)} />
+                                </div>
+
+                                <div>
+                                    <label className="form-label"> Área de atuação </label>
+                                    <textarea className="form-control" placeholder="Ex: atendimento, vendas, administrativo, TI..." value={area} onChange={e => alteraArea(e.target.value)} />
+                                </div>
+
+                                <div>
+                                    <label className="form-label"> Competências e Habilidades </label>
+                                    <textarea className="form-control" placeholder="Ex: comunicação, organização, Excel, redes sociais..." value={competencias} onChange={e => alteraCompetencias(e.target.value)} />
+                                </div>
+
+
+                                <div className="col-md-6">
+                                    <label className="form-label"> Tipo de contratação </label>
+                                    <select className="form-select" value={contratacao} onChange={e => alteraContratacao(e.target.value)}>
+                                        <option value="" hidden> Selecione </option>
+                                        <option value="efetivo"> Efetivo </option>
+                                        <option value="freelancer"> Freelancer </option>
+                                    </select>
+                                </div>
+
+                                <div className="col-md-6">
+                                    <label className="form-label"> Turno de preferência </label>
+                                    <select className="form-select" value={turno} onChange={e => alteraTurno(e.target.value)}>
+                                        <option value="" hidden> Selecione </option>
+                                        <option value="matutino"> Matutino </option>
+                                        <option value="vespertino"> Vespertino </option>
+                                        <option value="noturno"> Noturno </option>
+                                    </select>
+                                </div>
+
+                                <button className="btn-padrao"> Salvar inscrição </button>
+
+                            </form >
+
                         </div>
 
-                        <div>
-                            <label className="form-label"> Certificações (opcional) </label>
-                            <input type="file" accept=".pdf" className="form-control" multiple onChange={e => alteraCertificacoes(e.target.files[0])} />
-                        </div>
+                    </div>
 
-                        <div>
-                            <label className=" form-label"> Portfolio (opcional) </label>
-                            <input type="url" placeholder="Behance, GitHub ou site pessoal." className="form-control" onChange={e => alteraPortfolio(e.target.value)} />
-                        </div>
+            }
 
-                        <div>
-                            <label className="form-label"> Área de atuação </label>
-                            <textarea className="form-control" placeholder="Ex: atendimento, vendas, administrativo, TI..." onChange={e => alteraArea(e.target.value)} />
-                        </div>
-
-                        <div>
-                            <label className="form-label"> Competências e Habilidades </label>
-                            <textarea className="form-control" placeholder="Ex: comunicação, organização, Excel, redes sociais..." onChange={e => alteraCompetencias(e.target.value)} />
-                        </div>
-
-
-                        <div className="col-md-6">
-                            <label className="form-label"> Tipo de contratação </label>
-                            <select className="form-select" onChange={e => alteraContratacao(e.target.value)}>
-                                <option value="" hidden> Selecione </option>
-                                <option value="efetivo"> Efetivo </option>
-                                <option value="freelancer"> Freelancer </option>
-                            </select>
-                        </div>
-
-                        <div className="col-md-6">
-                            <label className="form-label"> Turno de preferência </label>
-                            <select className="form-select" onChange={e => alteraTurno(e.target.value)}>
-                                <option value="" hidden> Selecione </option>
-                                <option value="matutino"> Matutino </option>
-                                <option value="vespertino"> Vespertino </option>
-                                <option value="noturno"> Noturno </option>
-                            </select>
-                        </div>
-
-                        <button onClick={Salvar} className="btn-padrao"> Salvar inscrição </button>
-
-                    </form >
-
-                </div>
-
-            </div>
-
-        </div >
+        </div>
 
     )
 }
+//type submit no botao? 

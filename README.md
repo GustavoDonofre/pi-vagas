@@ -10,9 +10,9 @@ Matheus -> sobre e pagamento
 > Pagamento/Premium
 
 IsCaroline -> *Usuário* Banco de talentos e 
-> Se o usuário não tiver cadastrado -> Mostrar cadastro do banco de talentos
-> Se o usuário já tiver cadastrado -> Mostrar as informações do banco de talentos
-> Editar perfil do usuário
+> Se o usuário não tiver cadastrado -> Mostrar cadastro do banco de talentos - CONCLUIDIIII
+> Se o usuário já tiver cadastrado -> Mostrar as informações do banco de talentos - CONCLUIDUUUUUU
+> Editar perfil do usuário 
 > *Feed de vagas que está em aberto* -> Clicar em VER -> Poder se *inscrever*
 > Mostrar vagas que já está inscrito (minhas candidaturas)
 
