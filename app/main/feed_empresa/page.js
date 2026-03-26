@@ -5,6 +5,9 @@ import supabase from '../conexao/supabase'
 import { useParams } from 'next/navigation'
 
 function Empresa() {
+    const params = useParams ()
+
+    const [empresa, alteraEmpresa] = useState("")
     const [atuacao, alteraAtucao] = useState("")
     const [descricao, alteraDescricao] = useState("")
     const [salario, alteraSalario] = useState()
@@ -12,22 +15,33 @@ function Empresa() {
     const [modo_trabalho, alteraModo_trabalho] = useState()
     const [periodo, alteraPerido] = useState()
 
-    const [vagas, alteraVagas] = useState ([])
+    const [candidatos, alteraCanditados] = useState([])
+
+
+
+    const [vagas, alteraVagas] = useState([])
+
+    const [vagasExibir, alteraVagasExibir] = useState([])
     const [editando, alteraEditando] = useState(null)
 
-   async function buscaVagas() {
+    async function buscaVagas() {
 
         const { data, error } = await supabase
             .from('cadastro_vagas')
             .select()
-        alteraVagas(data)
+
+        console.log(error)
+        console.log(data)
+        alteraVagasExibir(data)
+
     }
 
-    
+   
+
     async function buscaTodos() {
 
         const { data, error } = await supabase
-            .from('cadastro_vendas')
+            .from('vaga_candidato')
             .select(`*,
                id_empresa(*)
                `)
@@ -37,20 +51,27 @@ function Empresa() {
         alteraVagas(data)
     }
 
-     async function excluir(id) {
+    async function excluir(id) {
         const opcao = confirm("Tem certeza que deseja excluir?")
         if (opcao == false) {
             return
         }
 
         const response = await supabase
-        .from('cadastro_vagas')
-        .delete()
-        .eq('id', id)
+            .from('cadastro_vagas')
+            .delete()
+            .eq('id', id)
 
-    } 
-     function editar(objeto) {
+    }
+    function editar(objeto) {
         alteraEditando(objeto.id)
+
+        alteraAtucao(objeto.atuacao)
+        alteraDescricao(objeto.descricao)
+        alteraSalario(objeto.salario)
+        alteraTipo_vaga(objeto.tipo_vaga)
+        alteraModo_trabalho(objeto.modo_trabalho)
+        alteraPerido(objeto.periodo)
 
     }
 
@@ -62,32 +83,54 @@ function Empresa() {
     async function atualizar() {
 
         const objeto = {
-            
+            empresa: empresa,
+            descricao: descricao,
+            salario: "",
+            vagas: vagas,
+            modo: modo_trabalho,
+            periodo: periodo
         }
         const { error } = await supabase
             .from('cadastro_vagas')
             .update(objeto)
             .eq('id', editando)
 
-            if (error == null) {
-                alert ("Atualização realiza com sucesso!")
-                cancelaEdicao ()
-                buscaTodos ()
-            }else {
-                alert ("Dados Inválidos! Verifique os campos e tente novamente...")
-            }
+        if (error == null) {
+            alert("Atualização realiza com sucesso!")
+            cancelaEdicao()
+            buscaTodos()
+        } else {
+            alert("Dados Inválidos! Verifique os campos e tente novamente...")
+        }
+    }
+    buscaTodos
+
+    async function VerCandidatos(id_vaga) {
+       
+        const { data } = await supabase
+            .from(vaga_candidato)
+            .select('*')
+            .eq('id_vaga', id_vaga)
+
+        if (error == null) {
+            alteraCanditados(data)
+        } else {
+            console.log (error)
+        }
+
+        console.log(data)
     }
 
     async function Cadastrar(e) {
         e.preventDefault()
 
         const objeto = {
-            empresa: "empresa",
-            descricao: "descricao",
-            salario: " ",
-            vaga: "vaga",
-            modo: "modo",
-            periodo: "periodo"
+            empresa: empresa,
+            descricao: descricao,
+            salario: "",
+            vagas: vagas,
+            modo: modo_trabalho,
+            periodo: periodo
         }
 
         const { error } = await supabase
@@ -99,11 +142,12 @@ function Empresa() {
     }
 
 
-
-
     useEffect(() => {
-
+        buscaVagas()
+        buscaTodos()
     }, [])
+
+
     return (
         <div>
 
@@ -112,27 +156,27 @@ function Empresa() {
                 <br />
 
                 <div className="container d-flex justify-content-end">
-                    <button className="botaoVaga" data-bs-toggle="modal" data-bs-target="#modalVaga"> Criar vaga </button>
+                    <button className="botaoVaga" data-bs-toggle="modal" data-bs-target="#modalVaga" > Criar vaga </button>
                 </div>
                 <br />
 
                 {/* barra superior com vagas */}
-                <div class="card_info container">
-                    <div class="row justify-content-center g-4">
-                        <div class="col-md-4">
-                            <div class="card p-2 text-center">
+                <div className="card_info container">
+                    <div className="row justify-content-center g-4">
+                        <div className="col-md-4">
+                            <div className="card p-2 text-center">
                                 <p>Vagas ativas</p>
                                 <p>0</p>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="card p-2 text-center">
+                        <div className="col-md-4">
+                            <div className="card p-2 text-center">
                                 <p>Total de candidatos</p>
                                 <p>0</p>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="card p-2 text-center">
+                        <div className="col-md-4">
+                            <div className="card p-2 text-center">
                                 <p>Vagas publicadas</p>
                                 <p>0</p>
                             </div>
@@ -141,40 +185,51 @@ function Empresa() {
                 </div>
                 <br />
 
-                {/* card com as vagas */}
-                <div class="card">
-                    <h5 class="card-header">VAGA</h5>
-                    <div class="card-body">
-                        <h5 class="card-title">Status da vaga</h5>
-                        <p class="card-text" >Descrição da vaga</p>
-                        <a href="#" class="btn btn-primary">ver candidatos </a>
-                        <td className="text-end">
-                            <div className="dropdown">
-                                <button className="btn btn-sm" data-bs-toggle="dropdown">
-                                    ⋮
-                                </button>
-                                <ul className="dropdown-menu dropdown-menu-end">
-                                    <li>
-                                        <a className="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalVaga">
-                                            Editar vaga
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a className="dropdown-item" data-bs-toggle="modal"
-                                            data-bs-target="#modalCandidatos">
-                                            Ver candidatos
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a className="dropdown-item text-danger">
-                                            Excluir vaga
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
+                <div className='col-12'>
+                    <div className='row'>
+                        {
+                            vagasExibir.length == 0 ? (
+                                <p>Nenhum Candidato Inscrito...</p>
+                            )
+                                :
+                                vagasExibir.map(
+                                    item =>
+
+                                        <div className="col-6 mb-2">
+                                            <div className='card'>
+                                                <h5 className="card-header">VAGA</h5>
+                                                <div className="card-body">
+                                                    <p><strong>Nome: </strong> {item.area}</p>
+                                                    <p><strong>Email: </strong></p>
+                                                    <h5 className="card-title">Status da vaga</h5>
+                                                    <p className="card-text" >Descrição da vaga</p>
+                                                    <a className="btn btn-padrao text-light" data-bs-toggle="modal" data-bs-targe="#modalCandidatos" onClick={() => VerCandidatos(item.id)} > ver candidatos </a>
+                                                    <div className="text-end">
+                                                        <div className="dropdown">
+                                                            <button className="btn btn-sm" data-bs-toggle="dropdown">
+                                                                ⋮
+                                                            </button>
+                                                            <ul className="dropdown-menu dropdown-menu-end">
+                                                                <li>
+                                                                    <a className="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalVaga"> Editar vaga </a>
+                                                                </li>
+
+                                                                <li>
+                                                                    <a className="dropdown-item text-danger"> Excluir vaga </a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                )
+                        }
+
                     </div>
                 </div>
+
+
 
 
                 <div className="modal fade" id="modalEditar">
@@ -215,8 +270,7 @@ function Empresa() {
                         </div>
                     </div>
                 </div>
-
-
+                            
             </div>
 
             <div className="modal fade" id="modalVaga">
@@ -228,9 +282,7 @@ function Empresa() {
                             <button className="btn-close" data-bs-dismiss="modal"></button>
                         </div>
 
-                        <div className data-bs-toggle="modal" data-bs-target="#modalVaga">
-                            <meta charset="UTF-8" />
-                            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                        <div data-bs-toggle="modal" data-bs-target="#modalVaga">
                             <title>Gerenciador de Vagas</title>
 
 
@@ -239,16 +291,16 @@ function Empresa() {
 
                             <h1 className="text-center mb-4">Cadastro de Vagas</h1>
 
-                            <form>
+                            <form onSubmit={Cadastrar}>
 
                                 <div className="mb-3">
                                     <label className="form-label">Empresa</label>
-                                    <input type="text" className="form-control" placeholder="Nome da empresa" />
+                                    <input type="text" className="form-control" placeholder="Nome da empresa" value={empresa} onChange={(e) => alteraEmpresa(e.target.value)} />
                                 </div>
 
                                 <div className="mb-3">
                                     <label className="form-label">Área de Atuação</label>
-                                    <select className="form-select">
+                                    <select className="form-select" value={atuacao} onChange={(e) => alteraAtucao(e.target.value)}>
                                         <option selected disabled>Selecione</option>
                                         <option>T.I</option>
                                         <option>Barman</option>
@@ -258,20 +310,20 @@ function Empresa() {
 
                                 <div className="mb-3">
                                     <label className="form-label">Descrição da Vaga</label>
-                                    <textarea className="form-control" rows="3"></textarea>
+                                    <textarea className="form-control" rows="3" value={empresa} onChange={(e) => alteraEmpresa(e.target.value)}></textarea>
                                 </div>
 
                                 <div className="mb-3">
                                     <label className="form-label">Salário</label>
                                     <div className="input-group">
                                         <span className="input-group-text">R$</span>
-                                        <input type="number" className="form-control" placeholder="0,00" />
+                                        <input type="number" className="form-control" placeholder="0,00" value={salario} onChange={(e) => alteraSalario(e.target.value)} />
                                     </div>
                                 </div>
 
                                 <div className="mb-3">
                                     <label className="form-label">Tipo de Vaga</label>
-                                    <select className="form-select">
+                                    <select className="form-select" value={tipo_vaga} onChange={(e) => alteraTipo_vaga(e.target.value)}>
                                         <option selected disabled>Selecione</option>
                                         <option>Efetiva</option>
                                         <option>Freelancer</option>
@@ -280,7 +332,7 @@ function Empresa() {
 
                                 <div className="mb-3">
                                     <label className="form-label">Modo de Trabalho</label>
-                                    <select className="form-select">
+                                    <select className="form-select" value={modo_trabalho} onChange={(e) => alteraModo_trabalho(e.target.value)}>
                                         <option selected disabled>Selecione</option>
                                         <option>Remoto</option>
                                         <option>Híbrido</option>
@@ -290,7 +342,7 @@ function Empresa() {
 
                                 <div className="mb-4">
                                     <label className="form-label">Período</label>
-                                    <select className="form-select">
+                                    <select className="form-select" value={periodo} onChange={(e) => alteraPerido(e.target.value)}>
                                         <option selected disabled>Selecione</option>
                                         <option>Matutino</option>
                                         <option>Vespertino</option>
