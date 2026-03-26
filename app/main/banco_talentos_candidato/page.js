@@ -6,7 +6,12 @@ import './banco_talentos.css'
 
 export default function bancoTalentos() {
 
+    // BOTAO DE CANCELAR EDIÇAO!!!!!!!!!!
+
+    const [bancoTalentos, alteraBancoTalentos] = useState([]) 
+
     const [cadastroTalentos, alteraCadastroTalentos] = useState(null) //null = ainda n sei / true = sim, tem dados / false = nao, nao tem dados
+    const [editando, alteraEditando] = useState(null)
 
     const [curriculo, alteraCurriculo] = useState("")
     const [certificacoes, alteraCertificacoes] = useState("")
@@ -16,9 +21,7 @@ export default function bancoTalentos() {
     const [contratacao, alteraContratacao] = useState("")
     const [turno, alteraTurno] = useState("")
 
-    const [bancoTalentos, alteraBancoTalentos] = useState([])
-
-    async function buscar() {
+    async function buscar() { //função que busca os dados no banco 
 
         const { data, error } = await supabase
 
@@ -48,6 +51,43 @@ export default function bancoTalentos() {
 
     }
 
+    async function atualizar(e) { //função para atualizar os dados no banco e atualizar a pagina
+        e.preventDefault()
+
+        const obj = { //obj a ser mordificado
+
+            curriculo: curriculo,
+            certificacoes: certificacoes,
+            portfolio: portfolio,
+            area: area,
+            competencias: competencias,
+            contratacao: contratacao,
+            turno: turno
+
+        }
+
+        const { error } = await supabase //da minha tabela do banco -> atualizar o obj 
+
+            .from('banco_talentos')
+            .update(obj)
+            .eq('id', editando)
+
+
+        if(error == null){
+
+            alert("Atualização realizada com sucesso!")
+            alteraEditando(null)
+            alteraCadastroTalentos(true)
+            buscar() //atualiza a pagina
+
+        }else{
+
+            alert("Dados inválidos! Verifique os campos e tente novamente...")
+
+        }
+
+    }
+
     function editar(objeto) {
 
         alteraCadastroTalentos(false)
@@ -59,6 +99,9 @@ export default function bancoTalentos() {
         alteraCompetencias(objeto.competencias)
         alteraContratacao(objeto.contratacao)
         alteraTurno(objeto.turno)
+
+        alteraEditando(objeto.id)
+
     }
 
     async function salvar(e) {
@@ -72,7 +115,7 @@ export default function bancoTalentos() {
             competencias: competencias,
             contratacao: contratacao,
             turno: turno,
-            id_usuario: 6
+            id_usuario: 3
         }
 
         if (!bancoCandidato.curriculo) {
@@ -120,15 +163,18 @@ export default function bancoTalentos() {
 
     }
 
+
     useEffect(() => {
         buscar()
     }, [])
 
-    if (cadastroTalentos === null) { // isso trata o null da variavel antes de ir para o operador / isso evita aparecer uma tela errada
+
+    if (cadastroTalentos === null) { // isso trata o null da variavel antes de ir para o operador / evita aparecer uma tela errada
         return <p>Carregando...</p>
     }
 
     return (
+
 
         <div>
             {
@@ -153,53 +199,51 @@ export default function bancoTalentos() {
                             bancoTalentos.map(
                                 item =>
 
-                                    <div>
+                                    <div className="card card_salvo p-4">
+                                        <h5 className="mb-4"> Seus dados cadastrados </h5>
 
-                                        <div className="card card_salvo p-4">
-                                            <h5 className="mb-4"> Seus dados cadastrados </h5>
+                                        <div className="row">
 
-                                            <div className="row">
-
-                                                <div className="col-md-6 mb-3">
-                                                    <p className="text-muted mb-1"> Curriculo </p>
-                                                    <p> {item.curriculo} </p>
-                                                </div>
-
-                                                <div className="col-md-6 mb-3">
-                                                    <p className="text-muted mb-1"> Certificações </p>
-                                                    <p> {item.certificacoes} </p>
-                                                </div>
-
-                                                <div className="col-md-6 mb-3">
-                                                    <p className="text-muted mb-1"> Portfolio </p>
-                                                    <p> {item.portfolio} </p>
-                                                </div>
-
-                                                <div className="col-md-6 mb-3">
-                                                    <p className="text-muted mb-1"> Área </p>
-                                                    <p> {item.area} </p>
-                                                </div>
-
-                                                <div className="col-md-6 mb-3">
-                                                    <p className="text-muted mb-1"> Competencias </p>
-                                                    <p> {item.competencias} </p>
-                                                </div>
-
-                                                <div className="col-md-6 mb-3">  </div>
-                                                <p className="text-muted mb-1"> Contratação </p>
-                                                <p> {item.contratacao} </p>
-
-                                                <div className="col-md-6 mb-3">
-                                                    <p className="text-muted mb-1"> Turno </p>
-                                                    <p> {item.turno} </p>
-                                                </div>
-
+                                            <div className="col-md-6 mb-3">
+                                                <p className="text-muted mb-1"> Curriculo </p>
+                                                <p> {item.curriculo} </p>
                                             </div>
 
-                                            <button className='btn-padrao' onClick={() => editar(item)}> Editar </button>
+                                            <div className="col-md-6 mb-3">
+                                                <p className="text-muted mb-1"> Certificações </p>
+                                                <p> {item.certificacoes} </p>
+                                            </div>
+
+                                            <div className="col-md-6 mb-3">
+                                                <p className="text-muted mb-1"> Portfolio </p>
+                                                <p> {item.portfolio} </p>
+                                            </div>
+
+                                            <div className="col-md-6 mb-3">
+                                                <p className="text-muted mb-1"> Área </p>
+                                                <p> {item.area} </p>
+                                            </div>
+
+                                            <div className="col-md-6 mb-3">
+                                                <p className="text-muted mb-1"> Competencias </p>
+                                                <p> {item.competencias} </p>
+                                            </div>
+
+                                            <div className="col-md-6 mb-3">  </div>
+                                            <p className="text-muted mb-1"> Contratação </p>
+                                            <p> {item.contratacao} </p>
+
+                                            <div className="col-md-6 mb-3">
+                                                <p className="text-muted mb-1"> Turno </p>
+                                                <p> {item.turno} </p>
+                                            </div>
 
                                         </div>
+
+                                        <button className='btn-padrao' onClick={() => editar(item)}> Editar </button>
+
                                     </div>
+
                             )
                         }
 
@@ -218,17 +262,17 @@ export default function bancoTalentos() {
 
                         <div>
 
-                            <form onSubmit={salvar} className="form_banco row g-3">
+                            <form onSubmit={editando ? atualizar : salvar} className="form_banco row g-3">
 
                                 <div>
                                     <label className="form-label"> Currículo </label>
-                                    <input type="file" accept=".pdf" className="form-control" value={curriculo} onChange={e => alteraCurriculo(e.target.files[0])} />
+                                    <input type="file" accept=".pdf" className="form-control" onChange={e => alteraCurriculo(e.target.files[0])} />
                                     <p className="text-body-tertiary"> PDF ou DOC, até 5 MB </p>
                                 </div>
 
                                 <div>
                                     <label className="form-label"> Certificações (opcional) </label>
-                                    <input type="file" accept=".pdf" className="form-control" multiple value={certificacoes} onChange={e => alteraCertificacoes(e.target.files[0])} />
+                                    <input type="file" accept=".pdf" className="form-control" multiple onChange={e => alteraCertificacoes(e.target.files)} />
                                 </div>
 
                                 <div>

@@ -85,7 +85,7 @@ export default function ajudaEmp() {
 
                 <p> <strong> Fale conosco </strong> <br /> contato@conecta_sanca.com.br </p>
 
-                <p> <strong> Denunciar problema </strong> <br /> Reportar vaga ou perfil suspeito </p>
+                <p> <strong>  Reportar vaga ou perfil suspeito </strong> <br/> reportar@tramposc.com.br </p>
             </div>
 
         </div>

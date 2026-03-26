@@ -22,8 +22,7 @@ export default function ajudaCandidato() {
                     </h2>
                     <div id="collapseOne" className="accordion-collapse collapse" data-bs-parent="#accordionExample">
                         <div className="accordion-body">
-                            Acesse a página de Vagas, clique em uma vaga que te interesse e depois clique no botão
-                            "Candidatar-se". Pronto! A empresa receberá suas informações.
+                            Acesse a página inicial, encontre uma vaga de seu interesse, clique no botão "Ver vaga", aparecera um card com todas as informações a respeito da vaga, no canto inferior direito aparecera o botão "Candidatar-se". Pronto! A empresa receberá suas informações.
                         </div>
                     </div>
                 </div>
@@ -35,8 +34,7 @@ export default function ajudaCandidato() {
                     </h2>
                     <div id="collapseTwo" className="accordion-collapse collapse" data-bs-parent="#accordionExample">
                         <div className="accordion-body">
-                            É um espaço onde você cadastra suas habilidades e experiências. Empresas podem encontrar seu perfil
-                            e entrar em contato com você diretamente..
+                            É um espaço onde você cadastra suas habilidades e experiências. Empresas podem encontrar seu perfil e entrar em contato com você diretamente.
                         </div>
                     </div>
                 </div>
@@ -49,8 +47,7 @@ export default function ajudaCandidato() {
                     </h2>
                     <div id="collapseThree" className="accordion-collapse collapse" data-bs-parent="#accordionExample">
                         <div className="accordion-body">
-                            A empresa entrará em contato com você pelo telefone ou email cadastrado. Fique atento às suas
-                            notificações também.
+                            Na página "minhas candidaturas" é possivel ver se você foi selecionado para a vaga ou não. A empresa entrará em contato com você pelo telefone ou email cadastrado. Fique atento às suas notificações.
                         </div>
                     </div>
                 </div>
@@ -90,7 +87,7 @@ export default function ajudaCandidato() {
 
                 <p> <strong> Fale conosco </strong> <br /> contato@tramposc.com.br </p>
 
-                <p> <strong> Denunciar problema </strong> <br /> Reportar vaga ou perfil suspeito </p>
+                <p> <strong>  Reportar vaga ou perfil suspeito </strong> <br/> reportar@tramposc.com.br </p>
             </div>
 
         </div>

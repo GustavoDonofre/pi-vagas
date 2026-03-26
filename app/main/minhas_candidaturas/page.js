@@ -12,11 +12,11 @@ export default function MinhasCandidaturas() {
 
     const [minhasCandidaturas, alteraMinhasCandidaturas] = useState([])
 
-    async function buscarCandidaturas() {
+    async function buscarCandidaturas() { //busca no banco os dados
         const { data, error } = await supabase
 
             .from('vaga_candidato')
-            .select(`*, id_vaga(*, id_empresa(id, nome))`)
+            .select(`*, id_vaga(*, id_empresa(id, nome))`) // do ID VAGA -> tudo = dentro do id vaga, quero o id_empresa, dentro do id_empresa quero id e nome
 
         alteraMinhasCandidaturas(data)
 
@@ -141,7 +141,7 @@ export default function MinhasCandidaturas() {
 
                                             </div>
                                             <div className="modal-footer">
-                                                <button className="btn-padrao" data-bs-dismiss="modal" onClick={() => cancelarCandidtura(item.id)}> Cancelar </button>
+                                                <button className="btn-padrao" data-bs-dismiss="modal" onClick={() => cancelarCandidtura(item.id)}> Cancelar candidatura </button>
                                             </div>
                                         </div>
                                     </div>
