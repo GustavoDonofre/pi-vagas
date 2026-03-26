@@ -41,18 +41,25 @@ export default function Feed() {
             id_usuario: 3
         }
 
+        const response = await supabase
+            .from('vaga_candidato')
+            .insert(obj)
+        
         
         if (error) {
             console.log(error)
             alert("Erro ao se candidatar")
             return
+        }else{
+            alert("Candidatura realizada com sucesso!")
+            buscarVagas()
         }
-        const response = await supabase
-            .from('vaga_candidato')
-            .insert(obj)
         
-        alert("Candidatura realizada com sucesso!")
-        buscarVagas()
+    
+    }
+
+    function buscardCandidaturas (){
+
     }
 }
 
