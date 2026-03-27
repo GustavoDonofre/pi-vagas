@@ -12,15 +12,18 @@ export default function MinhasCandidaturas() {
 
     const [minhasCandidaturas, alteraMinhasCandidaturas] = useState([])
 
-    async function buscarCandidaturas() { //busca no banco os dados
+    async function buscarCandidaturas() { // busca no banco se o id desse candidato já esta vinculado ao id da vaga
+        
         const { data, error } = await supabase
 
             .from('vaga_candidato')
-            .select(`*, id_vaga(*, id_empresa(id, nome))`) // do ID VAGA -> tudo = dentro do id vaga, quero o id_empresa, dentro do id_empresa quero id e nome
+            .select('id_vaga')
+            .eq('id_usuario', 3) //traz todas as vagas onde id_usuario é = 3
 
-        alteraMinhasCandidaturas(data)
-
+        alteraMinhasCandidaturas()
+            
     }
+
 
     useEffect(() => {
         buscarCandidaturas()
