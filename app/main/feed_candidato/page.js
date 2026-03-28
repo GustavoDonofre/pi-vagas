@@ -6,27 +6,23 @@ import './feed_candidato.css'
 
 export default function Feed() {
 
-    // 2. se candidato clicou em candidatar-se (e confirmou o alert) -> desabilitar botao 
-
-    // 3. usuario X se candidatou a vaga Y -> salvar isso no banco
-
     // FILTROS
 
     const [feedCandidato, alteraFeedCandidato] = useState([])
     const [candidaturas, alteraCandidaturas] = useState([])
 
-    async function buscarVagas() { // buscas os dados
+    async function buscarVagas() {
         const { data, error } = await supabase
 
             .from('cadastro_vagas')
             .select(`*, id_empresa(*)`)
-            .eq('ativo', true) //aqui sei se a vaga esta disponivel ou nao
+            .eq('ativo', true)
 
         alteraFeedCandidato(data)
 
     }
 
-    async function confirmacao(id) { //guarda os dados (id do candidato e id da vaga juntos)
+    async function confirmacao(id) {
 
         const opcao = confirm("Tem certeza que deseja se candidatar a vaga?")
 
@@ -48,27 +44,14 @@ export default function Feed() {
 
     }
 
-    async function buscarCandidaturas() { // busca no banco se o id desse candidato já esta vinculado ao id da vaga
+    async function buscarCandidaturas() {
 
         const { data, error } = await supabase
             .from('vaga_candidato')
             .select('id_vaga')
-            .eq('id_usuario', 3) //traz todas as vagas onde id_usuario é = 3
-
-             const ids = data.map(item => item.id_vaga) //recebe os dados
-
-            alteraCandidaturas(ids) //
-
-    }
-
-    const vagasFiltradas = feedCandidato.filter(item => 
-    !candidaturas.includes(item.id) //vagasFiltradas. map e atualizar a pagina
+            .eq('id_usuario', 3) 
 
 
-    function formataData(data) {
-        let data_formatada = new Date(data)
-        data_formatada = data_formatada.toLocaleDateString()
-        return data_formatada
     }
 
     useEffect(() => {
@@ -79,7 +62,7 @@ export default function Feed() {
     return (
 
         <div>
-
+            {/* Barra de pesquisa */}
             <form className="container-fluid d-flex justify-content-center">
                 <div className="input-group">
                     <span className="input-group-text">🔍</span>
@@ -89,6 +72,7 @@ export default function Feed() {
 
             <br />
 
+            {/* Filtros */}
             <div className="card_filtros">
                 <div className="row g-3">
 
@@ -124,6 +108,8 @@ export default function Feed() {
                     feedCandidato.map(
                         item =>
                             <div>
+
+                                {/* Card da vaga */}
                                 <div className="card">
 
                                     <div className="perfil">
@@ -162,6 +148,7 @@ export default function Feed() {
 
                                 </div>
 
+                                {/* Modal da vaga */}
                                 <div className="modal fade" id="modal_perfil">
                                     <div className="modal-dialog">
                                         <div className="modal-content">
