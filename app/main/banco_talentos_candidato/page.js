@@ -169,7 +169,7 @@ export default function bancoTalentos() {
     }, [])
 
 
-    if (cadastroTalentos === null) { // isso trata o null da variavel antes de ir para o operador / evita aparecer uma tela errada
+    if (cadastroTalentos == null) { // isso trata o null da variavel antes de ir para o operador / evita aparecer uma tela errada
         return <p>Carregando...</p>
     }
 

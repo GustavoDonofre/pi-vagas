@@ -6,7 +6,8 @@ import './feed_candidato.css'
 
 export default function Feed() {
 
-    // FILTROS
+    // Arrumar FILTROS
+    // Arrumar para candidato logado
 
     const [feedCandidato, alteraFeedCandidato] = useState([])
     const [candidaturas, alteraCandidaturas] = useState([])
@@ -39,7 +40,10 @@ export default function Feed() {
 
             const response = await supabase
                 .from('vaga_candidato')
-                .insert(obj)
+                .insert([obj])
+
+            buscarVagas() // atualiza a pagina? 
+            buscarCandidaturas() // atualiza a pagina? 
         }
 
     }
@@ -47,12 +51,20 @@ export default function Feed() {
     async function buscarCandidaturas() {
 
         const { data, error } = await supabase
+
             .from('vaga_candidato')
             .select('id_vaga')
-            .eq('id_usuario', 3) 
+            .eq('id_usuario', 3) // Me de o ID da vaga onde o Id_usuario é equivalente a 3
 
-
+        const idVagas = data.map(item => item.id_vaga) // Lista dessas vagas
+        alteraCandidaturas(idVagas) // Guarda a lista
     }
+
+    const vagasFiltradas = feedCandidato.filter(item => !candidaturas.includes(item.id)) 
+    // .filter = cria uma nova lista, contendo apenas os elementos da lista original que passam em um teste especifico
+    // se item.id esta em candidaturas (includes é true) -> false (!)
+    // se item.id não esta em candidaturas (includes é false) -> true (!)
+    // assim, mostra no feed as vagas que ele NAO se candidatou
 
     useEffect(() => {
         buscarVagas()
@@ -102,10 +114,10 @@ export default function Feed() {
             <br />
 
             {
-                feedCandidato.length == 0 ?
+                vagasFiltradas.length == 0 ?
                     <h4>Sem registros no momento...</h4>
                     :
-                    feedCandidato.map(
+                    vagasFiltradas.map(
                         item =>
                             <div>
 

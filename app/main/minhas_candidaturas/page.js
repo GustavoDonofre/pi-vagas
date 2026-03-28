@@ -5,23 +5,32 @@ import './minhas_candidaturas.css'
 
 export default function MinhasCandidaturas() {
 
-    // puxar os dados da tabela vaga_candidato (dados da vaga)
-    // dar um jeito de aparecer o status (em analise / contatado / não selecionado)
-    // cancelar candidatura?
-    // filtro para o mais recente? 
+    // Cancelar candidatura
+    // Filtrar mais recentes (ordem que aparece)
+    // Status (contatado / não selecionado / em analise)
 
     const [minhasCandidaturas, alteraMinhasCandidaturas] = useState([])
 
-    async function buscarCandidaturas() { // busca no banco se o id desse candidato já esta vinculado ao id da vaga
-        
+    async function buscarCandidaturas() {
+
         const { data, error } = await supabase
 
             .from('vaga_candidato')
-            .select('id_vaga')
-            .eq('id_usuario', 3) //traz todas as vagas onde id_usuario é = 3
+            .select('id_vaga (*), id_empresa(nome)')
+            .eq('id_usuario', 3) // Me de o ID da vaga onde o Id_usuario é equivalente a 3
 
-        alteraMinhasCandidaturas()
-            
+        alteraMinhasCandidaturas(data) // Guarda a lista
+    }
+
+    async function cancelaCandidatura(id) {
+
+        const { data, error } = await supabase
+            .from('vaga_candidato')
+            .update()
+            .eq('id', id)
+
+            buscarCandidaturas() // atualiza a página
+        }
     }
 
 
@@ -40,6 +49,7 @@ export default function MinhasCandidaturas() {
             <br />
             <br />
 
+            {/* Quantidade dos status / só de bonito */}
             <div class="card_info container">
                 <div class="row justify-content-center g-4">
 
@@ -74,6 +84,7 @@ export default function MinhasCandidaturas() {
                     minhasCandidaturas.map(
                         item =>
                             <div>
+                                {/* Vagas Candidatadas */}
                                 <div className="card">
 
                                     <div className="perfil">
@@ -99,6 +110,7 @@ export default function MinhasCandidaturas() {
                                                                 <p>{item.id_vaga.titulo}</p>
                                                                 <p>|</p>
                                                                 <p>{item.id_vaga.turno}</p>
+                                                                <p className="justify-content-end">Status</p>
                                                             </div>
                                                         </div>
                                                         <div className="col-4 d-flex justify-content-end">
@@ -112,6 +124,7 @@ export default function MinhasCandidaturas() {
 
                                 </div>
 
+                                {/* Modal das vagas */}
                                 <div className="modal fade" id="modal_perfil">
                                     <div className="modal-dialog">
                                         <div className="modal-content">
@@ -141,10 +154,9 @@ export default function MinhasCandidaturas() {
 
                                                 <p>Data de publicação: {formataData(item.id_vaga.criado_em)} </p>
 
-
                                             </div>
                                             <div className="modal-footer">
-                                                <button className="btn-padrao" data-bs-dismiss="modal" onClick={() => cancelarCandidtura(item.id)}> Cancelar candidatura </button>
+                                                <button className="btn-padrao" data-bs-dismiss="modal" onClick={() => cancelaCandidatura(item.id)}> Cancelar candidatura </button>
                                             </div>
                                         </div>
                                     </div>
