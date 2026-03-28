@@ -6,14 +6,18 @@ import { useEffect, useState } from 'react'
 
 export default function EditarPerfil() {
 
-    // criar na tabela de usuarios: id para banco de talentos (para usar no if else do banco de talentos) E um para curriculo, que sera preenchido aqui
-    // puxar um unico id
+    // Arrumar para candidato logado
 
-    const [nome, alteraNome] = useState()
-    const [senha, alteraSenha] = useState()
+
+    //const [nome, alteraNome] = useState()
+    //const [cpf, alteraCpf] = useState()
+    //const [email, alteraEmail] = useState()
+    //const [senha, alteraSenha] = useState()
     const [telefone, alteraTelefone] = useState()
     const [endereco, alteraEndereco] = useState()
     const [area, alteraArea] = useState()
+    const [curriculo, alteraCurriculo] = useState("")
+    const [dataNascimento, alteraDataNascimento] = useState()
 
     const [listaUsuarios, alteraListaUsuarios] = useState([])
 
@@ -33,23 +37,28 @@ export default function EditarPerfil() {
 
         alteraEditando(objeto.id)
 
-        alteraNome(objeto.nome)
-        alteraEmail(objeto.email)
-        alteraSenha(objeto.senha)
+        //alteraNome(objeto.nome)
+        //alteraEmail(objeto.email)
+        //alteraCpf(objeto.cpf)
+        //alteraSenha(objeto.senha)
         alteraTelefone(objeto.telefone)
         alteraEndereco(objeto.endereco)
         alteraArea(objeto.area)
+        alteraCurriculo(objeto.curriculo)
+        alteraDataNascimento(objeto.dataNascimento)
 
     }
 
     function cancelaEdicao() { //limpa os campos
 
-        alteraNome("")
-        alteraEmail("")
-        alteraSenha("")
+        //alteraNome("")
+        //alteraCpf("")
+        //alteraEmail("")
+        //alteraSenha("")
         alteraTelefone("")
         alteraEndereco("")
         alteraArea("")
+        //alteraCurriculo("") COMO LIMPAR PDF? 
 
     }
 
@@ -58,52 +67,33 @@ export default function EditarPerfil() {
         e.preventDefault()
 
         const obj = {
-            nome: nome,
-            senha: senha,
+            //nome: nome,
+            //cpf: cpf,
+            //email: email,
+            //password: senha,
             telefone: telefone,
             endereco: endereco,
-            area: area
+            area: area,
+            curriculo: curriculo,
+            data_nasc: dataNascimento 
         }
 
         const { error } = await supabase
             .from('usuarios')
             .update(obj)
-            .eq('id', editando)
+            .eq('id', 3)
 
         if (error == null) {
-            alert("Atualização reslizada com sucesso!")
+            alert("Atualização realizada com sucesso!")
             cancelaEdicao() /* limpa os campos */
             buscaUsuario() /* atualiza a pg */
+
+        
         } else {
             alert("Dados inválidos! Verifique os campos e tente novamente...")
         }
 
         console.log(error)
-
-    }
-
-    async function atualizar() {
-
-        const obj = {
-            nome: nome,
-            senha: senha,
-            telefone: telefone,
-            endereco: endereco,
-            area: area
-        }
-
-        const { error } = await supabase
-        .from('usuarios')
-        .update(obj)
-        .eq('id', editando)
-
-        if(error == null){
-            alert("Atualização reslizada com sucesso!")
-            cancelaEdicao() /* limpa os campos */
-            buscaTodos() /* atualiza a pg */
-        }else{
-            alert("Dados inválidos! Verifique os campos e tente novamente...")
-        }
 
     }
 
@@ -141,27 +131,32 @@ export default function EditarPerfil() {
 
                                         <div className="col-md-6 mb-3">
                                             <label>Nome: </label>
-                                            <input className="form-control" value={nome} onChange={e => alteraNome(e.target.value)} />
-                                        </div>
-
-                                        <div className="col-md-6 mb-3">
-                                            <label>E-mail: </label>
-                                            <input className="form-control" value={item.email} disabled />
-                                        </div>
-
-                                        <div className="col-md-6 mb-3">
-                                            <label>Senha: </label>
-                                            <input className="form-control" type='password' value={senha} onChange={e => alteraSenha(e.target.value)} />
+                                            <input type="text" className="form-control" value={item.nome} disabled />
                                         </div>
 
                                         <div className="col-md-6 mb-3">
                                             <label>CPF: </label>
-                                            <input className="form-control" value={item.cpf} disabled />
+                                            <input type="text" className="form-control" value={item.cpf} disabled />
+                                        </div>
+
+                                        <div className="col-md-6 mb-3">
+                                            <label>E-mail: </label>
+                                            <input type="email" className="form-control" value={item.email} disabled />
+                                        </div>
+
+                                        <div className="col-md-6 mb-3"> {/* Desabilitar senha? */}
+                                            <label>Senha: </label>
+                                            <input type='password' className="form-control" value={item.senha} disabled />
+                                        </div>
+
+                                        <div className="col-md-6 mb-3"> 
+                                            <label>Data de Nascimento: </label>
+                                            <input type='date' className="form-control" value={dataNascimento} onChange={e => alteraDataNascimento(e.target.value)} />
                                         </div>
 
                                         <div className="col-md-6 mb-3">
                                             <label>Telefone: </label>
-                                            <input className="form-control" value={telefone} onChange={e => alteraTelefone(e.target.value)} />
+                                            <input type="text" placeholder="EX:(XX) XXXXX-XXXX" className="form-control" value={telefone} onChange={e => alteraTelefone(e.target.value)} />
                                         </div>
 
                                         <div className="col-md-6 mb-3">
@@ -174,18 +169,14 @@ export default function EditarPerfil() {
                                             <input className="form-control" value={area} onChange={e => alteraArea(e.target.value)} />
                                         </div>
 
-                                        { 
-                                        /*
                                         <div className="col-md-6">
                                             <label>Currículo: </label>
                                             <input className="form-control" type="file" accept=".pdf" onChange={e => alteraCurriculo(e.target.files[0])}/>
                                         </div> 
-                                        */
-                                        }
 
                                         <div className="mt-4 d-flex justify-content-center">
 
-                                            <button className="btn-padrao me-4" type="submit" onClick={() => atualizar()}>Salvar Alterações</button>
+                                            <button className="btn-padrao me-4" type="submit">Salvar Alterações</button>
                                             <button className="btn-padrao" onClick={() => cancelaEdicao()}>Cancelar</button>
 
                                         </div>

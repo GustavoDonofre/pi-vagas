@@ -14,7 +14,7 @@ IsCaroline -> *Usuário* Banco de talentos e
 > Se o usuário já tiver cadastrado -> Mostrar as informações do banco de talentos - CONCLUIDO
 > Editar perfil do usuário 
 > *Feed de vagas que está em aberto* -> Clicar em VER -> Poder se *inscrever* - CONCLUIDO
-> Mostrar vagas que já está inscrito (minhas candidaturas)
+> Mostrar vagas que já está inscrito (minhas candidaturas) - CONCLUIDO
 
 Gizeli -> *Empresa* e vagas
 > Cadastrar vagas *fazer funcionar*

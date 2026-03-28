@@ -82,7 +82,7 @@ export default function ajudaCandidato() {
 
             <br />
 
-            <div class="alert alert-warning card_duvidas" role="alert">
+            <div className="alert alert-warning card_duvidas" role="alert">
                 <h5> Ainda precisa de ajuda? </h5>
 
                 <p> <strong> Fale conosco </strong> <br /> contato@tramposc.com.br </p>
