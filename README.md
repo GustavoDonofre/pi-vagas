@@ -12,9 +12,10 @@ Matheus -> sobre e pagamento
 IsCaroline -> *Usuário* Banco de talentos e 
 > Se o usuário não tiver cadastrado -> Mostrar cadastro do banco de talentos - CONCLUIDO
 > Se o usuário já tiver cadastrado -> Mostrar as informações do banco de talentos - CONCLUIDO
-> Editar perfil do usuário 
+> Editar perfil do usuário - CONCLUIDO 
 > *Feed de vagas que está em aberto* -> Clicar em VER -> Poder se *inscrever* - CONCLUIDO
 > Mostrar vagas que já está inscrito (minhas candidaturas) - CONCLUIDO
+> TESTAR AS PAGINAS
 
 Gizeli -> *Empresa* e vagas
 > Cadastrar vagas *fazer funcionar*
