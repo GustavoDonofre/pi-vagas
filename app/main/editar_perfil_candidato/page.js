@@ -13,11 +13,11 @@ export default function EditarPerfil() {
     //const [cpf, alteraCpf] = useState()
     //const [email, alteraEmail] = useState()
     //const [senha, alteraSenha] = useState()
-    const [telefone, alteraTelefone] = useState()
-    const [endereco, alteraEndereco] = useState()
-    const [area, alteraArea] = useState()
+    const [dataNascimento, alteraDataNascimento] = useState("")
+    const [telefone, alteraTelefone] = useState("")
+    const [endereco, alteraEndereco] = useState("")
+    const [area, alteraArea] = useState("")
     const [curriculo, alteraCurriculo] = useState("")
-    const [dataNascimento, alteraDataNascimento] = useState()
 
     const [listaUsuarios, alteraListaUsuarios] = useState([])
 
@@ -30,6 +30,7 @@ export default function EditarPerfil() {
             .select()
 
         alteraListaUsuarios(data)
+        editar(data[0]) // chama a função editar para que apareça no input
 
     }
 
@@ -41,11 +42,11 @@ export default function EditarPerfil() {
         //alteraEmail(objeto.email)
         //alteraCpf(objeto.cpf)
         //alteraSenha(objeto.senha)
+        alteraDataNascimento(objeto.dataNascimento)
         alteraTelefone(objeto.telefone)
         alteraEndereco(objeto.endereco)
         alteraArea(objeto.area)
         alteraCurriculo(objeto.curriculo)
-        alteraDataNascimento(objeto.dataNascimento)
 
     }
 
@@ -177,7 +178,7 @@ export default function EditarPerfil() {
                                         <div className="mt-4 d-flex justify-content-center">
 
                                             <button className="btn-padrao me-4" type="submit">Salvar Alterações</button>
-                                            <button className="btn-padrao" onClick={() => cancelaEdicao()}>Cancelar</button>
+                                            <button className="btn-padrao" onClick={cancelaEdicao}>Cancelar</button>
 
                                         </div>
 

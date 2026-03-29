@@ -16,11 +16,11 @@ export default function MenuLateral() {
                 <Link href="/main/editar_perfil_candidato" type="button" className="list-group-item list-group-item-action"> USUARIO - Editar perfil </Link>
                 <Link href="/main/ajuda_candidato" type="button" className="list-group-item list-group-item-action"> USUARIO - Ajuda </Link>
                 <hr/>
-                <Link href="/main/feed" type="button" className="list-group-item list-group-item-action" aria-current="true"> EMPRESA - Início </Link>
-                <Link href="/main/banco_talentos" type="button" className="list-group-item list-group-item-action"> EMPRESA - Ver banco de talentos </Link>
+                <Link href="/main/feed_empresa" type="button" className="list-group-item list-group-item-action" aria-current="true"> EMPRESA - Início </Link>
+                <Link href="/main/banco_talentos_empresa" type="button" className="list-group-item list-group-item-action"> EMPRESA - Ver banco de talentos </Link>
                 <Link href="/main/premium" type="button" className="list-group-item list-group-item-action"> EMPRESA - Premium </Link>
-                <Link href="/" type="button" className="list-group-item list-group-item-action"> EMPRESA - Editar perfil </Link>
-                <Link href="/main/ajuda_emp" type="button" className="list-group-item list-group-item-action"> EMPRESA - Ajuda </Link>
+                <Link href="/main/editar_perfil_empresa" type="button" className="list-group-item list-group-item-action"> EMPRESA - Editar perfil </Link>
+                <Link href="/main/ajuda_empresa" type="button" className="list-group-item list-group-item-action"> EMPRESA - Ajuda </Link>
             </div>
 
             <div className="text-center menu_lateral_perfil mt-5">
