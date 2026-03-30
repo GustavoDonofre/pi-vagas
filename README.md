@@ -15,7 +15,7 @@ IsCaroline -> *Usuário* Banco de talentos e
 > Editar perfil do usuário - CONCLUIDO 
 > *Feed de vagas que está em aberto* -> Clicar em VER -> Poder se *inscrever* - CONCLUIDO
 > Mostrar vagas que já está inscrito (minhas candidaturas) - CONCLUIDO
-> TESTAR AS PAGINAS
+> TESTAR AS PAGINAS -> criar um usuario no banco para testar
 
 Gizeli -> *Empresa* e vagas
 > Cadastrar vagas *fazer funcionar*

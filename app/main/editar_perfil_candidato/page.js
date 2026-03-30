@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react'
 export default function EditarPerfil() {
 
     // Arrumar para candidato logado
-
+    // Arrumar editar foto
 
     //const [nome, alteraNome] = useState()
     //const [cpf, alteraCpf] = useState()
@@ -60,6 +60,8 @@ export default function EditarPerfil() {
         alteraEndereco("")
         alteraArea("")
         //alteraCurriculo("") COMO LIMPAR PDF? 
+
+        alteraEditando (null)
 
     }
 

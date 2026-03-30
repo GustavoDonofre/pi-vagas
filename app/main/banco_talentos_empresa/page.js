@@ -6,9 +6,12 @@ import { useEffect, useState } from 'react'
 
 export default function bancoTalentosEmp() {
 
+    // Arrumar para candidato logado
+    // Arrumar filtros
+
     const [bancoTalentos, alteraBancoTalentos] = useState([])
 
-    const [usuarioSelecionado, setUsuarioSelecionado] = useState(null)
+    const [usuarioSelecionado, alteraUsuarioSelecionado] = useState(null)
 
     async function buscaBanco() {
 
@@ -34,20 +37,13 @@ export default function bancoTalentosEmp() {
                 <p>Encontre profissionais de São Carlos para sua empresa.</p>
             </div>
 
-            <form className="container-fluid d-flex justify-content-center">
-                <div className="input-group">
-                    <span className="input-group-text">🔍</span>
-                    <input type="text" className="form-control" placeholder="Buscar candidatos..." />
-                </div>
-            </form>
-
             <br />
 
             <div className="card_filtros">
                 <div className="row g-3">
 
                     <div className="col-md-6">
-                        <label className="form-label"> Turno </label>
+                        <label className="form-label"> Disponibilidade de turno </label>
                         <select className="form-select">
                             <option disabled value=""> Todos </option>
                             <option value="matutino"> Matutino </option>
@@ -104,7 +100,7 @@ export default function bancoTalentosEmp() {
                                                         </div>
                                                     </div>
                                                     <div className="col-4 d-flex justify-content-end">
-                                                        <button className="btn-padrao" data-bs-toggle="modal" data-bs-target="#modal_perfil" onClick={() => setUsuarioSelecionado(item)}>Ver perfil</button>
+                                                        <button className="btn-padrao" data-bs-toggle="modal" data-bs-target="#modal_perfil" onClick={() => alteraUsuarioSelecionado(item)}>Ver perfil</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -147,14 +143,14 @@ export default function bancoTalentosEmp() {
                                                             <p><strong>Currículo: </strong> {usuarioSelecionado.curriculo} </p>
 
                                                             {
-                                                                bancoTalentos.certificacoes == null ?
+                                                                usuarioSelecionado.certificacoes == null ?
                                                                     <p><strong>Certificações: </strong> Não informado. </p>
                                                                     :
                                                                     <p><strong>Certificações: </strong> {usuarioSelecionado.certificacoes} </p>
                                                             }
 
                                                             {
-                                                                bancoTalentos.portfolio == null ?
+                                                                usuarioSelecionado.portfolio == null ?
                                                                     <p><strong>Portfólio: </strong> Não informado. </p>
                                                                     :
                                                                     <p><strong>Portfólio: </strong> {usuarioSelecionado.portfolio} </p>

@@ -6,8 +6,8 @@ import './feed_candidato.css'
 
 export default function Feed() {
 
-    // Arrumar FILTROS
     // Arrumar para candidato logado
+    // Arrumar filtros
 
     const [feedCandidato, alteraFeedCandidato] = useState([])
     const [candidaturas, alteraCandidaturas] = useState([])

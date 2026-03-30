@@ -4,11 +4,15 @@ import { useEffect, useState } from 'react';
 import supabase from '../conexao/supabase';
 import './banco_talentos.css'
 
-export default function bancoTalentos() {
+export default function BancoTalentos() {
 
-    // BOTAO DE CANCELAR EDIÇAO!!!!!!!!!!
+    // Arrumar para candidato logado
+    // No banco: salvar como pdf (curriculo e certificacoes)
+  
+    // Animações
+    // Criar um css de botão padrao para cancelar / excluir
 
-    const [bancoTalentos, alteraBancoTalentos] = useState([]) 
+    const [bancoTalentos, alteraBancoTalentos] = useState([])
 
     const [cadastroTalentos, alteraCadastroTalentos] = useState(null) //null = ainda n sei / true = sim, tem dados / false = nao, nao tem dados
     const [editando, alteraEditando] = useState(null)
@@ -66,21 +70,21 @@ export default function bancoTalentos() {
 
         }
 
-        const { error } = await supabase //da minha tabela do banco -> atualizar o obj 
+        const {error} = await supabase //da minha tabela do banco -> atualizar o obj 
 
             .from('banco_talentos')
             .update(obj)
             .eq('id', editando)
 
 
-        if(error == null){
+        if (error == null) {
 
             alert("Atualização realizada com sucesso!")
             alteraEditando(null)
             alteraCadastroTalentos(true)
             buscar() //atualiza a pagina
 
-        }else{
+        } else {
 
             alert("Dados inválidos! Verifique os campos e tente novamente...")
 
@@ -163,6 +167,43 @@ export default function bancoTalentos() {
 
     }
 
+    function cancelar() {
+
+        alteraCurriculo("")
+        alteraCertificacoes("")
+        alteraPortfolio("")
+        alteraArea("")
+        alteraCompetencias("")
+        alteraContratacao("")
+        alteraTurno("")
+
+        alteraEditando(null) // sai do modo edição
+
+    }
+
+    async function excluirInscricao(id) {
+
+        const opcao = confirm("Tem certeza que deseja CANCELAR sua inscrição?")
+
+        if (opcao == false) {
+            return
+
+        }
+
+        const {error} = await supabase 
+            .from('banco_talentos')
+            .delete()
+            .eq('id', id)
+
+        if (error) {
+            alert("Erro ao cancelar inscrição")
+            return
+        }
+
+        alert("Inscrição cancelada com sucesso!")
+
+        buscar()
+    }
 
     useEffect(() => {
         buscar()
@@ -241,6 +282,7 @@ export default function bancoTalentos() {
                                         </div>
 
                                         <button className='btn-padrao' onClick={() => editar(item)}> Editar </button>
+                                        <button className='btn-padrao' onClick={() => excluirInscricao(item.id)}>Cancelar candidatura</button>
 
                                     </div>
 
@@ -311,6 +353,7 @@ export default function bancoTalentos() {
                                 </div>
 
                                 <button className="btn-padrao"> Salvar inscrição </button>
+                                <button className="btn-padrao" type="button" onClick={() => cancelar()}> Cancelar </button>
 
                             </form >
 
