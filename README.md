@@ -1,8 +1,8 @@
 # TAFERAS
 
 GUSTAVO -> Cadastro
-> Cadastro de usuários *fazer funcionar*
-> Cadastro de empresas *fazer funcionar*
+> Cadastro de usuários *fazer funcionar* -funcionando-
+> Cadastro de empresas *fazer funcionar* -funcionando-
 > Login -> *Criar página*
 
 Matheus -> sobre e pagamento
