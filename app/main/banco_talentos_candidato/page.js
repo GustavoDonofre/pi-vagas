@@ -6,6 +6,22 @@ import './banco_talentos.css'
 
 export default function BancoTalentos() {
 
+    const id_usuario = localStorage.getItem("id_usuario")
+
+    const [usuario, alteraUsuario] = useState(null) // [] serve para pegar lista
+
+    async function buscaUsuario(){
+
+        const{data, error} = await supabase
+            .from("usuarios")
+            .select()
+            .eq("id", id_usuario) //exatamente aquele dado, na coluna "id"
+
+        // console.log(data) -> para ver se esta vindo os dados solicitados
+        alteraUsuario(data[0]) //salva os dados na variavel. data (lista de usuarios) + [0] para pegar UM objeto. pq 0? pq pega o primeiro item com aquele id. lembrando q o id é unico ent é como se so tivesse ele
+
+    }
+
     // Arrumar para candidato logado
     // No banco: salvar como pdf (curriculo e certificacoes)
   
@@ -207,6 +223,7 @@ export default function BancoTalentos() {
 
     useEffect(() => {
         buscar()
+        buscaUsuario()
     }, [])
 
 
