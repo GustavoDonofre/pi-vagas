@@ -5,73 +5,159 @@ import './cadastro.css'
 import supabase from "../conexao/supabase";
 
 export default function CadastroUsuario() {
+    //area obriatoria para todos
+    const [nome, setNome] = useState("");
+    const [email, setEmail] = useState("");
+    const [endereco, setEndereco] = useState("");
+    const [area, setArea] = useState("");
+    const [tel, setTel] = useState("");
+
     //Area empresa 
     const [razaoSocial, setRazaoSocial] = useState("");
-    const [nomeEmpresa, setNomeEmpresa] = useState("");
-    const [emailEmpresa, setEmailEmpresa] = useState("");
-    const [enderecoEmpresa, setEnderecoEmpresa] = useState("");
     const [senhaEmpresa, setSenhaEmpresa] = useState("");
     const [confirmaSenhaEmpresa, setConfirmaSenhaEmpresa] = useState("");
     const [cnpj, setCnpj] = useState("");
-    const [areaEmpresa, setAreaEmpresa] = useState("");
-    const [telEmpresa, setTelEmpresa] = useState("");
     const [premium, setPremium] = useState(false);
 
     //Area usuario
-    const [nomeUsuario, setNomeUsuario] = useState("");
-    const [emailUsuario, setEmailUsuario] = useState("");
-    const [enderecoUsuario, setEnderecoUsuario] = useState("");
     const [senhaUsuario, setSenhaUsuario] = useState("");
-    const [confirmaSenhaUsuario, setConfirmaSenhaUsuario] = useState("");
+    const [confirmaSenhaCandidato, setConfirmaSenhaCandidato] = useState("");
+    const [dataNasc, setDataNasc] = useState("");
     const [cpf, setCpf] = useState("");
-    const [areaUsuario, setAreaUsuario] = useState("");
-    const [telUsuario, setTelUsuario] = useState("");
+
 
     const [cadastro, setCadastro] = useState(false);
 
-
-    async function salvar(e) {
+    async function cadastrar(e) {
         e.preventDefault()
+        if (cadastro == false) { //candidato
 
-        console.log(cadastro)
+            //CADASTRO SUPABASE
+            const { data, error } = await supabase.auth.signUp({
+                email: email,
+                password: senhaUsuario,
+            })
+
+            if (error) {
+                console.log(error)
+                alert('Dados inválidos! tente novamente')
+                return
+            }
+
+            //CADASTRAR NA MINHA TABELA
+            const obj = {
+                id: data.user.uid,
+                nome: nome,
+                email: email,
+                endereco: endereco,
+                data_nasc: dataNasc,
+                cpf: cpf.replace(/\D/g, ""),
+                area_atuacao: area,
+                contato: tel,
+                role: 1
+            }
+
+            const response = await supabase
+                .from('usuarios')
+                .insert(obj)
+
+            if (response.error == null) {
+                alert('Candidato cadastrado com sucesso!!')
+                return
+            } else {
+                console.log(response.error)
+                alert('Verifique os campos de candidato e tente novamente...')
+            }
+
+
+            //TODO: jogar autenticacao novamente para logar automaticamente no feed de cada um
+        }
 
         if (cadastro == true) {
-            const empresa = {
-                nome: nomeEmpresa,
+            //CADASTRO SUPABASE
+            const { data, error } = await supabase.auth.signUp({
+                email: email,
+                password: senhaEmpresa,
+            })
+
+            if (data == null) {
+                alert('Dados inválidos! tente novamente')
+                return
+            }
+
+            //CADASTRAR NA MINHA TABELA
+            const obj = {
+                id: data.user.id,
+                nome: nome,
                 razao_social: razaoSocial,
-                email: emailEmpresa,
-                senha: senhaEmpresa,
-                cnpj: cnpj.replace(/\D/g, ""),
-                area: areaEmpresa,
-                telefone: telEmpresa,
-                endereco: enderecoEmpresa,
-                premium: premium
-            }
-
-            const { data, error } = await supabase
-                .from('empresas')
-                .insert(empresa);
-
-
-            return alert("Empresa Cadastrada! faça o login!")
-        } else {
-            const usuario = {
-                nome: nomeUsuario,
-                email: emailUsuario,
-                endereco: enderecoUsuario,
-                senha: senhaUsuario,
+                email: email,
+                endereco: endereco,
                 cpf: cpf.replace(/\D/g, ""),
-                area: areaUsuario,
-                telefone: telUsuario,
+                area_atuacao: area,
+                contato: tel,
+                role: 2
             }
 
-            const { data, error } = await supabase
+            const response = await supabase
                 .from('usuarios')
-                .insert(usuario);
+                .insert(obj)
 
-            return alert("Usuario Cadastrado! faça o login!")
+            if (response.ok) {
+                alert('Empresa cadastrada com sucesso!!')
+                return
+            } else {
+                console.log(response.error)
+                alert('Verifique os campos e tente novamente...')
+            }
+
+
+            //TODO: jogar autenticacao novamente para logar automaticamente no feed de cada um
         }
     }
+
+
+    // async function salvar(e) {
+    //     e.preventDefault()
+
+    //     console.log(cadastro)
+
+    //     if (cadastro == true) {
+    //         const empresa = {
+    //             nome: nome,
+    //             razao_social: razaoSocial,
+    //             email: email,
+    //             senha: senhaEmpresa,
+    //             cnpj: cnpj.replace(/\D/g, ""),
+    //             area: area,
+    //             telefone: tel,
+    //             endereco: endereco,
+    //             premium: premium
+    //         }
+
+    //         const { data, error } = await supabase
+    //             .from('empresas')
+    //             .insert(empresa);
+
+
+    //         return alert("Empresa Cadastrada! faça o login!")
+    //     } else {
+    //         const usuario = {
+    //             nome: nome,
+    //             email: email,
+    //             endereco: endereco,
+    //             senha: senhaUsuario,
+    //             cpf: cpf.replace(/\D/g, ""),
+    //             area: area,
+    //             telefone: tel,
+    //         }
+
+    //         const { data, error } = await supabase
+    //             .from('usuarios')
+    //             .insert(usuario);
+
+    //         return alert("Usuario Cadastrado! faça o login!")
+    //     }
+    // }
 
 
 
@@ -82,7 +168,7 @@ export default function CadastroUsuario() {
             {/* <div className="d-flex justify-content-center py-4">
                 </div> */}
 
-            <form onSubmit={salvar} className="form_cadastro row g-3">
+            <form onSubmit={cadastrar} className="form_cadastro row g-3">
                 <div className="card-header bg-padrao rounded">
                     <nav className="nav nav-underline text-white">
                         <div className="container-fluid">
@@ -112,7 +198,7 @@ export default function CadastroUsuario() {
                                     <label htmlFor="nomeEmpresa" className="form-label">
                                         Seu nome *
                                     </label>
-                                    <input type="text" onChange={e => setNomeUsuario(e.target.value)} id="nomeEmpresa" className="form-control" />
+                                    <input type="text" onChange={e => setNome(e.target.value)} id="nomeEmpresa" className="form-control" />
                                 </div>
 
                                 {/* Email */}
@@ -120,7 +206,7 @@ export default function CadastroUsuario() {
                                     <label htmlFor="emailUsuario" className="form-label">
                                         Seu melhor email *
                                     </label>
-                                    <input type="email" id="emailUsuario" onChange={e => setEmailUsuario(e.target.value)} className="form-control" />
+                                    <input type="email" id="emailUsuario" onChange={e => setEmail(e.target.value)} className="form-control" />
                                 </div>
 
                                 {/* Endereço */}
@@ -128,13 +214,13 @@ export default function CadastroUsuario() {
                                     <label htmlFor="enderecoEmpresa" className="form-label">
                                         Endereço *
                                     </label>
-                                    <input type="text" id="enderecoEmpresa" onChange={e => setEnderecoUsuario(e.target.value)} className="form-control" />
+                                    <input type="text" id="enderecoEmpresa" onChange={e => setEndereco(e.target.value)} className="form-control" />
                                 </div>
 
                                 {/* Data de nacimento */}
                                 <div className="col-md-6 mb-3">
                                     <label htmlFor="telefone" className="form-label">Data de nascimento *</label>
-                                    <input type="date" id="telefone" onChange={e => setDataNascUsuario(e.target.value)} className="form-control" />
+                                    <input type="date" id="telefone" onChange={e => setDataNasc(e.target.value)} className="form-control" />
                                 </div>
 
                                 {/* CPF */}
@@ -155,14 +241,14 @@ export default function CadastroUsuario() {
 
                                 {/* Confirmar Senha */}
                                 <div className="col-12 mb-3">
-                                    <label htmlFor="senhaEmpresaNovamente" onChange={e => setConfirmaSenhaUsuario(e.target.value)} className="form-label">
+                                    <label htmlFor="senhaEmpresaNovamente" className="form-label">
                                         Confirme sua senha *
                                     </label>
                                     <input
                                         type="password"
                                         id="senhaEmpresaNovamente"
                                         className="form-control"
-                                        onChange={e => setConfirmaSenha(e.target.value)}
+                                        onChange={e => setConfirmaSenhaCandidato(e.target.value)}
                                     />
                                 </div>
 
@@ -171,7 +257,7 @@ export default function CadastroUsuario() {
                                     <label htmlFor="areaAtuacao" className="form-label">
                                         Diga qual sua Área de atuação *
                                     </label>
-                                    <input type="text" id="areaAtuacao" onChange={e => setAreaUsuario(e.target.value)} className="form-control" />
+                                    <input type="text" id="areaAtuacao" onChange={e => setArea(e.target.value)} className="form-control" />
                                 </div>
 
                                 {/* Telefone */}
@@ -179,7 +265,7 @@ export default function CadastroUsuario() {
                                     <label htmlFor="telefone" className="form-label">
                                         Diga seu telefone *
                                     </label>
-                                    <input type="text" id="telefone" placeholder="EX:(XX) XXXXX-XXXX" onChange={e => setTelUsuario(e.target.value)} className="form-control" />
+                                    <input type="text" id="telefone" placeholder="EX:(XX) XXXXX-XXXX" onChange={e => setTel(e.target.value)} className="form-control" />
                                 </div>
 
 
@@ -215,7 +301,7 @@ export default function CadastroUsuario() {
                                     <label htmlFor="nomeEmpresa" className="form-label">
                                         Apelido*
                                     </label>
-                                    <input type="text" onChange={e => setNomeEmpresa(e.target.value)} id="nomeEmpresa" className="form-control" />
+                                    <input type="text" onChange={e => setNome(e.target.value)} id="nomeEmpresa" className="form-control" />
                                 </div>
 
                                 {/* Email */}
@@ -223,7 +309,7 @@ export default function CadastroUsuario() {
                                     <label htmlFor="emailEmpresa" className="form-label">
                                         Email *
                                     </label>
-                                    <input type="email" id="emailEmpresa" onChange={e => setEmailEmpresa(e.target.value)} className="form-control" />
+                                    <input type="email" id="emailEmpresa" onChange={e => setEmail(e.target.value)} className="form-control" />
                                 </div>
 
                                 {/* Endereço */}
@@ -231,7 +317,7 @@ export default function CadastroUsuario() {
                                     <label htmlFor="enderecoEmpresa" className="form-label">
                                         Endereço *
                                     </label>
-                                    <input type="text" id="enderecoEmpresa" onChange={e => setEnderecoEmpresa(e.target.value)} className="form-control" />
+                                    <input type="text" id="enderecoEmpresa" onChange={e => setEndereco(e.target.value)} className="form-control" />
                                 </div>
 
                                 {/* Senha */}
@@ -251,7 +337,7 @@ export default function CadastroUsuario() {
                                         type="password"
                                         id="senhaEmpresaNovamente"
                                         className="form-control"
-                                        onChange={e => setConfirmaSenha(e.target.value)}
+                                        onChange={e => setConfirmaSenhaEmpresa(e.target.value)}
                                     />
                                 </div>
 
@@ -260,7 +346,7 @@ export default function CadastroUsuario() {
                                     <label htmlFor="telefone" className="form-label">
                                         Telefone *
                                     </label>
-                                    <input type="text" id="telefone" onChange={e => setTelEmpresa(e.target.value)} className="form-control" />
+                                    <input type="text" id="telefone" onChange={e => setTel(e.target.value)} className="form-control" />
                                 </div>
 
                                 {/* CNPJ */}
@@ -276,7 +362,7 @@ export default function CadastroUsuario() {
                                     <label htmlFor="areaAtuacao" className="form-label">
                                         Área de atuação *
                                     </label>
-                                    <input type="text" id="areaAtuacao" onChange={e => setAreaEmpresa(e.target.value)} className="form-control" />
+                                    <input type="text" id="areaAtuacao" onChange={e => setArea(e.target.value)} className="form-control" />
                                 </div>
 
                                 {/* Premium */}
