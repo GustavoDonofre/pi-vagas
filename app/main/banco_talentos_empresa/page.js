@@ -11,7 +11,6 @@ export default function bancoTalentosEmp() {
 
     // Arrumar filtros
     // foto do candidato
-    // curriculo e pdf para a empresa baixar
 
     const [bancoTalentos, alteraBancoTalentos] = useState([])
     const [candidatoInscrito, alteraCandidatoInscrito] = useState(null)
@@ -148,16 +147,24 @@ export default function bancoTalentosEmp() {
 
                                                             <br />
 
-                                                            <p><strong>Currículo: </strong> {candidatoInscrito.curriculo} </p>
+                                                            <div>
+                                                                Curriculo do candidato:
+                                                                <iframe allow='true' width={595} height={842} src={"https://qrcmtnxakmuwbunyoooc.supabase.co/storage/v1/object/public/curriculos/"+id_candidato} ></iframe>
+                                                            </div>
+
 
                                                             {
                                                                 candidatoInscrito.certificacoes == null ?
-                                                                    <p><strong>Certificações: </strong> Não informado. </p>
-                                                                    :
-                                                                    <p><strong>Certificações: </strong> {candidatoInscrito.certificacoes} </p>
+                                                                <p><strong>Certificações: </strong> Não informado. </p>
+                                                                :
+                                                                <p><strong>Certificações: </strong> {candidatoInscrito.certificacoes} </p>
                                                             }
+                                                            
 
                                                             {/*
+
+<p><strong>Currículo: </strong></p> <img target="_blank" src={"https://qrcmtnxakmuwbunyoooc.supabase.co/storage/v1/object/public/curriculos/"+id_candidato} ></img>
+
                                                                 candidatoInscrito.portfolio == null ?
                                                                     <p><strong>Portfólio: </strong> Não informado. </p>
                                                                     :
@@ -168,7 +175,7 @@ export default function bancoTalentosEmp() {
                                                                 candidatoInscrito.portfolio == null ?
                                                                     <p><strong>Portfólio: </strong> Não informado.</p> 
                                                                     :
-                                                                    <p><strong>Portfólio: </strong> <a  href={ candidatoInscrito.portfolio } > Acessar portfólio </a> </p>
+                                                                    <p><strong>Portfólio: </strong> <a target="_blank"  href={ candidatoInscrito.portfolio } > Acessar portfólio </a> </p>
                                                             }
 
                                                         </div>
