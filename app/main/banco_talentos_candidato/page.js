@@ -6,25 +6,11 @@ import './banco_talentos.css'
 
 export default function BancoTalentos() {
 
-    const id_usuario = localStorage.getItem("id_usuario")
-
-    const [usuario, alteraUsuario] = useState(null) // [] serve para pegar lista
-
-    async function buscaUsuario(){
-
-        const{data, error} = await supabase
-            .from("usuarios")
-            .select()
-            .eq("id", id_usuario) //exatamente aquele dado, na coluna "id"
-
-        // console.log(data) -> para ver se esta vindo os dados solicitados
-        alteraUsuario(data[0]) //salva os dados na variavel. data (lista de usuarios) + [0] para pegar UM objeto. pq 0? pq pega o primeiro item com aquele id. lembrando q o id é unico ent é como se so tivesse ele
-
-    }
+    const id_candidato = localStorage.getItem("id_usuario")
 
     // Arrumar para candidato logado
     // No banco: salvar como pdf (curriculo e certificacoes)
-  
+
     // Animações
     // Criar um css de botão padrao para cancelar / excluir
 
@@ -41,13 +27,15 @@ export default function BancoTalentos() {
     const [contratacao, alteraContratacao] = useState("")
     const [turno, alteraTurno] = useState("")
 
+
+
     async function buscar() { //função que busca os dados no banco 
 
         const { data, error } = await supabase
 
             .from('banco_talentos')
             .select()
-            .eq('id_usuario', 3) // equals -> igual a 
+            .eq('id_candidato', id_candidato) // equals -> igual a 
 
         console.log(data)
         console.log(error)
@@ -86,7 +74,7 @@ export default function BancoTalentos() {
 
         }
 
-        const {error} = await supabase //da minha tabela do banco -> atualizar o obj 
+        const { error } = await supabase //da minha tabela do banco -> atualizar o obj 
 
             .from('banco_talentos')
             .update(obj)
@@ -135,7 +123,7 @@ export default function BancoTalentos() {
             competencias: competencias,
             contratacao: contratacao,
             turno: turno,
-            id_usuario: 3
+            id_candidato: id_candidato
         }
 
         if (!bancoCandidato.curriculo) {
@@ -173,12 +161,31 @@ export default function BancoTalentos() {
             return
         }
 
+        const resposta = await supabase.storage.from('curriculos').upload(id_candidato, curriculo)
+        console.log(resposta)
+        if (error) {
+            alert("Erro ao enviar currículo!")
+            return
+        }
+
+        return
+
         const { error } = await supabase
             .from('banco_talentos')
             .insert(bancoCandidato)
 
-        console.log(error)
+        if (error == null) {
+            alert("Cadastro realizado com sucesso!")
 
+            alteraCadastroTalentos(true)
+
+            buscar() // recarrega os dados
+
+        } else {
+            alert("Erro ao cadastrar!")
+        }
+
+        console.log(error)
         console.log(bancoCandidato)
 
     }
@@ -197,33 +204,32 @@ export default function BancoTalentos() {
 
     }
 
-    async function excluirInscricao(id) {
+    async function cancelarCandidatura() {
 
-        const opcao = confirm("Tem certeza que deseja CANCELAR sua inscrição?")
+        const opcao = confirm("Deseja cancelar sua candidatura?")
 
-        if (opcao == false) {
+        if (opcao == false){
             return
+        } 
 
-        }
-
-        const {error} = await supabase 
+        const {error} = await supabase
             .from('banco_talentos')
-            .delete()
-            .eq('id', id)
+            .update({ ativo: false })
+            .eq('id_candidato', id_candidato)
 
-        if (error) {
-            alert("Erro ao cancelar inscrição")
-            return
+        if (error == null) {
+            alert("Candidatura cancelada com sucesso!")
+
+            alteraCadastroTalentos(false)
+            alteraBancoTalentos([])
+
+        } else {
+            alert("Erro ao cancelar candidatura!")
         }
-
-        alert("Inscrição cancelada com sucesso!")
-
-        buscar()
     }
 
     useEffect(() => {
         buscar()
-        buscaUsuario()
     }, [])
 
 
@@ -299,7 +305,7 @@ export default function BancoTalentos() {
                                         </div>
 
                                         <button className='btn-padrao' onClick={() => editar(item)}> Editar </button>
-                                        <button className='btn-padrao' onClick={() => excluirInscricao(item.id)}>Cancelar candidatura</button>
+                                        <button className='btn-padrao' onClick={() => cancelarCandidatura(item)}> Cancelar Candidatura </button>
 
                                     </div>
 
@@ -370,7 +376,7 @@ export default function BancoTalentos() {
                                 </div>
 
                                 <button className="btn-padrao"> Salvar inscrição </button>
-                                <button className="btn-padrao" type="button" onClick={() => cancelar()}> Cancelar </button>
+                                <button className="btn-padrao" onClick={() => cancelar()}> Cancelar </button>
 
                             </form >
 
@@ -384,4 +390,3 @@ export default function BancoTalentos() {
 
     )
 }
-//type submit no botao? 

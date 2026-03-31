@@ -46,7 +46,7 @@ export default function CadastroUsuario() {
 
             //CADASTRAR NA MINHA TABELA
             const obj = {
-                id: data.user.uid,
+                id: data.user.id,
                 nome: nome,
                 email: email,
                 endereco: endereco,
@@ -61,7 +61,9 @@ export default function CadastroUsuario() {
                 .from('usuarios')
                 .insert(obj)
 
-            if (response.error == null) {
+                console.log(response)
+
+            if (response.status == 201) {
                 alert('Candidato cadastrado com sucesso!!')
                 return
             } else {

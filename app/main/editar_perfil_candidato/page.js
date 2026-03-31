@@ -6,13 +6,15 @@ import { useEffect, useState } from 'react'
 
 export default function EditarPerfil() {
 
+    const id_candidato = "1376fe27-2c48-402e-9245-306abe707317"
+
     // Arrumar para candidato logado
     // Arrumar editar foto
 
-    //const [nome, alteraNome] = useState()
     //const [cpf, alteraCpf] = useState()
     //const [email, alteraEmail] = useState()
     //const [senha, alteraSenha] = useState()
+    const [nome, alteraNome] = useState("")
     const [dataNascimento, alteraDataNascimento] = useState("")
     const [telefone, alteraTelefone] = useState("")
     const [endereco, alteraEndereco] = useState("")
@@ -28,6 +30,7 @@ export default function EditarPerfil() {
         const { data, error } = await supabase
             .from('usuarios')
             .select()
+            .eq('id', id_candidato)
 
         alteraListaUsuarios(data)
         editar(data[0]) // chama a função editar para que apareça no input
@@ -38,10 +41,10 @@ export default function EditarPerfil() {
 
         alteraEditando(objeto.id)
 
-        //alteraNome(objeto.nome)
         //alteraEmail(objeto.email)
         //alteraCpf(objeto.cpf)
         //alteraSenha(objeto.senha)
+        alteraNome(objeto.nome)
         alteraDataNascimento(objeto.dataNascimento)
         alteraTelefone(objeto.telefone)
         alteraEndereco(objeto.endereco)
@@ -52,10 +55,10 @@ export default function EditarPerfil() {
 
     function cancelaEdicao() { //limpa os campos
 
-        //alteraNome("")
         //alteraCpf("")
         //alteraEmail("")
         //alteraSenha("")
+        alteraNome("")
         alteraTelefone("")
         alteraEndereco("")
         alteraArea("")
@@ -70,13 +73,13 @@ export default function EditarPerfil() {
         e.preventDefault()
 
         const obj = {
-            //nome: nome,
             //cpf: cpf,
             //email: email,
             //password: senha,
+            nome: nome,
             telefone: telefone,
             endereco: endereco,
-            area: area,
+            area_ataucao: area,
             curriculo: curriculo,
             data_nasc: dataNascimento 
         }
@@ -84,14 +87,13 @@ export default function EditarPerfil() {
         const { error } = await supabase
             .from('usuarios')
             .update(obj)
-            .eq('id', 3)
+            .eq('id', id_candidato )
 
         if (error == null) {
             alert("Atualização realizada com sucesso!")
-            cancelaEdicao() /* limpa os campos */
+            //cancelaEdicao() /* limpa os campos */
             buscaUsuario() /* atualiza a pg */
 
-        
         } else {
             alert("Dados inválidos! Verifique os campos e tente novamente...")
         }
@@ -134,7 +136,7 @@ export default function EditarPerfil() {
 
                                         <div className="col-md-6 mb-3">
                                             <label>Nome: </label>
-                                            <input type="text" className="form-control" value={item.nome} disabled />
+                                            <input type="text" className="form-control" value={nome} onChange={e => alteraNome(e.target.value)}/>
                                         </div>
 
                                         <div className="col-md-6 mb-3">
@@ -147,7 +149,7 @@ export default function EditarPerfil() {
                                             <input type="email" className="form-control" value={item.email} disabled />
                                         </div>
 
-                                        <div className="col-md-6 mb-3"> {/* Desabilitar senha? */}
+                                        <div className="col-md-6 mb-3">
                                             <label>Senha: </label>
                                             <input type='password' className="form-control" value={item.senha} disabled />
                                         </div>
@@ -159,7 +161,7 @@ export default function EditarPerfil() {
 
                                         <div className="col-md-6 mb-3">
                                             <label>Telefone: </label>
-                                            <input type="text" placeholder="EX:(XX) XXXXX-XXXX" className="form-control" value={telefone} onChange={e => alteraTelefone(e.target.value)} />
+                                            <input type="text" className="form-control" value={telefone} onChange={e => alteraTelefone(e.target.value)} />
                                         </div>
 
                                         <div className="col-md-6 mb-3">
