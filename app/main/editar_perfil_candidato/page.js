@@ -6,13 +6,16 @@ import { useEffect, useState } from 'react'
 
 export default function EditarPerfil() {
 
-    // Arrumar para candidato logado
-    // Arrumar editar foto
+    const id_candidato = localStorage.getItem("id_usuario")
 
-    //const [nome, alteraNome] = useState()
+    // Arrumar editar foto
+    // Salvar o pdf do curriculo
+    // fora isso, funfona :)
+
     //const [cpf, alteraCpf] = useState()
     //const [email, alteraEmail] = useState()
     //const [senha, alteraSenha] = useState()
+    const [nome, alteraNome] = useState("")
     const [dataNascimento, alteraDataNascimento] = useState("")
     const [telefone, alteraTelefone] = useState("")
     const [endereco, alteraEndereco] = useState("")
@@ -21,47 +24,46 @@ export default function EditarPerfil() {
 
     const [listaUsuarios, alteraListaUsuarios] = useState([])
 
-    const [editando, alteraEditando] = useState()
+    //const [editando, alteraEditando] = useState()
 
-    async function buscaUsuario() { //buscar usuario no banco
+    async function buscaUsuario() {
 
         const { data, error } = await supabase
             .from('usuarios')
             .select()
+            .eq('id', id_candidato)
 
         alteraListaUsuarios(data)
         editar(data[0]) // chama a função editar para que apareça no input
 
     }
 
-    function editar(objeto) { //editar objeto
+    function editar(objeto) {
 
-        alteraEditando(objeto.id)
+        //alteraEditando(objeto.id)
 
-        //alteraNome(objeto.nome)
         //alteraEmail(objeto.email)
         //alteraCpf(objeto.cpf)
-        //alteraSenha(objeto.senha)
-        alteraDataNascimento(objeto.dataNascimento)
-        alteraTelefone(objeto.telefone)
+        //alteraSenha(objeto.password)
+        alteraNome(objeto.nome)
+        alteraDataNascimento(objeto.data_nasc)
+        alteraTelefone(objeto.contato)
         alteraEndereco(objeto.endereco)
-        alteraArea(objeto.area)
+        alteraArea(objeto.area_atuacao)
         alteraCurriculo(objeto.curriculo)
 
     }
 
     function cancelaEdicao() { //limpa os campos
 
-        //alteraNome("")
         //alteraCpf("")
         //alteraEmail("")
         //alteraSenha("")
+        alteraNome("")
         alteraTelefone("")
         alteraEndereco("")
         alteraArea("")
         //alteraCurriculo("") COMO LIMPAR PDF? 
-
-        alteraEditando (null)
 
     }
 
@@ -70,28 +72,27 @@ export default function EditarPerfil() {
         e.preventDefault()
 
         const obj = {
-            //nome: nome,
             //cpf: cpf,
             //email: email,
             //password: senha,
-            telefone: telefone,
+            nome: nome,
+            contato: telefone,
             endereco: endereco,
-            area: area,
-            curriculo: curriculo,
+            area_atuacao: area,
+            //curriculo: curriculo,
             data_nasc: dataNascimento 
         }
 
         const { error } = await supabase
             .from('usuarios')
             .update(obj)
-            .eq('id', 3)
+            .eq('id', id_candidato )
 
         if (error == null) {
             alert("Atualização realizada com sucesso!")
-            cancelaEdicao() /* limpa os campos */
+            //cancelaEdicao() /* limpa os campos */
             buscaUsuario() /* atualiza a pg */
 
-        
         } else {
             alert("Dados inválidos! Verifique os campos e tente novamente...")
         }
@@ -128,13 +129,13 @@ export default function EditarPerfil() {
 
                                 <h5 className="mb-4">Dados pessoais</h5>
 
-                                <form onSubmit={salvar}>
+                                <form>
 
                                     <div className="row">
 
                                         <div className="col-md-6 mb-3">
                                             <label>Nome: </label>
-                                            <input type="text" className="form-control" value={item.nome} disabled />
+                                            <input type="text" className="form-control" value={nome} onChange={e => alteraNome(e.target.value)}/>
                                         </div>
 
                                         <div className="col-md-6 mb-3">
@@ -147,7 +148,7 @@ export default function EditarPerfil() {
                                             <input type="email" className="form-control" value={item.email} disabled />
                                         </div>
 
-                                        <div className="col-md-6 mb-3"> {/* Desabilitar senha? */}
+                                        <div className="col-md-6 mb-3">
                                             <label>Senha: </label>
                                             <input type='password' className="form-control" value={item.senha} disabled />
                                         </div>
@@ -159,7 +160,7 @@ export default function EditarPerfil() {
 
                                         <div className="col-md-6 mb-3">
                                             <label>Telefone: </label>
-                                            <input type="text" placeholder="EX:(XX) XXXXX-XXXX" className="form-control" value={telefone} onChange={e => alteraTelefone(e.target.value)} />
+                                            <input type="text" className="form-control" value={telefone} onChange={e => alteraTelefone(e.target.value)} />
                                         </div>
 
                                         <div className="col-md-6 mb-3">
@@ -179,7 +180,7 @@ export default function EditarPerfil() {
 
                                         <div className="mt-4 d-flex justify-content-center">
 
-                                            <button className="btn-padrao me-4" type="submit">Salvar Alterações</button>
+                                            <button className="btn-padrao me-4" onClick={salvar}>Salvar Alterações</button>
                                             <button className="btn-padrao" onClick={cancelaEdicao}>Cancelar</button>
 
                                         </div>

@@ -22,7 +22,7 @@ export default function ajudaCandidato() {
                     </h2>
                     <div id="collapseOne" className="accordion-collapse collapse" data-bs-parent="#accordionExample">
                         <div className="accordion-body">
-                            Acesse a página inicial, encontre uma vaga de seu interesse, clique no botão "Ver vaga", aparecera um card com todas as informações a respeito da vaga, no canto inferior direito aparecera o botão "Candidatar-se". Pronto! A empresa receberá suas informações.
+                            Acesse a página inicial, encontre uma vaga de seu interesse e clique no botão “Ver vaga”. Um card será exibido com todas as informações sobre a oportunidade. No canto inferior direito, clique em “Candidatar-se”. Pronto! A empresa receberá suas informações.
                         </div>
                     </div>
                 </div>
@@ -34,7 +34,7 @@ export default function ajudaCandidato() {
                     </h2>
                     <div id="collapseTwo" className="accordion-collapse collapse" data-bs-parent="#accordionExample">
                         <div className="accordion-body">
-                            É um espaço onde você cadastra suas habilidades e experiências. Empresas podem encontrar seu perfil e entrar em contato com você diretamente.
+                            É um espaço onde você cadastra suas habilidades e experiências. Assim, empresas podem encontrar seu perfil e entrar em contato diretamente com você.
                         </div>
                     </div>
                 </div>
@@ -47,7 +47,7 @@ export default function ajudaCandidato() {
                     </h2>
                     <div id="collapseThree" className="accordion-collapse collapse" data-bs-parent="#accordionExample">
                         <div className="accordion-body">
-                            Na página "minhas candidaturas" é possivel ver se você foi selecionado para a vaga ou não. A empresa entrará em contato com você pelo telefone ou email cadastrado. Fique atento às suas notificações.
+                            Na página “Minhas candidaturas”, você pode verificar o status das vagas para as quais se candidatou. Caso seja selecionado, a empresa entrará em contato pelo telefone ou e-mail cadastrados. Fique atento às suas notificações.
                         </div>
                     </div>
                 </div>

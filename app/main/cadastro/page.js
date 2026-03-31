@@ -62,7 +62,9 @@ export default function CadastroUsuario() {
                 .from('usuarios')
                 .insert(obj)
 
-            if (response.error == null) {
+                console.log(response)
+
+            if (response.status == 201) {
                 alert('Candidato cadastrado com sucesso!!')
                 return
             } else {
