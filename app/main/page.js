@@ -41,6 +41,10 @@ export default function paginainicial() {
         alert('Autenticado com sucesso!')
         localStorage.setItem("id_usuario", data.user.id)
 
+        const resposta = await supabase.from('usuarios').select().eq("id", data.user.id)
+        if(resposta.data != null && resposta.data.length > 0    )
+            localStorage.setItem("nome_usuario", resposta.data[0].nome)
+
         if (usuario.role == 1) {
             window.location.href = "./feed_empresa"
         }

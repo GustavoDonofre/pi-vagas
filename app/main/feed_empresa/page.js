@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import './empresa.css'
 import supabase from '../conexao/supabase'
 import { useParams } from 'next/navigation'
+import { PegaCurriculoPeloIDUsuario } from '../conexao/bucket'
 
 function Empresa() {
     const params = useParams()
@@ -17,8 +18,6 @@ function Empresa() {
 
     const [candidatos, alteraCanditados] = useState([])
 
-
-
     const [vagas, alteraVagas] = useState([])
 
     const [vagasExibir, alteraVagasExibir] = useState([])
@@ -31,8 +30,6 @@ function Empresa() {
             .from('cadastro_vagas')
             .select()
 
-        console.log(error)
-        console.log(data)
         alteraVagasExibir(data)
 
     }
@@ -43,15 +40,9 @@ function Empresa() {
             .from('inscricoes')
             .select('*, id_candidato, id_vaga')
 
-        console.log(error)
-        console.log(data)
         alteraInscricoesExibir(data)
 
     }
-
-
-
-
 
     async function buscaTodos() {
 
@@ -60,8 +51,6 @@ function Empresa() {
             .select(`*,
                id_empresa(*)
                `)
-
-        console.log(data)
 
         alteraVagas(data)
     }
@@ -78,6 +67,7 @@ function Empresa() {
             .eq('id', id)
 
     }
+
     function editar(objeto) {
         alteraEditando(objeto.id)
 
@@ -117,23 +107,23 @@ function Empresa() {
         } else {
             alert("Dados Inválidos! Verifique os campos e tente novamente...")
         }
+
+        buscaTodos()
     }
-    buscaTodos
 
     async function VerCandidatos(id_vaga) {
+        console.log("vaga: "+id_vaga)
+        const { data, error } = await supabase
+            .from('inscricoes')
+            .select('*, usuarios!vaga_candidato_id_candidato_fkey(*)')
+            .eq('id_vaga', id_vaga)
 
-        const { data } = await supabase
-            .from(vaga_candidato)
-            .select('*')
-            .eq('id', id_vaga)
-
-        if (error == null) {
+            console.log(data)
+        if (!error) {
             alteraCanditados(data)
         } else {
             console.log(error)
         }
-
-        console.log(data)
     }
 
     async function Cadastrar(e) {
@@ -165,6 +155,7 @@ function Empresa() {
 
 
     return (
+
         <div>
 
             <div>
@@ -200,6 +191,7 @@ function Empresa() {
                     </div>
                     <div className="d-flex justify-content-end pt-2">
                         <button className="botaoVaga btn-padrao" onClick={() => window.location.href = "/main/vagas"} > Criar vaga </button>
+
                     </div>
                 </div>
                 <br />
@@ -248,9 +240,6 @@ function Empresa() {
                     </div>
                 </div>
 
-
-
-
                 <div className="modal fade" id="modalEditar">
                     <div className="modal-dialog modal-dialog-centered">
                         <div className="modal-content">
@@ -286,118 +275,120 @@ function Empresa() {
                                 {/* CONTEUDO */}
 
                                 {
-                                    inscricoesExibir.length == 0 ?
-                                        <p>depoi noi muda<p />
-                                            :
-                                            <label></label>
-                                            <input />nome(usuario)
-                                            <input />email(usuario)
-                                            <input />telefone(usuario)
-                                            <input />curriculo(usuario)
-                                            <input />descricao
-                            }
+                                    candidatos.length == 0 ?
+                                        <p>Nenhum puto se inscrito nessa vaga de salario minimo</p>
+                                        :
+                                        (
+                                            <div>
+                                                {candidatos.map((usuario, index) => (
+                                                    <div className='card mb-3' item={index}>
+                                                        <div className="card-body">
+                                                            <h6 className="card-title"><i class="bi bi-person"></i> Nome: {usuario.usuarios.nome}</h6>
+                                                            <p className="card-text" ><i class="bi bi-envelope"></i> Email: {usuario.usuarios.email}</p>
+                                                            <p className='card-text'><i class="bi bi-telephone"></i>Telefone: {usuario.usuarios.contato}</p>
+                                                            <a target='_blank' href={PegaCurriculoPeloIDUsuario(usuario.usuarios.id)} class="btn btn-padrao"><i class="bi bi-file-earmark"></i> Ver Currículo</a>
+                                                            <hr />
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        )
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="modal fade" id="modalVaga">
+                        <div className="modal-dialog">
+                            <div className="modal-content">
+
+                                <div className="modal-header">
+                                    <h5 className="modal-title"> Nova Vaga </h5>
+                                    <button className="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+
+                                <div data-bs-toggle="modal" data-bs-target="#modalVaga">
+                                    <title>Gerenciador de Vagas</title>
 
 
+                                    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" />
+                                    <link rel="stylesheet" href="./pi_vagas.css" />
 
+                                    <h1 className="text-center mb-4">Cadastro de Vagas</h1>
 
+                                    <form onSubmit={Cadastrar}>
 
-
-
+                                        <div className="mb-3">
+                                            <label className="form-label">Empresa</label>
+                                            <input type="text" className="form-control" placeholder="Nome da empresa" value={empresa} onChange={(e) => alteraEmpresa(e.target.value)} />
                                         </div>
 
-                        </div>
+                                        <div className="mb-3">
+                                            <label className="form-label">Área de Atuação</label>
+                                            <select className="form-select" value={atuacao} onChange={(e) => alteraAtucao(e.target.value)}>
+                                                <option selected disabled>Selecione</option>
+                                                <option>T.I</option>
+                                                <option>Barman</option>
+                                                <option>Atendimento ao Cliente</option>
+                                            </select>
+                                        </div>
+
+                                        <div className="mb-3">
+                                            <label className="form-label">Descrição da Vaga</label>
+                                            <textarea className="form-control" rows="3" value={descricao} onChange={(e) => alteraDescricao(e.target.value)}></textarea>
+                                        </div>
+
+                                        <div className="mb-3">
+                                            <label className="form-label">Salário</label>
+                                            <div className="input-group">
+                                                <span className="input-group-text">R$</span>
+                                                <input type="number" className="form-control" placeholder="0,00" value={salario} onChange={(e) => alteraSalario(e.target.value)} />
+                                            </div>
+                                        </div>
+
+                                        <div className="mb-3">
+                                            <label className="form-label">Tipo de Vaga</label>
+                                            <select className="form-select" value={tipo_vaga} onChange={(e) => alteraTipo_vaga(e.target.value)}>
+                                                <option selected disabled>Selecione</option>
+                                                <option>Efetiva</option>
+                                                <option>Freelancer</option>
+                                            </select>
+                                        </div>
+
+                                        <div className="mb-3">
+                                            <label className="form-label">Modo de Trabalho</label>
+                                            <select className="form-select" value={modo_trabalho} onChange={(e) => alteraModo_trabalho(e.target.value)}>
+                                                <option selected disabled>Selecione</option>
+                                                <option>Remoto</option>
+                                                <option>Híbrido</option>
+                                                <option>Presencial</option>
+                                            </select>
+                                        </div>
+
+                                        <div className="mb-4">
+                                            <label className="form-label">Período</label>
+                                            <select className="form-select" value={periodo} onChange={(e) => alteraPerido(e.target.value)}>
+                                                <option selected disabled>Selecione</option>
+                                                <option>Matutino</option>
+                                                <option>Vespertino</option>
+                                                <option>Noturno</option>
+                                            </select>
+                                        </div>
+
+                                        <button type="submit" className="btn btn-warning">Cadastrar Vaga</button>
+
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                 </div>
-
-                <div className="modal fade" id="modalVaga">
-                    <div className="modal-dialog">
-                        <div className="modal-content">
-
-                            <div className="modal-header">
-                                <h5 className="modal-title"> Nova Vaga </h5>
-                                <button className="btn-close" data-bs-dismiss="modal"></button>
-                            </div>
-
-                            <div data-bs-toggle="modal" data-bs-target="#modalVaga">
-                                <title>Gerenciador de Vagas</title>
-
-
-                                <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" />
-                                <link rel="stylesheet" href="./pi_vagas.css" />
-
-                                <h1 className="text-center mb-4">Cadastro de Vagas</h1>
-
-                                <form onSubmit={Cadastrar}>
-
-                                    <div className="mb-3">
-                                        <label className="form-label">Empresa</label>
-                                        <input type="text" className="form-control" placeholder="Nome da empresa" value={empresa} onChange={(e) => alteraEmpresa(e.target.value)} />
-                                    </div>
-
-                                    <div className="mb-3">
-                                        <label className="form-label">Área de Atuação</label>
-                                        <select className="form-select" value={atuacao} onChange={(e) => alteraAtucao(e.target.value)}>
-                                            <option selected disabled>Selecione</option>
-                                            <option>T.I</option>
-                                            <option>Barman</option>
-                                            <option>Atendimento ao Cliente</option>
-                                        </select>
-                                    </div>
-
-                                    <div className="mb-3">
-                                        <label className="form-label">Descrição da Vaga</label>
-                                        <textarea className="form-control" rows="3" value={descricao} onChange={(e) => alteraDescricao(e.target.value)}></textarea>
-                                    </div>
-
-                                    <div className="mb-3">
-                                        <label className="form-label">Salário</label>
-                                        <div className="input-group">
-                                            <span className="input-group-text">R$</span>
-                                            <input type="number" className="form-control" placeholder="0,00" value={salario} onChange={(e) => alteraSalario(e.target.value)} />
-                                        </div>
-                                    </div>
-
-                                    <div className="mb-3">
-                                        <label className="form-label">Tipo de Vaga</label>
-                                        <select className="form-select" value={tipo_vaga} onChange={(e) => alteraTipo_vaga(e.target.value)}>
-                                            <option selected disabled>Selecione</option>
-                                            <option>Efetiva</option>
-                                            <option>Freelancer</option>
-                                        </select>
-                                    </div>
-
-                                    <div className="mb-3">
-                                        <label className="form-label">Modo de Trabalho</label>
-                                        <select className="form-select" value={modo_trabalho} onChange={(e) => alteraModo_trabalho(e.target.value)}>
-                                            <option selected disabled>Selecione</option>
-                                            <option>Remoto</option>
-                                            <option>Híbrido</option>
-                                            <option>Presencial</option>
-                                        </select>
-                                    </div>
-
-                                    <div className="mb-4">
-                                        <label className="form-label">Período</label>
-                                        <select className="form-select" value={periodo} onChange={(e) => alteraPerido(e.target.value)}>
-                                            <option selected disabled>Selecione</option>
-                                            <option>Matutino</option>
-                                            <option>Vespertino</option>
-                                            <option>Noturno</option>
-                                        </select>
-                                    </div>
-
-                                    <button type="submit" className="btn btn-warning">Cadastrar Vaga</button>
-
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
             </div>
-            )
+        </div>
+
+    )
 }
 
-            export default Empresa;
+export default Empresa;

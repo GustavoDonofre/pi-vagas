@@ -5,7 +5,7 @@ import { useParams } from "next/navigation";
 // const supabase = createClient('https://qrcmtnxakmuwbunyoooc.supabase.co', 'sb_publishable_kD9z8OLZIlbh3yry6yNMDQ_LTAi81op')
 
 export default function Vagas() {
-  const params = useParams ()
+  const params = useParams()
 
   const [empresa, alteraEmpresa] = useState("")
   const [area, alteraArea] = useState("")
@@ -17,15 +17,15 @@ export default function Vagas() {
 
   const [vagas, alteraVagas] = useState([])
 
-  async function buscarEmpresa () {
-    const {data, error} = await supabase
-    .from('cadastrovendas')
-    .select (`*,
+  async function buscarEmpresa() {
+    const { data, error } = await supabase
+      .from('cadastrovendas')
+      .select(`*,
       id_empresa (*)
       `)
-      .eq (`id`, params.id_empresa)
+      .eq(`id`, params.id_empresa)
 
-      alteraVagas (data)
+    alteraVagas(data)
   }
 
   async function salvar(e) {
@@ -45,9 +45,9 @@ export default function Vagas() {
       .from('cadastro_vagas')
       .insert(vaga)
     console.log(error)
-   
 
-    if ( error == null) {
+
+    if (error == null) {
       alert("vaga cadastrada com sucesso!")
       alteraEmpresa("")
       alteraArea("")
@@ -62,9 +62,9 @@ export default function Vagas() {
     }
   }
 
-      useEffect (() => {
-        buscarEmpresa()
-    }, [])
+  useEffect(() => {
+    buscarEmpresa()
+  }, [])
 
   return (
 
@@ -78,7 +78,7 @@ export default function Vagas() {
 
             <div className="mb-3">
               <label className="form-label">Empresa</label>
-            {/* <input value={empresa} type="text" className="form-control" disabled placeholder={localStorage.getItem('empresa')} /> */}
+              {/* <input value={empresa} type="text" className="form-control" disabled placeholder={localStorage.getItem('empresa')} /> */}
             </div>
 
             <div className="mb-3">
@@ -127,7 +127,16 @@ export default function Vagas() {
               </select>
             </div>
 
-            <button type="submit" className="btn btn-padrao">Cadastrar Vaga</button>
+            <div className="col-12">
+              <div className="row">
+                <div className="col-6">
+                  <button type="button" className='btn btn-lg btn-outline-dark' onClick={() => window.location.href = "/main/feed_empresa"}> Cancelar </button>
+                </div>
+                <div className="col-6 d-flex justify-content-end">
+                  <button type="submit" className="btn btn-padrao">Cadastrar Vaga</button>
+                </div>
+              </div>
+            </div>
 
           </form>
 

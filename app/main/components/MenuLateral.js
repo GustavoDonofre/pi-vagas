@@ -1,12 +1,16 @@
+'use client'
 import Link from "next/link"
 import "./MenuLateral.css"
 
 export default function MenuLateral() {
+
+    const nome_usuario = localStorage.getItem("nome_usuario")
+
     return (
         <div className="menulateral">
             <div className="text-center">
-                <img src="https://placehold.co/50" className="rounded-circle" />
-                <h2 className="fs-5"> Nome do candidato </h2>
+                <img src={"https://ui-avatars.com/api/?background=random&name="+nome_usuario} className="rounded-circle" />
+                <h2 className="fs-5"> {nome_usuario} </h2>
             </div>
             <hr />
             <div className="list-group list-group-flush fs-5">
