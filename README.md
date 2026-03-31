@@ -21,4 +21,4 @@ Gizeli -> *Empresa* e vagas
 > Cadastrar vagas *fazer funcionar* ok 
 > Listar vagas em aberto (botão editar/encerrar) ok
 > Listar usuários inscritos na vaga ok
-> Editar perfil da empresa
+> Editar perfil da empresa ok 
