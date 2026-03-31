@@ -8,8 +8,8 @@ export default function BancoTalentos() {
 
     const id_candidato = localStorage.getItem("id_usuario")
 
-    // Arrumar para candidato logado
     // No banco: salvar como pdf (curriculo e certificacoes)
+    // Fora isso, funfona :)
 
     // Animações
     // Criar um css de botão padrao para cancelar / excluir
@@ -327,7 +327,7 @@ export default function BancoTalentos() {
 
                         <div>
 
-                            <form onSubmit={editando ? atualizar : salvar} className="form_banco row g-3">
+                            <form className="form_banco row g-3">
 
                                 <div>
                                     <label className="form-label"> Currículo </label>
@@ -375,8 +375,13 @@ export default function BancoTalentos() {
                                     </select>
                                 </div>
 
-                                <button className="btn-padrao"> Salvar inscrição </button>
-                                <button className="btn-padrao" onClick={() => cancelar()}> Cancelar </button>
+                                <div className="col-md-6">
+                                    <button className="btn-padrao" onClick={editando ? atualizar : salvar}> Salvar inscrição </button>
+                                </div>
+                           
+                                <div className="col-md-6">
+                                    <button className="btn-padrao" onClick={() => cancelar()}> Cancelar </button>
+                                </div>
 
                             </form >
 

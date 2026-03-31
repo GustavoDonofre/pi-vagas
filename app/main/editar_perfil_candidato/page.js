@@ -6,10 +6,11 @@ import { useEffect, useState } from 'react'
 
 export default function EditarPerfil() {
 
-    const id_candidato = "1376fe27-2c48-402e-9245-306abe707317"
+    const id_candidato = localStorage.getItem("id_usuario")
 
-    // Arrumar para candidato logado
     // Arrumar editar foto
+    // Salvar o pdf do curriculo
+    // fora isso, funfona :)
 
     //const [cpf, alteraCpf] = useState()
     //const [email, alteraEmail] = useState()
@@ -23,9 +24,9 @@ export default function EditarPerfil() {
 
     const [listaUsuarios, alteraListaUsuarios] = useState([])
 
-    const [editando, alteraEditando] = useState()
+    //const [editando, alteraEditando] = useState()
 
-    async function buscaUsuario() { //buscar usuario no banco
+    async function buscaUsuario() {
 
         const { data, error } = await supabase
             .from('usuarios')
@@ -37,18 +38,18 @@ export default function EditarPerfil() {
 
     }
 
-    function editar(objeto) { //editar objeto
+    function editar(objeto) {
 
-        alteraEditando(objeto.id)
+        //alteraEditando(objeto.id)
 
         //alteraEmail(objeto.email)
         //alteraCpf(objeto.cpf)
-        //alteraSenha(objeto.senha)
+        //alteraSenha(objeto.password)
         alteraNome(objeto.nome)
-        alteraDataNascimento(objeto.dataNascimento)
-        alteraTelefone(objeto.telefone)
+        alteraDataNascimento(objeto.data_nasc)
+        alteraTelefone(objeto.contato)
         alteraEndereco(objeto.endereco)
-        alteraArea(objeto.area)
+        alteraArea(objeto.area_atuacao)
         alteraCurriculo(objeto.curriculo)
 
     }
@@ -64,8 +65,6 @@ export default function EditarPerfil() {
         alteraArea("")
         //alteraCurriculo("") COMO LIMPAR PDF? 
 
-        alteraEditando (null)
-
     }
 
     async function salvar(e) { //salvar 
@@ -77,10 +76,10 @@ export default function EditarPerfil() {
             //email: email,
             //password: senha,
             nome: nome,
-            telefone: telefone,
+            contato: telefone,
             endereco: endereco,
-            area_ataucao: area,
-            curriculo: curriculo,
+            area_atuacao: area,
+            //curriculo: curriculo,
             data_nasc: dataNascimento 
         }
 
@@ -130,7 +129,7 @@ export default function EditarPerfil() {
 
                                 <h5 className="mb-4">Dados pessoais</h5>
 
-                                <form onSubmit={salvar}>
+                                <form>
 
                                     <div className="row">
 
@@ -181,7 +180,7 @@ export default function EditarPerfil() {
 
                                         <div className="mt-4 d-flex justify-content-center">
 
-                                            <button className="btn-padrao me-4" type="submit">Salvar Alterações</button>
+                                            <button className="btn-padrao me-4" onClick={salvar}>Salvar Alterações</button>
                                             <button className="btn-padrao" onClick={cancelaEdicao}>Cancelar</button>
 
                                         </div>

@@ -6,8 +6,8 @@ GUSTAVO -> Cadastro
 > Login -> *Criar página*
 
 Matheus -> sobre e pagamento
-> *Feed do banco de talentos*
-> Pagamento/Premium
+> *Feed do banco de talentos* - CONCLUIDO
+> Pagamento/Premium - Fica pra próxima vida 
 
 IsCaroline -> *Usuário* Banco de talentos e 
 > Se o usuário não tiver cadastrado -> Mostrar cadastro do banco de talentos - CONCLUIDO
