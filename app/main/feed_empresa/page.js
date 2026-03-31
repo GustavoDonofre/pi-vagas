@@ -189,7 +189,7 @@ function Empresa() {
                     <div className='row'>
                         {
                             vagasExibir.length == 0 ? (
-                                <p>Nenhum Candidato Inscrito...</p>
+                                <p>Nenhuma vaga cadastrada...</p>
                             )
                                 :
                                 vagasExibir.map(
@@ -211,11 +211,11 @@ function Empresa() {
                                                             </button>
                                                             <ul className="dropdown-menu dropdown-menu-end">
                                                                 <li>
-                                                                    <a className="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalVaga"> Editar vaga </a>
+                                                                    <a className="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalVaga" button onClick={ ()=> editar (item)}> Editar vaga </a>
                                                                 </li>
 
                                                                 <li>
-                                                                    <a className="dropdown-item text-danger"> Excluir vaga </a>
+                                                                    <a className="dropdown-item text-danger" button onClick= { ()=> excluir (item.id)}> Excluir vaga </a>
                                                                 </li>
                                                             </ul>
                                                         </div>
