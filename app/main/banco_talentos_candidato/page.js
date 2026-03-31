@@ -241,6 +241,12 @@ export default function BancoTalentos() {
 
 
         <div>
+
+            <div>
+                Curriculo do candidato:
+                <iframe allow='true' width={595} height={842} src={"https://qrcmtnxakmuwbunyoooc.supabase.co/storage/v1/object/public/curriculos/"+id_candidato} ></iframe>
+            </div>
+
             {
                 cadastroTalentos == true ?
                     <div>

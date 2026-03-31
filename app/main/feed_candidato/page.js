@@ -19,7 +19,11 @@ export default function Feed() {
             .select(`*, id_empresa(*)`)
             .eq('ativo', true)
 
-        alteraFeedCandidato(data)
+        if (error) {
+            console.error(error)
+        }
+        console.log(feedCandidato)
+        alteraFeedCandidato(data || []) // 🔥 aqui resolve
 
     }
 
@@ -58,17 +62,17 @@ export default function Feed() {
 
         const idVagas = data.map(item => item.id_vaga) // Lista dessas vagas
         alteraCandidaturas(idVagas) // Guarda a lista
+
+        // .filter = cria uma nova lista, contendo apenas os elementos da lista original que passam em um teste especifico
+        // se item.id esta em candidaturas (includes é true) -> false (!)
+        // se item.id não esta em candidaturas (includes é false) -> true (!)
+        // assim, mostra no feed as vagas que ele NAO se candidatou
     }
 
-    const vagasFiltradas = feedCandidato.filter(item => !candidaturas.includes(item.id)) 
-    // .filter = cria uma nova lista, contendo apenas os elementos da lista original que passam em um teste especifico
-    // se item.id esta em candidaturas (includes é true) -> false (!)
-    // se item.id não esta em candidaturas (includes é false) -> true (!)
-    // assim, mostra no feed as vagas que ele NAO se candidatou
 
     useEffect(() => {
         buscarVagas()
-        buscarCandidaturas()
+        // buscarCandidaturas()
     }, [])
 
     return (
@@ -114,10 +118,10 @@ export default function Feed() {
             <br />
 
             {
-                vagasFiltradas.length == 0 ?
+                feedCandidato.length == 0 ?
                     <h4>Sem registros no momento...</h4>
                     :
-                    vagasFiltradas.map(
+                    feedCandidato.map(
                         item =>
                             <div>
 
