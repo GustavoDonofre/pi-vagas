@@ -43,10 +43,11 @@ export default function CadastroUsuario() {
                 alert('Dados inválidos! tente novamente')
                 return
             }
+            console.log(data.user.id)
 
             //CADASTRAR NA MINHA TABELA
             const obj = {
-                id: data.user.uid,
+                id: data.user.id,
                 nome: nome,
                 email: email,
                 endereco: endereco,
@@ -92,7 +93,7 @@ export default function CadastroUsuario() {
                 razao_social: razaoSocial,
                 email: email,
                 endereco: endereco,
-                cpf: cpf.replace(/\D/g, ""),
+                cnpj: cnpj.replace(/\D/g, ""),
                 area_atuacao: area,
                 contato: tel,
                 role: 2
