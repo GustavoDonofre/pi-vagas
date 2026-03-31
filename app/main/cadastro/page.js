@@ -83,7 +83,7 @@ export default function CadastroUsuario() {
                 password: senhaEmpresa,
             })
 
-            if (data == null) {
+            if (error) {
                 alert('Dados inválidos! tente novamente')
                 return
             }
@@ -110,7 +110,7 @@ export default function CadastroUsuario() {
                 return
             } else {
                 console.log(response.error)
-                alert('Verifique os campos e tente novamente...')
+                alert('Verifique os campos da sua empresa e tente novamente...')
             }
 
 

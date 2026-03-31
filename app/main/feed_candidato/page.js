@@ -69,6 +69,20 @@ export default function Feed() {
         // assim, mostra no feed as vagas que ele NAO se candidatou
     }
 
+    function formataData(data) {
+        let data_formatada = new Date(data)
+        data_formatada = data_formatada.toLocaleDateString();
+
+        return data_formatada;
+    }
+
+    function formataHoras(hora) {
+        let horas_formatadas = new Date(hora)
+        horas_formatadas = horas_formatadas.toLocaleTimeString();
+
+        return horas_formatadas;
+    }
+
 
     useEffect(() => {
         buscarVagas()
@@ -154,7 +168,7 @@ export default function Feed() {
                                                             </div>
                                                         </div>
                                                         <div className="col-4 d-flex justify-content-end">
-                                                            <button className="btn-padrao" data-bs-toggle="modal" data-bs-target="#modal_perfil">Ver vaga</button>
+                                                            <button className="btn-padrao" data-bs-toggle="modal" data-bs-target={`#modal_perfil_${item.id}`}>Ver vaga</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -165,7 +179,7 @@ export default function Feed() {
                                 </div>
 
                                 {/* Modal da vaga */}
-                                <div className="modal fade" id="modal_perfil">
+                                <div className="modal fade" id={`modal_perfil_${item.id}`}>
                                     <div className="modal-dialog">
                                         <div className="modal-content">
                                             <div className="modal-header">
@@ -186,13 +200,13 @@ export default function Feed() {
 
                                                 <br />
 
-                                                <p><strong>Salário: </strong> {item.salario} </p>
+                                                <p><strong>Salário: </strong> R${item.salario} </p>
                                                 <p><strong>Tipo de contratação: </strong> {item.efetivo} </p>
-                                                <p><strong>Modelo de trabalho: </strong> {item.descricao} </p>
+                                                <p><strong>Modelo de trabalho: </strong> {item.presencial} </p>
 
                                                 <br />
 
-                                                <p>Data de publicação: {formataData(item.criado_em)} </p>
+                                                <p>Data de publicação: {formataData(item.criado_em)} as {formataHoras(item.criado_em)} </p>
 
 
                                             </div>

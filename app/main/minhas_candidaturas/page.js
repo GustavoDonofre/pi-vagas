@@ -38,26 +38,39 @@ export default function MinhasCandidaturas() {
                 .eq('id', id)
 
             buscarCandidaturas() // atualiza a pagina
+        }
     }
-}
 
-useEffect(() => {
-    buscarCandidaturas()
-}, [])
+    function formataData(data) {
+        let data_formatada = new Date(data)
+        data_formatada = data_formatada.toLocaleDateString();
+        return data_formatada;
+    }
 
-return (
+    function formataHoras(hora) {
+        let horas_formatadas = new Date(hora)
+        horas_formatadas = horas_formatadas.toLocaleTimeString();
 
-    <div>
+        return horas_formatadas;
+    }
 
-        <div className="titulo">
-            <h2> Minhas Candidaturas </h2>
-        </div>
+    useEffect(() => {
+        buscarCandidaturas()
+    }, [])
 
-        <br />
-        <br />
+    return (
 
-        {/* Quantidade dos status / só de bonito */}
-        {/* <div class="card_info container">
+        <div>
+
+            <div className="titulo">
+                <h2> Minhas Candidaturas </h2>
+            </div>
+
+            <br />
+            <br />
+
+            {/* Quantidade dos status / só de bonito */}
+            {/* <div class="card_info container">
             <div class="row justify-content-center g-4">
 
                 <div class="col-md-4">
@@ -84,56 +97,56 @@ return (
             </div>
         </div> */}
 
-        {
-            minhasCandidaturas.length == 0 ?
-                <h5>Sem registros no momento...</h5>
-                :
-                minhasCandidaturas.map(
-                    item =>
-                        <div>
-                            {/* Vagas Candidatadas */}
-                            <div className="card">
+            {
+                minhasCandidaturas.length == 0 ?
+                    <h5>Sem registros no momento...</h5>
+                    :
+                    minhasCandidaturas.map(
+                        item =>
+                            <div>
+                                {/* Vagas Candidatadas */}
+                                <div className="card">
 
-                                <div className="perfil">
-                                    <div className="col-12">
-                                        <div className="row">
-                                            <div className="col-1">
-                                                <div>
-                                                    <img src="https://placehold.co/70" className="rounded-circle img-fluid" />
-                                                </div>
-                                            </div>
-
-                                            <div className="col-11">
-                                                <div className="col-4">
-                                                    <div className="topo">
-                                                        <h5 className="nome">{item.id_vaga.id_empresa.nome}</h5>
-                                                        <p className="contratacao">{item.id_vaga.efetivo}</p>
+                                    <div className="perfil">
+                                        <div className="col-12">
+                                            <div className="row">
+                                                <div className="col-1">
+                                                    <div>
+                                                        <img src="https://placehold.co/70" className="rounded-circle img-fluid" />
                                                     </div>
                                                 </div>
-                                                <div className="row">
 
-                                                    <div className="col-8">
-                                                        <div className="info">
-                                                            <p>{item.id_vaga.titulo}</p>
-                                                            <p>|</p>
-                                                            <p>{item.id_vaga.turno}</p>
-                                                            <p className="justify-content-end">Status</p>
+                                                <div className="col-11">
+                                                    <div className="col-4">
+                                                        <div className="topo">
+                                                            <h5 className="nome">{item.id_vaga.id_empresa.nome}</h5>
+                                                            <p className="contratacao">{item.id_vaga.efetivo}</p>
                                                         </div>
                                                     </div>
-                                                    <div className="col-4 d-flex justify-content-end">
-                                                        <button className="btn-padrao" data-bs-dismiss="modal" onClick={() => cancelaCandidatura(item.id)}> Cancelar </button>
-                                                        {/* <button className="btn-padrao" data-bs-toggle="modal" data-bs-target="#modal_perfil">Ver vaga</button> */}
+                                                    <div className="row">
+
+                                                        <div className="col-8">
+                                                            <div className="info">
+                                                                <p>{item.id_vaga.titulo}</p>
+                                                                <p>|</p>
+                                                                <p>{item.id_vaga.turno}</p>
+                                                                <p className="justify-content-end">Status</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="col-4 d-flex justify-content-end">
+                                                            <button className="btn-padrao" data-bs-dismiss="modal" onClick={() => cancelaCandidatura(item.id)}> Cancelar </button>
+                                                            {/* <button className="btn-padrao" data-bs-toggle="modal" data-bs-target="#modal_perfil">Ver vaga</button> */}
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+
                                 </div>
 
-                            </div>
-
-                            {/* Modal das vagas */}
-                            {/* <div className="modal fade" id="modal_perfil">
+                                {/* Modal das vagas */}
+                                {/* <div className="modal fade" id="modal_perfil">
                                 <div className="modal-dialog">
                                     <div className="modal-content">
                                         <div className="modal-header">
@@ -169,11 +182,11 @@ return (
                                     </div>
                                 </div>
                             </div> */}
-                        </div>
-                ) 
-        } 
+                            </div>
+                    )
+            }
 
-    </div>
+        </div>
 
-)
+    )
 }
