@@ -83,16 +83,16 @@ export default function paginainicial() {
 
 
                 <div className="row">
-                    <div className=" mt-5 col-3 mb-5">
+                    <div className="margem mt-5 col-3 mb-5">
                         <h1 class="titulo_pg"> As oportunidades de São Carlos agora têm <span class="destaque_pg"> lugar certo.</span> </h1>
                         <p>Encontre vagas efetivas ou freelancer na sua cidade. <br/> Simples, organizado e perto de você.</p>
                     </div >
 
-                    <div className=" mt-5 col-5 mb-5">
-                        <img src="" alt=""/>
+                    <div className="mt-5 col-5 mb-5">
+                        <img src="conecta-sanca.png" alt=""/>
                     </div >
 
-                    <form className="d-flex flex-row justify-content-end col-4 pe-4 pt-4">
+                    <form className="d-flex flex-row justify-content-end pe-4 pt-4">
                         <div className="login">
                             <div className="card p-4 shadow" style={{ width: "450px" }}>
                                 <div className="d-flex flex-row align-items-end justify-content-center">

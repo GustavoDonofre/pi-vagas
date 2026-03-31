@@ -5,6 +5,7 @@ import Script from "next/script";
 import "./globals.css"
 import MenuLateral from "./components/MenuLateral";
 import MenuSuperior from "./components/MenuSuperior";
+import LayoutWrapper from "./components/Esconder_menu_lateral";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,7 +27,7 @@ export default function RootLayout({ children }) {
     <html lang="pt-br">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
 
-        <MenuSuperior/>
+        {/* <MenuSuperior/>
 
         <div className="container-fluid">
           <div className="row">
@@ -42,7 +43,15 @@ export default function RootLayout({ children }) {
               
             </div>
           </div>
-        </div>
+        </div> */}
+        <MenuSuperior/>
+
+        <LayoutWrapper>
+          {children}
+        </LayoutWrapper>
+
+
+
 
 
         <Script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" />
