@@ -16,6 +16,9 @@ export default function bancoTalentosEmp() {
     const [bancoTalentos, alteraBancoTalentos] = useState([])
     const [candidatoInscrito, alteraCandidatoInscrito] = useState(null)
 
+    const [filtroTurno, alteraFiltroTurno] = useState("")
+    const [filtroContratacao, alteraFiltroContratacao] = useState("")
+
     async function buscaBanco() {
 
         const { data, error } = await supabase
@@ -26,6 +29,8 @@ export default function bancoTalentosEmp() {
         alteraBancoTalentos(data)
 
     }
+
+    
 
     useEffect(() => {
         buscaBanco()
@@ -46,7 +51,7 @@ export default function bancoTalentosEmp() {
                 <div className="row g-3">
 
                     <div className="col-md-6">
-                        <label className="form-label"> Disponibilidade de turno </label>
+                        <label className="form-label" value={filtroTurno} onChange={(e) => alteraFiltroTurno(e.target.value)}> Disponibilidade de turno </label>
                         <select className="form-select">
                             <option disabled value=""> Todos </option>
                             <option value="matutino"> Matutino </option>
@@ -56,7 +61,7 @@ export default function bancoTalentosEmp() {
                     </div>
 
                     <div className="col-md-6">
-                        <label className="form-label"> Tipo de contratação </label>
+                        <label className="form-label" value={filtroContratacao} onChange={(e) => alteraFiltroContratacao(e.target.value)}> Tipo de contratação </label>
                         <select className="form-select">
                             <option disabled value=""> Todos </option>
                             <option value="efetivo"> Efetivo </option>

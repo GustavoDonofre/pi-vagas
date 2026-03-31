@@ -36,3 +36,14 @@ body {
     outline: none;
     box-shadow: 0 0 0 4px rgba(255, 136, 0, 0.3);
 }
+
+.titulo_pg {
+  font-size: 48px;
+  font-weight: 700;
+  color: #000000; 
+  max-width: 600px;
+}
+
+.destaque_pg {
+  color: #ff8800;
+}
