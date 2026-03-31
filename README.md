@@ -18,7 +18,7 @@ IsCaroline -> *Usuário* Banco de talentos e
 > TESTAR AS PAGINAS -> criar um usuario no banco para testar
 
 Gizeli -> *Empresa* e vagas
-> Cadastrar vagas *fazer funcionar*
-> Listar vagas em aberto (botão editar/encerrar)
-> Listar usuários inscritos na vaga
-> Editar perfil da empresa
+> Cadastrar vagas *fazer funcionar* ok 
+> Listar vagas em aberto (botão editar/encerrar) ok
+> Listar usuários inscritos na vaga ok
+> Editar perfil da empresa ok 
