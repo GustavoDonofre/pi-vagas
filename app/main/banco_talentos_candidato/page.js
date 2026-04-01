@@ -8,9 +8,6 @@ export default function BancoTalentos() {
 
     const id_candidato = localStorage.getItem("id_usuario")
 
-    // No banco: salvar como pdf (curriculo e certificacoes)
-    // Fora isso, funfona :)
-
     // Animações
     // Criar um css de botão padrao para cancelar / excluir
 
@@ -20,7 +17,7 @@ export default function BancoTalentos() {
     const [editando, alteraEditando] = useState(null)
 
     const [curriculo, alteraCurriculo] = useState("")
-    const [certificacoes, alteraCertificacoes] = useState("")
+    //const [certificacoes, alteraCertificacoes] = useState("")
     const [portfolio, alteraPortfolio] = useState("")
     const [area, alteraArea] = useState("")
     const [competencias, alteraCompetencias] = useState("")
@@ -65,7 +62,7 @@ export default function BancoTalentos() {
         const obj = { //obj a ser mordificado
 
             curriculo: curriculo,
-            certificacoes: certificacoes,
+            //certificacoes: certificacoes,
             portfolio: portfolio,
             area: area,
             competencias: competencias,
@@ -101,7 +98,7 @@ export default function BancoTalentos() {
         alteraCadastroTalentos(false)
 
         alteraCurriculo(objeto.curriculo)
-        alteraCertificacoes(objeto.certificacoes)
+        //alteraCertificacoes(objeto.certificacoes)
         alteraPortfolio(objeto.portfolio)
         alteraArea(objeto.area)
         alteraCompetencias(objeto.competencias)
@@ -117,7 +114,7 @@ export default function BancoTalentos() {
 
         const bancoCandidato = {
             curriculo: curriculo,
-            certificacoes: certificacoes,
+            //certificacoes: certificacoes,
             portfolio: portfolio,
             area: area,
             competencias: competencias,
@@ -193,7 +190,7 @@ export default function BancoTalentos() {
     function cancelar() {
 
         alteraCurriculo("")
-        alteraCertificacoes("")
+        //alteraCertificacoes("")
         alteraPortfolio("")
         alteraArea("")
         alteraCompetencias("")
@@ -241,11 +238,13 @@ export default function BancoTalentos() {
 
 
         <div>
-
+            {/* 
             <div>
                 Curriculo do candidato:
                 <iframe allow='true' width={595} height={842} src={"https://qrcmtnxakmuwbunyoooc.supabase.co/storage/v1/object/public/curriculos/"+id_candidato} ></iframe>
             </div>
+            
+            */}
 
             {
                 cadastroTalentos == true ?
@@ -279,10 +278,13 @@ export default function BancoTalentos() {
                                                 <p> {item.curriculo} </p>
                                             </div>
 
+                                            {/*
                                             <div className="col-md-6 mb-3">
                                                 <p className="text-muted mb-1"> Certificações </p>
                                                 <p> {item.certificacoes} </p>
                                             </div>
+                                            */}
+
 
                                             <div className="col-md-6 mb-3">
                                                 <p className="text-muted mb-1"> Portfolio </p>
@@ -338,13 +340,16 @@ export default function BancoTalentos() {
                                 <div>
                                     <label className="form-label"> Currículo </label>
                                     <input type="file" accept=".pdf" className="form-control" onChange={e => alteraCurriculo(e.target.files[0])} />
-                                    <p className="text-body-tertiary"> PDF ou DOC, até 5 MB </p>
+                                    <p className="text-body-tertiary"> PDF </p>
                                 </div>
 
+                                {/*
                                 <div>
                                     <label className="form-label"> Certificações (opcional) </label>
                                     <input type="file" accept=".pdf" className="form-control" multiple onChange={e => alteraCertificacoes(e.target.files)} />
                                 </div>
+                                */}
+
 
                                 <div>
                                     <label className=" form-label"> Portfolio (opcional) </label>

@@ -3,6 +3,7 @@
 import './banco_talentos_emp.css'
 import supabase from '../conexao/supabase'
 import { useEffect, useState } from 'react'
+import { PegaCurriculoPeloIDUsuario } from '../conexao/bucket'
 
 export default function bancoTalentosEmp() {
 
@@ -116,9 +117,7 @@ export default function bancoTalentosEmp() {
                                 </div>
 
 
-
-
-                                {/* modal do perfil do usuario */}
+                                {/* modal perfil do usuario */}
                                 <div className="modal fade" id="modal_perfil">
                                     <div className="modal-dialog">
                                         <div className="modal-content">
@@ -147,28 +146,13 @@ export default function bancoTalentosEmp() {
 
                                                             <br />
 
-                                                            <div>
-                                                                Curriculo do candidato:
-                                                                <iframe allow='true' width={595} height={842} src={"https://qrcmtnxakmuwbunyoooc.supabase.co/storage/v1/object/public/curriculos/"+id_candidato} ></iframe>
-                                                            </div>
-
-
-                                                            {
+                                                            <a target='_blank' href={PegaCurriculoPeloIDUsuario(candidatoInscrito.id_candidato)}> Ver curriculo</a>
+                                                           
+                                                            {/*
                                                                 candidatoInscrito.certificacoes == null ?
                                                                 <p><strong>Certificações: </strong> Não informado. </p>
                                                                 :
                                                                 <p><strong>Certificações: </strong> {candidatoInscrito.certificacoes} </p>
-                                                            }
-                                                            
-
-                                                            {/*
-
-<p><strong>Currículo: </strong></p> <img target="_blank" src={"https://qrcmtnxakmuwbunyoooc.supabase.co/storage/v1/object/public/curriculos/"+id_candidato} ></img>
-
-                                                                candidatoInscrito.portfolio == null ?
-                                                                    <p><strong>Portfólio: </strong> Não informado. </p>
-                                                                    :
-                                                                    <p><strong>Portfólio: </strong> {candidatoInscrito.portfolio} </p>
                                                             */}
 
                                                             {
