@@ -38,10 +38,10 @@ body {
 }
 
 .titulo_pg {
-  font-size: 48px;
+  font-size: 50px;
   font-weight: 700;
   color: #000000; 
-  max-width: 600px;
+  /*max-width: 500px;*/
 }
 
 .destaque_pg {
@@ -50,4 +50,16 @@ body {
 
 .margem{
     margin-left: 10%;
+}
+
+.parte_1{
+    background-color: white;
+}
+
+.candidatos{
+    margin-left: 35%;
+}
+
+.titulo_2{
+    font-size: 50px;
 }

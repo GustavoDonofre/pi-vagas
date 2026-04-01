@@ -7,9 +7,7 @@ import { PegaCurriculoPeloIDUsuario } from '../conexao/bucket'
 
 export default function bancoTalentosEmp() {
 
-    //const id_empresa = localStorage.getItem("id_empresa")
-    // Arrumar empresa que esta logada
-
+    // Arrumar empresa que esta logada / const id_empresa = localStorage.getItem("id_empresa")
     // Arrumar filtros
     // foto do candidato
 
@@ -30,7 +28,7 @@ export default function bancoTalentosEmp() {
 
     }
 
-    
+
 
     useEffect(() => {
         buscaBanco()
@@ -147,22 +145,11 @@ export default function bancoTalentosEmp() {
                                                             <br />
 
                                                             <p><strong>Curriculo: </strong> <a target='_blank' href={PegaCurriculoPeloIDUsuario(candidatoInscrito.id_candidato.id)}> Acessar curriculo </a> </p>
-
-                                                            <br/>
-                                                           
-                                                            {/*
-                                                                candidatoInscrito.certificacoes == null ?
-                                                                <p><strong>Certificações: </strong> Não informado. </p>
+                                                            <p><strong>Portfolio: </strong> {candidatoInscrito.portfolio ? (<a href={candidatoInscrito.portfolio} target="_blank" rel="noopener noreferrer"> Acessar portfolio </a>)
                                                                 :
-                                                                <p><strong>Certificações: </strong> {candidatoInscrito.certificacoes} </p>
-                                                            */}
-
-                                                            {
-                                                                candidatoInscrito.portfolio == null ?
-                                                                    <p><strong>Portfólio: </strong> Não informado.</p> 
-                                                                    :
-                                                                    <p><strong>Portfólio: </strong> <a target="_blank"  href={ candidatoInscrito.portfolio } > Acessar portfólio </a> </p>
-                                                            }
+                                                                (<p>Não informado</p>)
+                                                                }
+                                                            </p>
 
                                                         </div>
                                                         <div className="modal-footer">

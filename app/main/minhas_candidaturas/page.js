@@ -1,12 +1,14 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import supabase from '../conexao/supabase'
 import './minhas_candidaturas.css'
 
 export default function MinhasCandidaturas() {
 
-    // Arrumar para candidato logado
     // Se der tempo: status (contatado / não selecionado / em analise)
+
+    const id_candidato = localStorage.getItem("id_usuario")
 
     const [minhasCandidaturas, alteraMinhasCandidaturas] = useState([])
 
@@ -14,12 +16,13 @@ export default function MinhasCandidaturas() {
 
         const { data, error } = await supabase
 
-            .from('vaga_candidato')
-            .select('id_vaga (*), id_empresa(nome)')
-            .eq('id_usuario', 3) // Me de o ID da vaga onde o Id_usuario é equivalente a 3
-            .order('created_at', { ascending: false })
+            .from('inscricoes')
+            .select(`*, id_vaga(*)`) // selecione tudo da tabela + tudo na tabela vagas cadastradas
+            .eq('id_candidato', id_candidato) // a vaga desse senhor
+            .eq('ativo', true) // se a candidatura é true (ativa)
+            .order('created_at', { ascending: false }) //ordena pras mais recentes 
 
-        alteraMinhasCandidaturas(data) // Guarda a lista
+        alteraMinhasCandidaturas(data)
     }
 
     async function cancelaCandidatura(id) {
@@ -33,8 +36,8 @@ export default function MinhasCandidaturas() {
             alert("Candidatura cancelada com sucesso!")
 
             const { data, error } = await supabase
-                .from('vaga_candidato')
-                .delete()
+                .from('inscricoes')
+                .update({ativo:false})
                 .eq('id', id)
 
             buscarCandidaturas() // atualiza a pagina
@@ -119,7 +122,7 @@ export default function MinhasCandidaturas() {
                                                 <div className="col-11">
                                                     <div className="col-4">
                                                         <div className="topo">
-                                                            <h5 className="nome">{item.id_vaga.id_empresa.nome}</h5>
+                                                             {/* <h5 className="nome">{item.id_vaga.id_empresa.nome}</h5> NNOMEEEEEEEEE DA EMPRESAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA */}
                                                             <p className="contratacao">{item.id_vaga.efetivo}</p>
                                                         </div>
                                                     </div>

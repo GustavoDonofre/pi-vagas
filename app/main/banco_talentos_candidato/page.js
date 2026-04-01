@@ -3,13 +3,14 @@
 import { useEffect, useState } from 'react';
 import supabase from '../conexao/supabase';
 import './banco_talentos.css'
+import { PegaCurriculoPeloIDUsuario } from '../conexao/bucket'
 
 export default function BancoTalentos() {
 
-    const id_candidato = localStorage.getItem("id_usuario")
+    // Limpar, tirei muita coisa
+    // funfona AMIGOOOOS
 
-    // Animações
-    // Criar um css de botão padrao para cancelar / excluir
+    const id_candidato = localStorage.getItem("id_usuario")
 
     const [bancoTalentos, alteraBancoTalentos] = useState([])
 
@@ -17,7 +18,6 @@ export default function BancoTalentos() {
     const [editando, alteraEditando] = useState(null)
 
     const [curriculo, alteraCurriculo] = useState("")
-    //const [certificacoes, alteraCertificacoes] = useState("")
     const [portfolio, alteraPortfolio] = useState("")
     const [area, alteraArea] = useState("")
     const [competencias, alteraCompetencias] = useState("")
@@ -26,12 +26,12 @@ export default function BancoTalentos() {
 
 
 
-    async function buscar() { //função que busca os dados no banco 
+    async function buscar() { // função que busca os dados no banco 
 
         const { data, error } = await supabase
 
             .from('banco_talentos')
-            .select()
+            .select(`*, id_candidato(*)`)
             .eq('id_candidato', id_candidato) // equals -> igual a 
 
         console.log(data)
@@ -62,7 +62,6 @@ export default function BancoTalentos() {
         const obj = { //obj a ser mordificado
 
             curriculo: curriculo,
-            //certificacoes: certificacoes,
             portfolio: portfolio,
             area: area,
             competencias: competencias,
@@ -81,8 +80,8 @@ export default function BancoTalentos() {
         if (error == null) {
 
             alert("Atualização realizada com sucesso!")
-            alteraEditando(null)
-            alteraCadastroTalentos(true)
+            alteraEditando(null) //ele não esta mais editando
+            alteraCadastroTalentos(true) //agora ele tem os dados para mostrar
             buscar() //atualiza a pagina
 
         } else {
@@ -98,7 +97,6 @@ export default function BancoTalentos() {
         alteraCadastroTalentos(false)
 
         alteraCurriculo(objeto.curriculo)
-        //alteraCertificacoes(objeto.certificacoes)
         alteraPortfolio(objeto.portfolio)
         alteraArea(objeto.area)
         alteraCompetencias(objeto.competencias)
@@ -114,7 +112,6 @@ export default function BancoTalentos() {
 
         const bancoCandidato = {
             curriculo: curriculo,
-            //certificacoes: certificacoes,
             portfolio: portfolio,
             area: area,
             competencias: competencias,
@@ -190,7 +187,6 @@ export default function BancoTalentos() {
     function cancelar() {
 
         alteraCurriculo("")
-        //alteraCertificacoes("")
         alteraPortfolio("")
         alteraArea("")
         alteraCompetencias("")
@@ -205,11 +201,11 @@ export default function BancoTalentos() {
 
         const opcao = confirm("Deseja cancelar sua candidatura?")
 
-        if (opcao == false){
+        if (opcao == false) {
             return
-        } 
+        }
 
-        const {error} = await supabase
+        const { error } = await supabase
             .from('banco_talentos')
             .update({ ativo: false })
             .eq('id_candidato', id_candidato)
@@ -275,20 +271,19 @@ export default function BancoTalentos() {
 
                                             <div className="col-md-6 mb-3">
                                                 <p className="text-muted mb-1"> Curriculo </p>
-                                                <p> {item.curriculo} </p>
+                                                <p> <a target='_blank' href={PegaCurriculoPeloIDUsuario(id_candidato)}> Acessar aqui </a> </p>
                                             </div>
 
-                                            {/*
-                                            <div className="col-md-6 mb-3">
-                                                <p className="text-muted mb-1"> Certificações </p>
-                                                <p> {item.certificacoes} </p>
-                                            </div>
-                                            */}
-
+                                            {/*</div>(candidatoInscrito.id_candidato.id)}> Acessar curriculo </a> </p>*/}
 
                                             <div className="col-md-6 mb-3">
                                                 <p className="text-muted mb-1"> Portfolio </p>
-                                                <p> {item.portfolio} </p>
+                                                {/*<p> <a target="_blank"  href={item.portfolio} > Acessar aqui </a> </p>*/}
+                                                <p> {item.portfolio ? ( <a href={item.portfolio} target="_blank" rel="noopener noreferrer"> Acessar aqui </a>) 
+                                                    : 
+                                                    ( <p>Não informado</p>)
+                                                    }
+                                                </p>
                                             </div>
 
                                             <div className="col-md-6 mb-3">
@@ -312,7 +307,7 @@ export default function BancoTalentos() {
 
                                         </div>
 
-                                        <button className='btn-padrao' onClick={() => editar(item)}> Editar </button>
+                                        <button className='btn-padrao mb-3' onClick={() => editar(item)}> Editar </button>
                                         <button className='btn-padrao' onClick={() => cancelarCandidatura(item)}> Cancelar Candidatura </button>
 
                                     </div>
@@ -337,29 +332,26 @@ export default function BancoTalentos() {
 
                             <form className="form_banco row g-3">
 
+                                {/*
+
                                 <div>
                                     <label className="form-label"> Currículo </label>
                                     <input type="file" accept=".pdf" className="form-control" onChange={e => alteraCurriculo(e.target.files[0])} />
                                     <p className="text-body-tertiary"> PDF </p>
                                 </div>
 
-                                {/*
                                 <div>
-                                    <label className="form-label"> Certificações (opcional) </label>
-                                    <input type="file" accept=".pdf" className="form-control" multiple onChange={e => alteraCertificacoes(e.target.files)} />
+                                    <label className="form-label"> Área de atuação </label>
+                                    <textarea className="form-control" placeholder="Ex: atendimento, vendas, administrativo, TI..." value={area} onChange={e => alteraArea(e.target.value)} />
                                 </div>
-                                */}
 
+                                */}
 
                                 <div>
                                     <label className=" form-label"> Portfolio (opcional) </label>
                                     <input type="url" placeholder="Behance, GitHub ou site pessoal." className="form-control" value={portfolio} onChange={e => alteraPortfolio(e.target.value)} />
                                 </div>
 
-                                <div>
-                                    <label className="form-label"> Área de atuação </label>
-                                    <textarea className="form-control" placeholder="Ex: atendimento, vendas, administrativo, TI..." value={area} onChange={e => alteraArea(e.target.value)} />
-                                </div>
 
                                 <div>
                                     <label className="form-label"> Competências e Habilidades </label>
@@ -389,7 +381,7 @@ export default function BancoTalentos() {
                                 <div className="col-md-6">
                                     <button className="btn-padrao" onClick={editando ? atualizar : salvar}> Salvar inscrição </button>
                                 </div>
-                           
+
                                 <div className="col-md-6">
                                     <button className="btn-padrao" onClick={() => cancelar()}> Cancelar </button>
                                 </div>

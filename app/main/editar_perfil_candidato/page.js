@@ -3,24 +3,21 @@
 import './editar_perfil.css'
 import supabase from '../conexao/supabase'
 import { useEffect, useState } from 'react'
+import { PegaCurriculoPeloIDUsuario } from '../conexao/bucket'
 
 export default function EditarPerfil() {
 
+    // AJUDA CONRAAASSSSSSSS -> "atualizar o pdf" "atualizar foto"
+
     const id_candidato = localStorage.getItem("id_usuario")
 
-    // Arrumar editar foto
-    // Salvar o pdf do curriculo
-    // fora isso, funfona :)
-
-    //const [cpf, alteraCpf] = useState()
-    //const [email, alteraEmail] = useState()
-    //const [senha, alteraSenha] = useState()
     const [nome, alteraNome] = useState("")
     const [dataNascimento, alteraDataNascimento] = useState("")
     const [telefone, alteraTelefone] = useState("")
     const [endereco, alteraEndereco] = useState("")
     const [area, alteraArea] = useState("")
-    const [curriculo, alteraCurriculo] = useState("")
+
+    const [curriculo, alteraCurriculo] = useState(null)
 
     const [listaUsuarios, alteraListaUsuarios] = useState([])
 
@@ -42,28 +39,21 @@ export default function EditarPerfil() {
 
         //alteraEditando(objeto.id)
 
-        //alteraEmail(objeto.email)
-        //alteraCpf(objeto.cpf)
-        //alteraSenha(objeto.password)
         alteraNome(objeto.nome)
         alteraDataNascimento(objeto.data_nasc)
         alteraTelefone(objeto.contato)
         alteraEndereco(objeto.endereco)
         alteraArea(objeto.area_atuacao)
-        alteraCurriculo(objeto.curriculo)
+        //alteraCurriculo(objeto.curriculo)
 
     }
 
     function cancelaEdicao() { //limpa os campos
 
-        //alteraCpf("")
-        //alteraEmail("")
-        //alteraSenha("")
         alteraNome("")
         alteraTelefone("")
         alteraEndereco("")
         alteraArea("")
-        //alteraCurriculo("") COMO LIMPAR PDF? 
 
     }
 
@@ -71,22 +61,38 @@ export default function EditarPerfil() {
 
         e.preventDefault()
 
+        {/*if (curriculo) {
+        const caminho = `${id_candidato}.pdf`
+
+        const { error: erroUpload } = await supabase
+            .storage
+            .from('curriculos')
+            .upload(caminho, curriculo, {
+                contentType: 'application/pdf',
+                upsert: true
+            })
+
+        if (erroUpload) {
+            alert("Erro ao atualizar currículo")
+            console.log(erroUpload)
+            console.log(curriculo)
+            return
+        }
+        }*/}
+
         const obj = {
-            //cpf: cpf,
-            //email: email,
-            //password: senha,
             nome: nome,
             contato: telefone,
             endereco: endereco,
             area_atuacao: area,
+            data_nasc: dataNascimento
             //curriculo: curriculo,
-            data_nasc: dataNascimento 
         }
 
         const { error } = await supabase
             .from('usuarios')
             .update(obj)
-            .eq('id', id_candidato )
+            .eq('id', id_candidato)
 
         if (error == null) {
             alert("Atualização realizada com sucesso!")
@@ -134,16 +140,6 @@ export default function EditarPerfil() {
                                     <div className="row">
 
                                         <div className="col-md-6 mb-3">
-                                            <label>Nome: </label>
-                                            <input type="text" className="form-control" value={nome} onChange={e => alteraNome(e.target.value)}/>
-                                        </div>
-
-                                        <div className="col-md-6 mb-3">
-                                            <label>CPF: </label>
-                                            <input type="text" className="form-control" value={item.cpf} disabled />
-                                        </div>
-
-                                        <div className="col-md-6 mb-3">
                                             <label>E-mail: </label>
                                             <input type="email" className="form-control" value={item.email} disabled />
                                         </div>
@@ -153,7 +149,17 @@ export default function EditarPerfil() {
                                             <input type='password' className="form-control" value={item.senha} disabled />
                                         </div>
 
-                                        <div className="col-md-6 mb-3"> 
+                                        <div className="col-md-6 mb-3">
+                                            <label>Nome: </label>
+                                            <input type="text" className="form-control" value={nome} onChange={e => alteraNome(e.target.value)} />
+                                        </div>
+
+                                        <div className="col-md-6 mb-3">
+                                            <label>CPF: </label>
+                                            <input type="text" className="form-control" value={item.cpf} disabled />
+                                        </div>
+
+                                        <div className="col-md-6 mb-3">
                                             <label>Data de Nascimento: </label>
                                             <input type='date' className="form-control" value={dataNascimento} onChange={e => alteraDataNascimento(e.target.value)} />
                                         </div>
@@ -175,8 +181,9 @@ export default function EditarPerfil() {
 
                                         <div className="col-md-6">
                                             <label>Currículo: </label>
-                                            <input className="form-control" type="file" accept=".pdf" onChange={e => alteraCurriculo(e.target.files[0])}/>
-                                        </div> 
+                                            <input className="form-control" type="file" accept=".pdf" onChange={e => alteraCurriculo(e.target.files[0])} />
+                                            <p className="text-body-tertiary"> PDF </p>
+                                        </div>
 
                                         <div className="mt-4 d-flex justify-content-center">
 

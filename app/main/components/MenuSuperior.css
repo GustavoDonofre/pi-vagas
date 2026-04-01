@@ -1,5 +1,13 @@
 .barra_inicio{
-    background-color: #ffffff;
+    background-color: #ff6a00; /* #ff8800 */
     padding: 19px;
     margin-bottom: 20px;
+}
+
+.titulo_superior{
+    color: white;
+}
+
+.margem_logo{
+    margin-left: 50px;
 }
