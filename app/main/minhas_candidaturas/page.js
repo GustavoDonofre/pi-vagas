@@ -7,7 +7,6 @@ import './minhas_candidaturas.css'
 export default function MinhasCandidaturas() {
 
     // Se der tempo: status (contatado / não selecionado / em analise)
-
     const id_candidato = localStorage.getItem("id_usuario")
 
     const [minhasCandidaturas, alteraMinhasCandidaturas] = useState([])
@@ -17,11 +16,16 @@ export default function MinhasCandidaturas() {
         const { data, error } = await supabase
 
             .from('inscricoes')
-            .select(`*, id_vaga(*)`) // selecione tudo da tabela + tudo na tabela vagas cadastradas
+            .select((`*, id_vaga(*)`)) // selecione tudo da tabela + tudo na tabela vagas cadastradas
             .eq('id_candidato', id_candidato) // a vaga desse senhor
             .eq('ativo', true) // se a candidatura é true (ativa)
             .order('created_at', { ascending: false }) //ordena pras mais recentes 
 
+        if (error) {
+            console.log(error)
+        }
+
+        console.log(data)
         alteraMinhasCandidaturas(data)
     }
 
@@ -37,8 +41,12 @@ export default function MinhasCandidaturas() {
 
             const { data, error } = await supabase
                 .from('inscricoes')
-                .update({ativo:false})
+                .update({ ativo: false })
                 .eq('id', id)
+
+            if (error) {
+                console.log(error)
+            }
 
             buscarCandidaturas() // atualiza a pagina
         }
@@ -74,31 +82,31 @@ export default function MinhasCandidaturas() {
 
             {/* Quantidade dos status / só de bonito */}
             {/* <div class="card_info container">
-            <div class="row justify-content-center g-4">
+                    <div class="row justify-content-center g-4">
 
-                <div class="col-md-4">
-                    <div class="card total_vagas p-2 text-center">
-                        <p><strong>Total</strong></p>
-                        <p>0</p>
+                        <div class="col-md-4">
+                            <div class="card total_vagas p-2 text-center">
+                                <p><strong>Total</strong></p>
+                                <p>0</p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="card contatado_vagas p-2 text-center">
+                                <p><strong>Contatado</strong></p>
+                                <p>0</p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="card analise_vagas p-2 text-center">
+                                <p><strong>Em análise</strong></p>
+                                <p>0</p>
+                            </div>
+                        </div>
+
                     </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="card contatado_vagas p-2 text-center">
-                        <p><strong>Contatado</strong></p>
-                        <p>0</p>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="card analise_vagas p-2 text-center">
-                        <p><strong>Em análise</strong></p>
-                        <p>0</p>
-                    </div>
-                </div>
-
-            </div>
-        </div> */}
+                </div> */}
 
             {
                 minhasCandidaturas.length == 0 ?
@@ -122,7 +130,7 @@ export default function MinhasCandidaturas() {
                                                 <div className="col-11">
                                                     <div className="col-4">
                                                         <div className="topo">
-                                                             {/* <h5 className="nome">{item.id_vaga.id_empresa.nome}</h5> NNOMEEEEEEEEE DA EMPRESAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA */}
+                                                            {/* <h5 className="nome">{item.id_vaga.id_empresa.nome}</h5> NNOMEEEEEEEEE DA EMPRESAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA */}
                                                             <p className="contratacao">{item.id_vaga.efetivo}</p>
                                                         </div>
                                                     </div>

@@ -9,6 +9,8 @@ export default function Feed() {
     // Arrumar para candidato logado
     // Arrumar filtros
 
+    const id_candidato = localStorage.getItem("id_usuario")
+
     const [feedCandidato, alteraFeedCandidato] = useState([])
     const [candidaturas, alteraCandidaturas] = useState([])
 
@@ -20,10 +22,10 @@ export default function Feed() {
             .eq('ativo', true)
 
         if (error) {
-            console.error(error)
+            console.log(error)
         }
         console.log(feedCandidato)
-        alteraFeedCandidato(data || []) // 🔥 aqui resolve
+        alteraFeedCandidato(data || [])
 
     }
 
@@ -39,11 +41,11 @@ export default function Feed() {
 
             const obj = {
                 id_vaga: id,
-                id_usuario: 3
+                id_candidato: id_candidato
             }
 
             const response = await supabase
-                .from('vaga_candidato')
+                .from('inscricoes')
                 .insert([obj])
 
             buscarVagas() // atualiza a pagina? 
@@ -52,21 +54,17 @@ export default function Feed() {
 
     }
 
-    async function buscarCandidaturas() {
+    async function buscarCandidaturas() { //buscaras candidaturas 
 
         const { data, error } = await supabase
 
-            .from('vaga_candidato')
+            .from('inscricoes')
             .select('id_vaga')
-            .eq('id_usuario', 3) // Me de o ID da vaga onde o Id_usuario é equivalente a 3
+            .eq('id_candidato', id_candidato) // seleciona o id da vaga que tem o id desse usuario
 
         const idVagas = data.map(item => item.id_vaga) // Lista dessas vagas
         alteraCandidaturas(idVagas) // Guarda a lista
 
-        // .filter = cria uma nova lista, contendo apenas os elementos da lista original que passam em um teste especifico
-        // se item.id esta em candidaturas (includes é true) -> false (!)
-        // se item.id não esta em candidaturas (includes é false) -> true (!)
-        // assim, mostra no feed as vagas que ele NAO se candidatou
     }
 
     function formataData(data) {
