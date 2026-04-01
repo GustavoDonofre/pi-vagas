@@ -146,7 +146,9 @@ export default function bancoTalentosEmp() {
 
                                                             <br />
 
-                                                            <a target='_blank' href={PegaCurriculoPeloIDUsuario(candidatoInscrito.id_candidato)}> Ver curriculo</a>
+                                                            <p><strong>Curriculo: </strong> <a target='_blank' href={PegaCurriculoPeloIDUsuario(candidatoInscrito.id_candidato.id)}> Acessar curriculo </a> </p>
+
+                                                            <br/>
                                                            
                                                             {/*
                                                                 candidatoInscrito.certificacoes == null ?

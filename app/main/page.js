@@ -33,12 +33,14 @@ export default function paginainicial() {
             password: senha,
         })
 
+        console.log(data)
+
         if (data.user == null) {
             alert("Dados inválidos")
             return
         }
 
-        alert('Autenticado com sucesso!')
+        console.log('Autenticado com sucesso!')
         localStorage.setItem("id_usuario", data.user.id)
 
         const resposta = await supabase.from('usuarios').select().eq("id", data.user.id)
@@ -46,11 +48,11 @@ export default function paginainicial() {
             localStorage.setItem("nome_usuario", resposta.data[0].nome)
 
         if (usuario.role == 1) {
-            window.location.href = "./feed_empresa"
+            window.location.href = "./main/feed_candidato"
         }
 
         if (usuario.role == 2 || usuario.role == 0) {
-            window.location.href = "./feed_empresa"
+            window.location.href = "./main/feed_empresa"
         }
 
     }
@@ -88,7 +90,7 @@ export default function paginainicial() {
 
                 <div className="row">
                     <div className="margem mt-5 col-3 mb-5">
-                        <h1 class="titulo_pg"> As oportunidades de São Carlos agora têm <span class="destaque_pg"> lugar certo.</span> </h1>
+                        <h1 className="titulo_pg"> As oportunidades de São Carlos agora têm <span className="destaque_pg"> lugar certo.</span> </h1>
                         <p>Encontre vagas efetivas ou freelancer na sua cidade. <br/> Simples, organizado e perto de você.</p>
                     </div >
 
@@ -96,17 +98,17 @@ export default function paginainicial() {
                         <img src="conecta-sanca.png" alt=""/>
                     </div >
 
-                    <form className="d-flex flex-row justify-content-end pe-4 pt-4">
+                    <form className="d-flex flex-row justify-content-end pe-4 pt-4" onSubmit={autenticar}>
                         <div className="login">
                             <div className="card p-4 shadow" style={{ width: "450px" }}>
                                 <div className="d-flex flex-row align-items-end justify-content-center">
-                                    <img src="/images/conecta_sanca_logo.png" className="img-fluid" style={{ width: "80px" }}></img>
+                                    <img src="" className="img-fluid" style={{ width: "80px" }}></img>
                                     <p className="fs-4 pb-2"><strong>Conecta Sanca</strong></p>
                                 </div>
                                 <div className="mb-3">
 
                                     <label htmlFor="exampleInputEmail1" className="form-label">Digite seu Email</label>
-                                    <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" onClick={(e) => setEmail(e.target.value)} />
+                                    <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" onChange={(e) => setEmail(e.target.value)} />
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="exampleInputPassword1" className="form-label">Digite sua senha</label>
@@ -115,7 +117,7 @@ export default function paginainicial() {
                                 <div className="mb-3">
                                     <p>Não tem cadastro? clique <a className="link-opacity-70-hover link-warning" href="/main/cadastro">aqui</a></p>
                                 </div>
-                                <button type="submit" className="btn btn-padrao" onClick={autenticar}>Entrar</button>
+                                <button type="submit" className="btn btn-padrao">Entrar</button>
                             </div>
                         </div>
                     </form>
@@ -172,9 +174,6 @@ export default function paginainicial() {
 
                     </div>
                 </div >
-
-
-
 
             </div>
         </div>

@@ -160,12 +160,12 @@ export default function BancoTalentos() {
 
         const resposta = await supabase.storage.from('curriculos').upload(id_candidato, curriculo)
         console.log(resposta)
-        if (error) {
+        if (resposta.error) {
             alert("Erro ao enviar currículo!")
             return
         }
 
-        return
+        delete bancoCandidato.curriculo
 
         const { error } = await supabase
             .from('banco_talentos')
