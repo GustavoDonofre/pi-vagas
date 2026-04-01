@@ -112,13 +112,13 @@ function Empresa() {
     }
 
     async function VerCandidatos(id_vaga) {
-        console.log("vaga: "+id_vaga)
+        console.log("vaga: " + id_vaga)
         const { data, error } = await supabase
             .from('inscricoes')
             .select('*, usuarios!vaga_candidato_id_candidato_fkey(*)')
             .eq('id_vaga', id_vaga)
 
-            console.log(data)
+        console.log(data)
         if (!error) {
             alteraCanditados(data)
         } else {
@@ -146,6 +146,30 @@ function Empresa() {
         buscaTodos()
     }
 
+    async function encerrarVaga(id_vaga) {
+        const confirmar = confirm("Deseja encerrar essa vaga?")
+
+        if (!confirmar) return
+
+        const { error } = await supabase
+            .from('incricoes')
+            .update({ ativo: 'true' })
+            .eq('id_vaga', id_vaga)
+
+        if (error) {
+            alert("erro ao encerrar vaga")
+           console.log (error)
+        } else {
+            alert("Vaga encerrada com sucesso!")
+            buscaVagas()
+        }
+    }
+
+    const vagasAtivas = vagasExibir.filter(v => v.status !== 'encerrada').length
+
+    const vagasPublicadas = vagasExibir.length
+
+    const totalCandidatos = inscricoesExibir.length
 
     useEffect(() => {
         buscaVagas()
@@ -172,19 +196,19 @@ function Empresa() {
                             <div className="col-md-4">
                                 <div className="card p-2 text-center">
                                     <p>Vagas ativas</p>
-                                    <p>0</p>
+                                    <p>{vagasAtivas}</p>
                                 </div>
                             </div>
                             <div className="col-md-4">
                                 <div className="card p-2 text-center">
                                     <p>Total de candidatos</p>
-                                    <p>0</p>
+                                    <p>{totalCandidatos}</p>
                                 </div>
                             </div>
                             <div className="col-md-4">
                                 <div className="card p-2 text-center">
                                     <p>Vagas publicadas</p>
-                                    <p>0</p>
+                                    <p>{vagasPublicadas}</p>
                                 </div>
                             </div>
                         </div>
@@ -210,9 +234,10 @@ function Empresa() {
                                             <div className='card'>
                                                 <h5 className="card-header">VAGA</h5>
                                                 <div className="card-body">
-                                                    <p><strong>Nome: </strong> {item.area}</p>
-                                                    <p><strong>Email: </strong></p>
-                                                    <h5 className="card-title">Status da vaga</h5>
+
+
+                                                    <p><strong>{item.area} </strong></p>
+                                                    <p><strong>    </strong></p>
                                                     <p className="card-text" >Descrição da vaga</p>
                                                     <a className="btn btn-padrao text-light" data-bs-toggle="modal" data-bs-target="#modalCandidatos" onClick={() => VerCandidatos(item.id)} > ver candidatos </a>
                                                     <div className="text-end">
@@ -220,15 +245,23 @@ function Empresa() {
                                                             <button className="btn btn-sm" data-bs-toggle="dropdown">
                                                                 ⋮
                                                             </button>
-                                                            <ul className="dropdown-menu dropdown-menu-end">
-                                                                <li>
-                                                                    <a className="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalVaga" button onClick={() => editar(item)}> Editar vaga </a>
-                                                                </li>
 
-                                                                <li>
-                                                                    <a className="dropdown-item text-danger" button onClick={() => excluir(item.id)}> Excluir vaga </a>
-                                                                </li>
-                                                            </ul>
+                                                            <div className="position-relative">
+                                                                <h5 className="card-title">Status da vaga</h5>
+                                                       
+                                                            </div>
+                                                            <div>
+                                                                <a className="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalCandidatos" onClick={() => encerrarVaga(item.id)} > Encerrar Vaga </a>
+                                                                <ul className="dropdown-menu dropdown-menu-end">
+                                                                    <li>
+                                                                        <a className="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalVaga" button onClick={() => editar(item)}> Editar vaga </a>
+                                                                    </li>
+
+                                                                    <li>
+                                                                        <a className="dropdown-item text-danger" button onClick={() => excluir(item.id)}> Excluir vaga </a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -276,7 +309,7 @@ function Empresa() {
 
                                 {
                                     candidatos.length == 0 ?
-                                        <p>Nenhum puto se inscrito nessa vaga de salario minimo</p>
+                                        <p>Nenhum candidato inscrito... </p>
                                         :
                                         (
                                             <div>
