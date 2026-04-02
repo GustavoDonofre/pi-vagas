@@ -158,7 +158,7 @@ function Empresa() {
 
         if (error) {
             alert("erro ao encerrar vaga")
-           console.log (error)
+            console.log(error)
         } else {
             alert("Vaga encerrada com sucesso!")
             buscaVagas()
@@ -230,10 +230,10 @@ function Empresa() {
                                 vagasExibir.map(
                                     item =>
 
-                                        <div className="col-6 mb-2">
-                                            <div className='card'>
-                                                <h5 className="card-header">VAGA</h5>
-                                                <div className="card-body">
+                                        <div className="col-md-6 mb-4">
+                                            <div className='card shadow-sm h-100 border-0'>
+                                                <h5 className="card-header d-flex justify-content-between align-items-center fw-bold">VAGA</h5>
+                                                <div className= "card-body">
 
 
                                                     <p><strong>{item.area} </strong></p>
@@ -248,17 +248,17 @@ function Empresa() {
 
                                                             <div className="position-relative">
                                                                 <h5 className="card-title">Status da vaga</h5>
-                                                       
+
                                                             </div>
                                                             <div>
-                                                                <a className="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalCandidatos" onClick={() => encerrarVaga(item.id)} > Encerrar Vaga </a>
+                                                                <a className="btn btn-padrao btn-sm" data-bs-toggle="modal" data-bs-target="#modalCandidatos" onClick={() => encerrarVaga(item.id)} > Encerrar Vaga </a>
+
                                                                 <ul className="dropdown-menu dropdown-menu-end">
                                                                     <li>
-                                                                        <a className="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalVaga" button onClick={() => editar(item)}> Editar vaga </a>
+                                                                        <button className="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalVaga" onClick={() => editar(item.Cadastrar)}> ✏️ Editar vaga </button>
                                                                     </li>
-
                                                                     <li>
-                                                                        <a className="dropdown-item text-danger" button onClick={() => excluir(item.id)}> Excluir vaga </a>
+                                                                        <button className="dropdown-item text-danger" onClick={() => excluir(item.id)} >🗑️ Excluir vaga </button>
                                                                     </li>
                                                                 </ul>
                                                             </div>
