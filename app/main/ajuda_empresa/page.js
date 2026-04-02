@@ -1,4 +1,7 @@
+'use client'
+
 import "./ajuda_emp.css"
+
 
 export default function ajudaEmp() {
     return (
