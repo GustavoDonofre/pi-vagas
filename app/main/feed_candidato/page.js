@@ -9,6 +9,7 @@ export default function Feed() {
     // Arrumar para candidato logado
     // Arrumar filtros
 
+    if(typeof window === "undefined") return null
     const id_candidato = localStorage.getItem("id_usuario")
 
     const [feedCandidato, alteraFeedCandidato] = useState([])

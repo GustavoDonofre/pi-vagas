@@ -6,6 +6,7 @@ import './minhas_candidaturas.css'
 
 export default function MinhasCandidaturas() {
 
+    if(typeof window === "undefined") return null
     // Se der tempo: status (contatado / não selecionado / em analise)
     const id_candidato = localStorage.getItem("id_usuario")
 
