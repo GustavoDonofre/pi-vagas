@@ -7,8 +7,7 @@ import { PegaCurriculoPeloIDUsuario } from '../conexao/bucket'
 
 export default function BancoTalentos() {
 
-    // Limpar, tirei muita coisa
-    // funfona AMIGOOOOS
+    // melhor deletar? quando a pagina atualiza os dados voltam
 
     if(typeof window === "undefined") return null
 
@@ -36,6 +35,7 @@ export default function BancoTalentos() {
             .from('banco_talentos')
             .select(`*, id_candidato(*)`)
             .eq('id_candidato', id_candidato) // equals -> igual a 
+            //.eq('ativo', true)
 
         console.log(data)
         console.log(error)
@@ -64,9 +64,9 @@ export default function BancoTalentos() {
 
         const obj = { //obj a ser mordificado
 
-            curriculo: curriculo,
+            //curriculo: curriculo,
+            //area: area,
             portfolio: portfolio,
-            area: area,
             competencias: competencias,
             contratacao: contratacao,
             turno: turno
@@ -99,10 +99,10 @@ export default function BancoTalentos() {
 
         alteraCadastroTalentos(false)
 
-        alteraCurriculo(objeto.curriculo)
-        alteraPortfolio(objeto.portfolio)
-        alteraArea(objeto.area)
+        //alteraCurriculo(objeto.curriculo)
+        //alteraArea(objeto.area)
         alteraCompetencias(objeto.competencias)
+        alteraPortfolio(objeto.portfolio)
         alteraContratacao(objeto.contratacao)
         alteraTurno(objeto.turno)
 
@@ -114,16 +114,16 @@ export default function BancoTalentos() {
         e.preventDefault()
 
         const bancoCandidato = {
-            curriculo: curriculo,
+            //curriculo: curriculo,
+            //area: area,
             portfolio: portfolio,
-            area: area,
             competencias: competencias,
             contratacao: contratacao,
             turno: turno,
             id_candidato: id_candidato
         }
 
-        if (!bancoCandidato.curriculo) {
+        /*if (!bancoCandidato.curriculo) {
             alert("Anexe um currículo");
             return;
         }
@@ -136,7 +136,7 @@ export default function BancoTalentos() {
         if (bancoCandidato.area.length < 5) {
             alert("Informe uma área válida")
             return
-        }
+        }*/
 
         if (!bancoCandidato.competencias) {
             alert("Informe uma competência")
@@ -158,14 +158,14 @@ export default function BancoTalentos() {
             return
         }
 
-        const resposta = await supabase.storage.from('curriculos').upload(id_candidato, curriculo)
+        /*const resposta = await supabase.storage.from('curriculos').upload(id_candidato, curriculo)
         console.log(resposta)
         if (resposta.error) {
             alert("Erro ao enviar currículo!")
             return
         }
 
-        delete bancoCandidato.curriculo
+        delete bancoCandidato.curriculo*/
 
         const { error } = await supabase
             .from('banco_talentos')
@@ -189,9 +189,9 @@ export default function BancoTalentos() {
 
     function cancelar() {
 
-        alteraCurriculo("")
+        //alteraCurriculo("")
+        //alteraArea("")
         alteraPortfolio("")
-        alteraArea("")
         alteraCompetencias("")
         alteraContratacao("")
         alteraTurno("")
@@ -275,6 +275,7 @@ export default function BancoTalentos() {
                                             <div className="col-md-6 mb-3">
                                                 <p className="text-muted mb-1"> Curriculo </p>
                                                 <p> <a target='_blank' href={PegaCurriculoPeloIDUsuario(id_candidato)}> Acessar aqui </a> </p>
+                                                <p>Caso deseje alterar este campo, acessar "editar perfil"</p>
                                             </div>
 
                                             {/*</div>(candidatoInscrito.id_candidato.id)}> Acessar curriculo </a> </p>*/}
@@ -299,9 +300,10 @@ export default function BancoTalentos() {
                                                 <p> {item.competencias} </p>
                                             </div>
 
-                                            <div className="col-md-6 mb-3">  </div>
-                                            <p className="text-muted mb-1"> Contratação </p>
-                                            <p> {item.contratacao} </p>
+                                            <div className="col-md-6 mb-3">
+                                                <p className="text-muted mb-1"> Contratação </p>
+                                                <p> {item.contratacao} </p>
+                                            </div>
 
                                             <div className="col-md-6 mb-3">
                                                 <p className="text-muted mb-1"> Turno </p>

@@ -7,9 +7,10 @@ import { PegaCurriculoPeloIDUsuario } from '../conexao/bucket'
 
 export default function EditarPerfil() {
 
-    // AJUDA CONRAAASSSSSSSS -> "atualizar o pdf" "atualizar foto"
+    // AJUDA CONRAAASSSSSSSS -> "atualizar o curriculo" "atualizar a foto"
+    // fazer operador igual no banco de talentos tela dos dados salvos / tela alterar dados
 
-    if(typeof window === "undefined") return null
+    if (typeof window === "undefined") return null
 
     const id_candidato = localStorage.getItem("id_usuario")
 
@@ -18,11 +19,14 @@ export default function EditarPerfil() {
     const [telefone, alteraTelefone] = useState("")
     const [endereco, alteraEndereco] = useState("")
     const [area, alteraArea] = useState("")
+    const [email, alteraEmail] = useState("")
+    const [cpf, alteraCpf] = useState("")
+    const [senha, alteraSenha] = useState("")
 
     const [curriculo, alteraCurriculo] = useState(null)
-
     const [listaUsuarios, alteraListaUsuarios] = useState([])
-
+    const [perfil, alteraPerfil] = useState (true)
+    // perfil == true? -> mostrar tabela com os dados fechados (botao editar -> torna false) : false -> mostrar tela para editar ( botao salvar -> torna true -> tabela de dados salvos / botao cancelar -> limpa os campos)
     //const [editando, alteraEditando] = useState()
 
     async function buscaUsuario() {
@@ -56,6 +60,7 @@ export default function EditarPerfil() {
         alteraTelefone("")
         alteraEndereco("")
         alteraArea("")
+        alteraDataNascimento("")
 
     }
 
@@ -63,7 +68,7 @@ export default function EditarPerfil() {
 
         e.preventDefault()
 
-        {/*if (curriculo) {
+        {/*if (curriculo) { O CHAT FEZ ESSE TRECO E N FUNCIONA
         const caminho = `${id_candidato}.pdf`
 
         const { error: erroUpload } = await supabase
@@ -87,7 +92,10 @@ export default function EditarPerfil() {
             contato: telefone,
             endereco: endereco,
             area_atuacao: area,
-            data_nasc: dataNascimento
+            data_nasc: dataNascimento,
+            //email: email,
+            //cpf: cpf,
+            //senha: senha,
             //curriculo: curriculo,
         }
 
@@ -117,7 +125,10 @@ export default function EditarPerfil() {
 
         <div>
 
+            {/*
+
             <div className="foto mb-4">
+
                 <h2>Editar Perfil</h2>
                 <p>Atualize suas informações pessoais.</p>
 
@@ -126,81 +137,262 @@ export default function EditarPerfil() {
                 <img src="https://placehold.co/100" className="rounded-circle" />
                 <br />
                 <button className="btn-padrao mt-3"> Editar foto </button>
+
+            </div>
+
+            perfil == true ?
+                {
+
+                    listaUsuarios.map(
+                        item =>
+
+                            <div className="card">
+
+                                    <div className="card-body">
+
+                                        <h5 className="mb-4">Dados pessoais</h5>
+
+                                        <form>
+
+                                            <div className="row">
+
+                                                <div className="col-md-6 mb-3">
+                                                    <label>E-mail: </label>
+                                                    <input type="email" className="form-control" value={item.email} disabled />
+                                                </div>
+
+                                                <div className="col-md-6 mb-3">
+                                                    <label>Senha: </label>
+                                                    <input type='password' className="form-control" value={item.senha} disabled />
+                                                </div>
+
+                                                <div className="col-md-6 mb-3">
+                                                    <label>Nome: </label>
+                                                    <input type="text" className="form-control" value={nome} disabled />
+                                                </div>
+
+                                                <div className="col-md-6 mb-3">
+                                                    <label>CPF: </label>
+                                                    <input type="text" className="form-control" value={item.cpf} disabled />
+                                                </div>
+
+                                                <div className="col-md-6 mb-3">
+                                                    <label>Data de Nascimento: </label>
+                                                    <input type='date' className="form-control" value={dataNascimento} disabled />
+                                                </div>
+
+                                                <div className="col-md-6 mb-3">
+                                                    <label>Telefone: </label>
+                                                    <input type='text' className="form-control" value={dataNascimento} disabled />
+                                                </div>
+
+                                                <div className="col-md-6 mb-3">
+                                                    <label>Endereço: </label>
+                                                    <input type='text' className="form-control" value={endereco} disabled />
+                                                </div>
+
+                                                <div className="col-md-6">
+                                                    <label>Área: </label>
+                                                    <input type="text" className="form-control" value={area} />
+                                                </div>
+
+                                                <div className="col-md-6">
+                                                    <label>Currículo: </label>
+                                                    <p> <a target='_blank' href={PegaCurriculoPeloIDUsuario(id_candidato)}> Acessar aqui </a> </p>
+                                                </div>
+
+                                                <div className="mt-4 d-flex justify-content-center">
+                                                    <button className="btn-padrao me-4" onClick={editar}>Editar</button>
+                                                </div>
+
+                                            </div>
+
+                                        </form>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                    )
+                }
+
+                :
+
+                {
+                listaUsuarios.map(
+                    item =>
+
+                        <div>
+
+                            <div className="card">
+
+                                <div className="card-body">
+
+                                    <h5 className="mb-4">Dados pessoais</h5>
+
+                                    <form>
+
+                                        <div className="row">
+
+                                            <div className="col-md-6 mb-3">
+                                                <label>E-mail: </label>
+                                                <input type="email" className="form-control" value={item.email} disabled />
+                                            </div>
+
+                                            <div className="col-md-6 mb-3">
+                                                <label>Senha: </label>
+                                                <input type='password' className="form-control" value={item.senha} disabled />
+                                            </div>
+
+                                            <div className="col-md-6 mb-3">
+                                                <label>Nome: </label>
+                                                <input type="text" className="form-control" value={nome} onChange={e => alteraNome(e.target.value)} />
+                                            </div>
+
+                                            <div className="col-md-6 mb-3">
+                                                <label>CPF: </label>
+                                                <input type="text" className="form-control" value={item.cpf} disabled />
+                                            </div>
+
+                                            <div className="col-md-6 mb-3">
+                                                <label>Data de Nascimento: </label>
+                                                <input type='date' className="form-control" value={dataNascimento} onChange={e => alteraDataNascimento(e.target.value)} />
+                                            </div>
+
+                                            <div className="col-md-6 mb-3">
+                                                <label>Telefone: </label>
+                                                <input type="text" className="form-control" value={telefone} onChange={e => alteraTelefone(e.target.value)} />
+                                            </div>
+
+                                            <div className="col-md-6 mb-3">
+                                                <label>Endereço: </label>
+                                                <input className="form-control" value={endereco} onChange={e => alteraEndereco(e.target.value)} />
+                                            </div>
+
+                                            <div className="col-md-6">
+                                                <label>Área: </label>
+                                                <input className="form-control" value={area} onChange={e => alteraArea(e.target.value)} />
+                                            </div>
+
+                                            <div className="col-md-6">
+                                                <label>Currículo: </label>
+                                                <input className="form-control" type="file" accept=".pdf" onChange={e => alteraCurriculo(e.target.files[0])} />
+                                                <p className="text-body-tertiary"> PDF </p>
+                                            </div>
+
+                                            <div className="mt-4 d-flex justify-content-center">
+
+                                                <button className="btn-padrao me-4" onClick={salvar}>Salvar Alterações</button>
+                                                <button className="btn-padrao" onClick={cancelaEdicao}>Cancelar</button>
+
+                                            </div>
+
+                                        </div>
+
+                                    </form>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                )
+            } */}
+
+            <div className="foto mb-4">
+
+                <h2>Editar Perfil</h2>
+                <p>Atualize suas informações pessoais.</p>
+
+                <br />
+
+                <img src="https://placehold.co/100" className="rounded-circle" />
+                <br />
+                <button className="btn-padrao mt-3"> Editar foto </button>
+
             </div>
 
             {
                 listaUsuarios.map(
                     item =>
-                        <div className="card">
 
-                            <div className="card-body">
+                        <div>
 
-                                <h5 className="mb-4">Dados pessoais</h5>
+                            <div className="card">
 
-                                <form>
+                                <div className="card-body">
 
-                                    <div className="row">
+                                    <h5 className="mb-4">Dados pessoais</h5>
 
-                                        <div className="col-md-6 mb-3">
-                                            <label>E-mail: </label>
-                                            <input type="email" className="form-control" value={item.email} disabled />
+                                    <form>
+
+                                        <div className="row">
+
+                                            <div className="col-md-6 mb-3">
+                                                <label>E-mail: </label>
+                                                <input type="email" className="form-control" value={item.email} disabled />
+                                            </div>
+
+                                            <div className="col-md-6 mb-3">
+                                                <label>Senha: </label>
+                                                <input type='password' className="form-control" value={item.senha} disabled />
+                                            </div>
+
+                                            <div className="col-md-6 mb-3">
+                                                <label>Nome: </label>
+                                                <input type="text" className="form-control" value={nome} onChange={e => alteraNome(e.target.value)} />
+                                            </div>
+
+                                            <div className="col-md-6 mb-3">
+                                                <label>CPF: </label>
+                                                <input type="text" className="form-control" value={item.cpf} disabled />
+                                            </div>
+
+                                            <div className="col-md-6 mb-3">
+                                                <label>Data de Nascimento: </label>
+                                                <input type='date' className="form-control" value={dataNascimento} onChange={e => alteraDataNascimento(e.target.value)} />
+                                            </div>
+
+                                            <div className="col-md-6 mb-3">
+                                                <label>Telefone: </label>
+                                                <input type="text" className="form-control" value={telefone} onChange={e => alteraTelefone(e.target.value)} />
+                                            </div>
+
+                                            <div className="col-md-6 mb-3">
+                                                <label>Endereço: </label>
+                                                <input className="form-control" value={endereco} onChange={e => alteraEndereco(e.target.value)} />
+                                            </div>
+
+                                            <div className="col-md-6">
+                                                <label>Área: </label>
+                                                <input className="form-control" value={area} onChange={e => alteraArea(e.target.value)} />
+                                            </div>
+
+                                            <div className="col-md-6">
+                                                <label>Currículo: </label>
+                                                <input className="form-control" type="file" accept=".pdf" onChange={e => alteraCurriculo(e.target.files[0])} />
+                                                <p className="text-body-tertiary"> PDF </p>
+                                            </div>
+
+                                            <div className="mt-4 d-flex justify-content-center">
+
+                                                <button className="btn-padrao me-4" onClick={salvar}>Salvar Alterações</button>
+                                                <button className="btn-padrao" onClick={cancelaEdicao}>Cancelar</button>
+
+                                            </div>
+
                                         </div>
 
-                                        <div className="col-md-6 mb-3">
-                                            <label>Senha: </label>
-                                            <input type='password' className="form-control" value={item.senha} disabled />
-                                        </div>
+                                    </form>
 
-                                        <div className="col-md-6 mb-3">
-                                            <label>Nome: </label>
-                                            <input type="text" className="form-control" value={nome} onChange={e => alteraNome(e.target.value)} />
-                                        </div>
-
-                                        <div className="col-md-6 mb-3">
-                                            <label>CPF: </label>
-                                            <input type="text" className="form-control" value={item.cpf} disabled />
-                                        </div>
-
-                                        <div className="col-md-6 mb-3">
-                                            <label>Data de Nascimento: </label>
-                                            <input type='date' className="form-control" value={dataNascimento} onChange={e => alteraDataNascimento(e.target.value)} />
-                                        </div>
-
-                                        <div className="col-md-6 mb-3">
-                                            <label>Telefone: </label>
-                                            <input type="text" className="form-control" value={telefone} onChange={e => alteraTelefone(e.target.value)} />
-                                        </div>
-
-                                        <div className="col-md-6 mb-3">
-                                            <label>Endereço: </label>
-                                            <input className="form-control" value={endereco} onChange={e => alteraEndereco(e.target.value)} />
-                                        </div>
-
-                                        <div className="col-md-6">
-                                            <label>Área: </label>
-                                            <input className="form-control" value={area} onChange={e => alteraArea(e.target.value)} />
-                                        </div>
-
-                                        <div className="col-md-6">
-                                            <label>Currículo: </label>
-                                            <input className="form-control" type="file" accept=".pdf" onChange={e => alteraCurriculo(e.target.files[0])} />
-                                            <p className="text-body-tertiary"> PDF </p>
-                                        </div>
-
-                                        <div className="mt-4 d-flex justify-content-center">
-
-                                            <button className="btn-padrao me-4" onClick={salvar}>Salvar Alterações</button>
-                                            <button className="btn-padrao" onClick={cancelaEdicao}>Cancelar</button>
-
-                                        </div>
-
-                                    </div>
-
-                                </form>
+                                </div>
 
                             </div>
 
                         </div>
+
                 )
             }
 
