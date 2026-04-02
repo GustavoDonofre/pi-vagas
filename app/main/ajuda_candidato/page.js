@@ -1,6 +1,9 @@
 import './ajuda_candidato.css'
 
-export default function ajudaCandidato() {
+function AjudaCandidato() {
+
+    if(typeof window === "undefined") return null
+
     return (
         <div>
 
@@ -94,3 +97,5 @@ export default function ajudaCandidato() {
 
     )
 }
+
+export default AjudaCandidato;

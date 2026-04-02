@@ -9,6 +9,8 @@ export default function EditarPerfil() {
 
     // AJUDA CONRAAASSSSSSSS -> "atualizar o pdf" "atualizar foto"
 
+    if(typeof window === "undefined") return null
+
     const id_candidato = localStorage.getItem("id_usuario")
 
     const [nome, alteraNome] = useState("")

@@ -10,6 +10,9 @@ export default function BancoTalentos() {
     // Limpar, tirei muita coisa
     // funfona AMIGOOOOS
 
+    if(typeof window === "undefined") return null
+
+
     const id_candidato = localStorage.getItem("id_usuario")
 
     const [bancoTalentos, alteraBancoTalentos] = useState([])

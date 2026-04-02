@@ -4,9 +4,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css'
 import Script from "next/script";
 
 import "./globals.css"
-import MenuLateral from "./components/MenuLateral";
 import MenuSuperior from "./components/MenuSuperior";
-import LayoutWrapper from "./components/esconder_menu_lateral";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,6 +22,9 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+
+  
+  
   return (
     <html lang="pt-br">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
@@ -47,9 +48,9 @@ export default function RootLayout({ children }) {
         </div> */}
         <MenuSuperior/>
 
-        <LayoutWrapper>
+        {/* <LayoutWrapper> */}
           {children}
-        </LayoutWrapper>
+        {/* </LayoutWrapper> */}
 
 
 
