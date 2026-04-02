@@ -4,9 +4,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css'
 import Script from "next/script";
 
 import "./globals.css"
-import MenuLateral from "./components/MenuLateral";
 import MenuSuperior from "./components/MenuSuperior";
-import LayoutWrapper from "./components/Esconder_menu_lateral";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
