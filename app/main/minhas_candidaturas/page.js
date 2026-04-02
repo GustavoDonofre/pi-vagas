@@ -1,12 +1,12 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import supabase from '../conexao/supabase'
 import './minhas_candidaturas.css'
+import supabase from '../conexao/supabase'
 
 export default function MinhasCandidaturas() {
 
-    if(typeof window === "undefined") return null
+    // if(typeof window === "undefined") return null
     // Se der tempo: status (contatado / não selecionado / em analise)
     const id_candidato = localStorage.getItem("id_usuario")
 
@@ -20,13 +20,12 @@ export default function MinhasCandidaturas() {
             .select((`*, id_vaga(*)`)) // selecione tudo da tabela + tudo na tabela vagas cadastradas
             .eq('id_candidato', id_candidato) // a vaga desse senhor
             .eq('ativo', true) // se a candidatura é true (ativa)
-            .order('created_at', { ascending: false }) //ordena pras mais recentes 
+            .order('inscrito_em', { ascending: false }) //ordena pras mais recentes 
 
         if (error) {
             console.log(error)
         }
 
-        console.log(data)
         alteraMinhasCandidaturas(data)
     }
 
@@ -34,16 +33,16 @@ export default function MinhasCandidaturas() {
 
         const opcao = confirm("Tem certeza que deseja CANCELAR sua candidatura?")
 
-        if (opcao == false) {
+        if (!opcao) {
             return
 
         } else {
             alert("Candidatura cancelada com sucesso!")
 
-            const { data, error } = await supabase
+            const { error } = await supabase
                 .from('inscricoes')
                 .update({ ativo: false })
-                .eq('id', id)
+                .eq('id_candidatura', id)
 
             if (error) {
                 console.log(error)
@@ -146,7 +145,7 @@ export default function MinhasCandidaturas() {
                                                             </div>
                                                         </div>
                                                         <div className="col-4 d-flex justify-content-end">
-                                                            <button className="btn-padrao" data-bs-dismiss="modal" onClick={() => cancelaCandidatura(item.id)}> Cancelar </button>
+                                                            <button className="btn-padrao" data-bs-dismiss="modal" onClick={() => cancelaCandidatura(item.id_candidatura)}> Cancelar </button>
                                                             {/* <button className="btn-padrao" data-bs-toggle="modal" data-bs-target="#modal_perfil">Ver vaga</button> */}
                                                         </div>
                                                     </div>
