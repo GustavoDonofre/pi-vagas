@@ -67,13 +67,14 @@ export default function paginainicial() {
 
             <div className="row parte_1">
 
-                <div className="mt-5 col-2 mb-5 margem">
-                    <h1 className="titulo_pg"> As oportunidades de <p className="destaque_pg">São Carlos</p> agora têm lugar certo.</h1>
+                <div className="mt-5 col-3 mb-5 margem">
+                    <h1 className="titulo_pg"> As oportunidades de <div className="destaque_pg">São Carlos</div> agora têm lugar certo.</h1>
+                    <br/>
                     <p>Encontre vagas efetivas ou freelancer na sua cidade. <br /> Simples, organizado e perto de você.</p>
                 </div >
 
-                <div className="mt-5 col-4 mb-5">
-                    <img src="/images/conecta-sanca.png" style={{ width: "900px", height: "auto" }} />
+                <div className="mt-5 col-3 mb-5">
+                    <img src="/images/conecta-sanca.png" style={{ width: "700px", height: "auto" }} />
                 </div >
 
                 <div className="mt-5 col-4 mb-5 d-flex justify-content-end">
@@ -82,7 +83,7 @@ export default function paginainicial() {
 
                         <div className="login">
 
-                            <div className="card p-5 shadow" style={{ width: "600px", height: "700px" }}>
+                            <div className="card p-5 shadow" style={{ width: "400px", height: "600px" }}>
 
                                 <div className="d-flex flex-row align-items-end justify-content-center">
                                     <img src="/images/conecta_sanca_logo.png" className="img-fluid" style={{ width: "80px" }} />
@@ -119,7 +120,7 @@ export default function paginainicial() {
 
             <div className="row mt-5 mb-5">
 
-                <div className="col-12">
+                <div className="col-12 ">
 
                     <h2 className="fw-bold text-center mb-3 mt-4 titulo_2"> Como funciona?</h2>
                     <p className="text-center text-muted mb-5"> Simples pra todo mundo, sem complicação, sem enrolação.</p>
@@ -145,34 +146,30 @@ export default function paginainicial() {
             </div>
 
 
+            <div className="parte_3 mt-5 col-12 justify-content-end">
 
-
-
-
-            <div className="card mt-5 col-8">
-
-                <h2 className="fw-bold text-center mb-3 mt-4">Por que usar o Conecta Sanca?</h2>
+                <h2 className="titulo_2 fw-bold text-center mb-3 mt-4">Por que usar o Conecta Sanca?</h2>
                 <p className="text-center text-muted">Sua busca por trabalho merece mais organização e confiança.</p>
 
-                <div className="row mt-4">
+                <div className="row mt-4 justify-content-center">
                     
-                    <div className="card col-md-3">
-                        <h5 className="ms-5">Vagas organizadas</h5>
+                    <div className="card card_menor col-md-2">
+                        <h5 className="titulo_card_menor ms-5 fw-bold">Vagas organizadas</h5>
                         <p className="text-muted ms-5">Chega de rolar feed infinito. Aqui as vagas estão catalogadas e fáceis de achar.</p>
                     </div>
 
-                    <div className="card col-md-3">
-                        <h5>Foco local</h5>
+                    <div className="card card_menor col-md-2">
+                        <h5 className="titulo_card_menor ms-5 fw-bold">Foco local</h5>
                         <p className="text-muted">Tudo em São Carlos. Vagas perto de você, do seu bairro, da sua cidade.</p>
                     </div>
 
-                    <div className="card col-md-3">
-                        <h5>Processo Simplificado</h5>
+                    <div className="card card_menor col-md-2">
+                        <h5 className="titulo_card_menor ms-5 fw-bold">Processo Simplificado</h5>
                         <p className="text-muted">Candidate-se em poucos cliques. Sem burocracia, sem formulários enormes.</p>
                     </div>
 
-                    <div className="card col-md-3">
-                        <h5>Mais responsabilidade</h5>
+                    <div className="card card_menor col-md-2">
+                        <h5 className="titulo_card_menor ms-5 fw-bold">Mais responsabilidade</h5>
                         <p className="text-muted">Aqui, você encontra perfis verificados e um ambiente mais transparente.</p>
                     </div>
 
