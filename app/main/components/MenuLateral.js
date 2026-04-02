@@ -1,10 +1,15 @@
 'use client'
 import Link from "next/link"
 import "./MenuLateral.css"
+import { useEffect, useState } from "react"
 
 export default function MenuLateral() {
 
-    const nome_usuario = localStorage.getItem("nome_usuario")
+    const [nome_usuario, alteraNome_usuario] = useState(null)
+
+    useEffect(()=> {
+        alteraNome_usuario(localStorage.getItem("nome_usuario"))
+    }, [localStorage.getItem("nome_usuario")])
 
     return (
         <div className="menulateral">
