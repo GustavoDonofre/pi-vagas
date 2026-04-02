@@ -1,6 +1,9 @@
 import "./ajuda_emp.css"
 
-export default function ajudaEmp() {
+export default function AjudaEmpresa() {
+
+    if(typeof window === "undefined") return null
+
     return (
         <div>
 

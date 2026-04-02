@@ -5,10 +5,12 @@ import supabase from "./conexao/supabase"
 
 export default function paginainicial() {
 
+    if(typeof window === "undefined") return null
+    const id_usuario = localStorage.getItem("id_usuario")
+
     const [email, setEmail] = useState("")
     const [senha, setSenha] = useState("")
 
-    const id_usuario = localStorage.getItem("id_usuario")
 
     const [usuario, setUsuario] = useState(null)
 
