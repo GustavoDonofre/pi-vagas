@@ -4,6 +4,7 @@ import "./MenuLateral.css"
 
 export default function MenuLateral() {
 
+    if(typeof window === "undefined") return null
     const nome_usuario = localStorage.getItem("nome_usuario")
 
     return (

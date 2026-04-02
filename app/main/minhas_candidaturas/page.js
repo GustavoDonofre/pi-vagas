@@ -24,6 +24,7 @@ export default function MinhasCandidaturas() {
 
         if (error) {
             console.log(error)
+            return
         }
 
         console.log(data)
