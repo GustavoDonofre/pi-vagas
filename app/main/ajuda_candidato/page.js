@@ -2,14 +2,14 @@ import './ajuda_candidato.css'
 
 function AjudaCandidato() {
 
-    if(typeof window === "undefined") return null
+    //if(typeof window === "undefined") return null
 
     return (
         <div>
 
-            <div className="introducao">
+            <div className="titulo">
 
-                <h1> Central de ajuda </h1>
+                <h2> Central de ajuda </h2>
                 <p> Tire suas dúvidas sobre como usar a plataforma. </p>
 
             </div>

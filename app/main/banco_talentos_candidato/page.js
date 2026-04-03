@@ -7,15 +7,9 @@ import { PegaCurriculoPeloIDUsuario } from '../conexao/bucket'
 
 export default function BancoTalentos() {
 
-    // melhor deletar? quando a pagina atualiza os dados voltam
-
-    if(typeof window === "undefined") return null
-
-
     const id_candidato = localStorage.getItem("id_usuario")
 
     const [bancoTalentos, alteraBancoTalentos] = useState([])
-
     const [cadastroTalentos, alteraCadastroTalentos] = useState(null) //null = ainda n sei / true = sim, tem dados / false = nao, nao tem dados
     const [editando, alteraEditando] = useState(null)
 
@@ -327,7 +321,7 @@ export default function BancoTalentos() {
                         <div className="titulo">
                             <h2> Banco de Talentos </h2>
                             <br />
-                            <p> Cadastre-se para que empresas de São Carlos encontrem você. </p>
+                            <p> <strong>Cadastre-se para que empresas de São Carlos encontrem você.</strong> <br/> Aumente suas chances de contratação e receba oportunidades alinhadas ao seu perfil. </p>
                         </div>
 
                         <br />
@@ -353,30 +347,30 @@ export default function BancoTalentos() {
                                 */}
 
                                 <div>
-                                    <label className=" form-label"> Portfolio (opcional) </label>
-                                    <input type="url" placeholder="Behance, GitHub ou site pessoal." className="form-control" value={portfolio} onChange={e => alteraPortfolio(e.target.value)} />
+                                    <label className="form-label"> <strong>Portfolio</strong> (opcional) </label>
+                                    <input type="url" placeholder="ex: https://github.com/seunome" className="form-control mb-4" value={portfolio} onChange={e => alteraPortfolio(e.target.value)} />
                                 </div>
-
 
                                 <div>
-                                    <label className="form-label"> Competências e Habilidades </label>
-                                    <textarea className="form-control" placeholder="Ex: comunicação, organização, Excel, redes sociais..." value={competencias} onChange={e => alteraCompetencias(e.target.value)} />
+                                    <label className="form-label"> <strong>Competências e Habilidades</strong></label>
+                                    <textarea className="form-control mb-4" placeholder="ex: comunicação, organização, Excel, redes sociais..." value={competencias} onChange={e => alteraCompetencias(e.target.value)} />
                                 </div>
 
-
-                                <div className="col-md-6">
-                                    <label className="form-label"> Tipo de contratação </label>
+                                <div className="col-md-6 mb-4">
+                                    <label className="form-label"><strong>Tipo de contratação</strong></label>
                                     <select className="form-select" value={contratacao} onChange={e => alteraContratacao(e.target.value)}>
                                         <option value="" hidden> Selecione </option>
+                                        <option value="todosContratacao"> Todos </option>
                                         <option value="efetivo"> Efetivo </option>
                                         <option value="freelancer"> Freelancer </option>
                                     </select>
                                 </div>
 
-                                <div className="col-md-6">
-                                    <label className="form-label"> Turno de preferência </label>
+                                <div className="col-md-6 mb-4">
+                                    <label className="form-label"> <strong>Turno de preferência</strong> </label>
                                     <select className="form-select" value={turno} onChange={e => alteraTurno(e.target.value)}>
                                         <option value="" hidden> Selecione </option>
+                                        <option value="todosTurno"> Todos </option>
                                         <option value="matutino"> Matutino </option>
                                         <option value="vespertino"> Vespertino </option>
                                         <option value="noturno"> Noturno </option>

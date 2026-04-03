@@ -92,9 +92,10 @@ export default function paginainicial() {
                             <div className="card p-5 shadow" style={{ width: "400px", height: "600px" }}>
 
                                 <div className="d-flex flex-row align-items-end justify-content-center">
-                                    <img src="/images/conecta_sanca_logo.png" className="img-fluid" style={{ width: "80px" }} />
-                                    <p className="fs-4 pb-2"><strong>Conecta Sanca</strong></p>
+                                    <img src="/images/logo_sanca.png" className="img-fluid" style={{ width: "70px" }} />
                                 </div>
+
+                                <p className="text-center fs-4 pb-2"><strong>Conecta Sanca</strong></p>
 
                                 <div className="mb-3">
                                     <label htmlFor="exampleInputEmail1" className="form-label">Digite seu Email</label>

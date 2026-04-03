@@ -6,15 +6,9 @@ import './feed_candidato.css'
 
 export default function Feed() {
 
-    // Arrumar para candidato logado
-    // Arrumar filtros
-
-    if(typeof window === "undefined") return null
-
     const id_candidato = localStorage.getItem("id_usuario")
 
     const [feedCandidato, alteraFeedCandidato] = useState([])
-    const [candidaturas, alteraCandidaturas] = useState([])
 
     async function buscarVagas() {
         const { data, error } = await supabase
@@ -46,24 +40,11 @@ export default function Feed() {
                 .from('inscricoes')
                 .insert([obj])
 
-            buscarVagas() // atualiza a pagina? 
-            buscarCandidaturas() // atualiza a pagina? 
+            buscarVagas()
         }
 
     }
 
-    async function buscarCandidaturas() { //buscaras candidaturas 
-
-        const { data, error } = await supabase
-
-            .from('inscricoes')
-            .select('id_vaga')
-            .eq('id_candidato', id_candidato) // seleciona o id da vaga que tem o id desse usuario
-
-        const idVagas = data.map(item => item.id_vaga) // Lista dessas vagas
-        alteraCandidaturas(idVagas) // Guarda a lista
-
-    }
 
     function formataData(data) {
         let data_formatada = new Date(data)
@@ -72,42 +53,36 @@ export default function Feed() {
         return data_formatada;
     }
 
-    function formataHoras(hora) {
-        let horas_formatadas = new Date(hora)
-        horas_formatadas = horas_formatadas.toLocaleTimeString();
-
-        return horas_formatadas;
-    }
-
-
     useEffect(() => {
         buscarVagas()
-        // buscarCandidaturas()
     }, [])
 
     return (
 
         <div>
 
-            <h1>Bem-Vindo {id_candidato.nome} </h1>
-            <p>Descubra oportunidades e encontre vagas cadastradas por empresas.</p>
-            <br/>
-
-            {/* Barra de pesquisa */}
-            <form className="container-fluid d-flex justify-content-center">
-                <div className="input-group">
-                    <span className="input-group-text">🔍</span>
-                    <input type="text" className="form-control" placeholder="Buscar vagas..." />
-                </div>
-            </form>
+            <div className="titulo">
+                <h2> Bem-Vindo </h2>
+                <br />
+                <p> Descubra oportunidades e encontre vagas cadastradas por empresas. </p>
+            </div>
 
             <br />
 
             {/* Filtros */}
             <div className="card_filtros">
-                <div className="row g-3">
 
-                    <div className="col-md-6">
+                {/* Barra de pesquisa */}
+                <div className="row">
+                    <form className="col-4">
+                        <label className="form-label"> Barra de pesquisa </label>
+                        <div className="input-group">
+                            <span className="input-group-text">🔍</span>
+                            <input type="text" className="form-control" placeholder="Buscar vagas..." />
+                        </div>
+                    </form>
+
+                    <div className="col-4">
                         <label className="form-label"> Turno </label>
                         <select className="form-select">
                             <option hidden> Todos </option>
@@ -117,7 +92,7 @@ export default function Feed() {
                         </select>
                     </div>
 
-                    <div className="col-md-6">
+                    <div className="col-4">
                         <label className="form-label"> Tipo de contratação </label>
                         <select className="form-select">
                             <option hidden> Todos </option>
@@ -131,7 +106,7 @@ export default function Feed() {
             </div>
 
             <br />
-            <br/>
+            <br />
 
             {
                 feedCandidato.length == 0 ?
@@ -166,7 +141,7 @@ export default function Feed() {
                                                             <div className="info">
                                                                 <p>{item.titulo}</p>
                                                                 <p>|</p>
-                                                                <p>{item.turno}</p>
+                                                                <p>{item.descricao}</p>
                                                             </div>
                                                         </div>
                                                         <div className="col-4 d-flex justify-content-end">
@@ -185,15 +160,14 @@ export default function Feed() {
                                     <div className="modal-dialog">
                                         <div className="modal-content">
                                             <div className="modal-header">
-                                                <h4> {item.id_empresa.nome} </h4>
                                                 <button className="btn-close" data-bs-dismiss="modal"></button>
                                             </div>
                                             <div className="modal-body">
 
                                                 <img src="https://placehold.co/100" className="rounded-circle img-fluid d-block mx-auto" />
+                                                <p className='text-center mt-3'><strong> {item.id_empresa.nome} </strong></p>
 
-                                                <p><strong> {item.id_empresa.nome} </strong></p>
-                                                <p> {item.titulo} </p>
+                                                <p className='text-center'><strong> Título: </strong> {item.titulo} </p>
 
                                                 <br />
 
@@ -208,8 +182,7 @@ export default function Feed() {
 
                                                 <br />
 
-                                                <p>Data de publicação: {formataData(item.criado_em)} as {formataHoras(item.criado_em)} </p>
-
+                                                <p>Data de publicação: {formataData(item.criado_em)}</p>
 
                                             </div>
                                             <div className="modal-footer">

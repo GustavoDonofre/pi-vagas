@@ -2,12 +2,12 @@ body {
     background-color: #f6f6f6;
 }
 
-.titulo{
+.titulo {
     text-align: center;
     margin-top: 30px;
 }
 
-.inscricao{
+.inscricao {
     background-color: #fff2da;
     text-align: center;
     padding: 15px;
@@ -26,9 +26,9 @@ body {
     margin: auto;
 }
 
-.inscricao_salvo{
+.inscricao_salvo {
     background-color: #effff0;
-    color:#1f3529 ;
+    color: #1f3529;
     text-align: center;
     padding: 15px;
     margin-bottom: 5px;
@@ -37,7 +37,7 @@ body {
     margin: auto;
 }
 
-.card_salvo{
+.card_salvo {
     background-color: #ffff;
     border-radius: 20px;
     width: 500px;

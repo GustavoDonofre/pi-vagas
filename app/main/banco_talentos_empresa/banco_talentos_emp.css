@@ -2,15 +2,6 @@ body{
     background-color: #f6f6f6;
 }
 
-.titulo{
-        text-align: center;
-}
-
-.navbar{
-    background-color: #f6f6f6;
-    margin-left: 350px;
-}
-
 .card_filtros{
     background-color: #ffffff;
     padding: 20px;
@@ -47,12 +38,3 @@ body{
     color: #6c757d;
     font-size: 14px;
 }
-
-#modal_perfil strong{
-    color:#4d4d4d
-}
-
-#modal_perfil .modal-footer strong {
-    color: #ff7a00;
-}
-

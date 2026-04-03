@@ -111,7 +111,10 @@ export default function MinhasCandidaturas() {
 
             {
                 minhasCandidaturas.length == 0 ?
+                <div>
                     <h5>Sem registros no momento...</h5>
+                    <p>Você ainda não se candidatou a nenhuma vaga. <br/> Explore as oportunidades em <strong> "Início" </strong> e dê o primeiro passo!</p>
+                </div>
                     :
                     minhasCandidaturas.map(
                         item =>

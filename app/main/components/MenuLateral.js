@@ -21,10 +21,10 @@ export default function MenuLateral() {
             <hr />
             <div className="list-group list-group-flush fs-5">
                 <Link href="/main/feed_candidato" type="button" className="list-group-item list-group-item-action" aria-current="true"> Início </Link>
-                <Link href="/main/minhas_candidaturas" type="button" className="list-group-item list-group-item-action"> Minhas candidaturas </Link>
-                <Link href="/main/banco_talentos_candidato" type="button" className="list-group-item list-group-item-action"> Banco de talentos </Link>
-                <Link href="/main/editar_perfil_candidato" type="button" className="list-group-item list-group-item-action"> Editar perfil </Link>
-                <Link href="/main/ajuda_candidato" type="button" className="list-group-item list-group-item-action"> Ajuda </Link>
+                <Link href="/main/minhas_candidaturas" type="button" className="list-group-item list-group-item-action"> Minhas Candidaturas </Link>
+                <Link href="/main/banco_talentos_candidato" type="button" className="list-group-item list-group-item-action"> Banco de Talentos </Link>
+                <Link href="/main/editar_perfil_candidato" type="button" className="list-group-item list-group-item-action"> Editar Perfil </Link>
+                <Link href="/main/ajuda_candidato" type="button" className="list-group-item list-group-item-action"> Precisando de Ajuda? </Link>
                 <hr/>
                 <Link href="/main/feed_empresa" type="button" className="list-group-item list-group-item-action" aria-current="true"> EMPRESA - Início </Link>
                 <Link href="/main/banco_talentos_empresa" type="button" className="list-group-item list-group-item-action"> EMPRESA - Ver banco de talentos </Link>
@@ -33,7 +33,7 @@ export default function MenuLateral() {
                 <Link href="/main/ajuda_empresa" type="button" className="list-group-item list-group-item-action"> EMPRESA - Ajuda </Link>
             </div>
 
-            <div className="text-center menu_lateral_perfil mt-5">
+            <div className="text-center  mt-5">
                 <button className="btn-padrao"> Sair </button>
             </div>
         </div>

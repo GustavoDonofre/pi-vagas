@@ -7,11 +7,6 @@ import { PegaCurriculoPeloIDUsuario } from '../conexao/bucket'
 
 export default function EditarPerfil() {
 
-    // AJUDA CONRAAASSSSSSSS -> "atualizar o curriculo" "atualizar a foto"
-    // fazer operador igual no banco de talentos tela dos dados salvos / tela alterar dados
-
-    if (typeof window === "undefined") return null
-
     const id_candidato = localStorage.getItem("id_usuario")
 
     const [nome, alteraNome] = useState("")
@@ -19,15 +14,9 @@ export default function EditarPerfil() {
     const [telefone, alteraTelefone] = useState("")
     const [endereco, alteraEndereco] = useState("")
     const [area, alteraArea] = useState("")
-    const [email, alteraEmail] = useState("")
-    const [cpf, alteraCpf] = useState("")
-    const [senha, alteraSenha] = useState("")
 
     const [curriculo, alteraCurriculo] = useState(null)
     const [listaUsuarios, alteraListaUsuarios] = useState([])
-    const [perfil, alteraPerfil] = useState (true)
-    // perfil == true? -> mostrar tabela com os dados fechados (botao editar -> torna false) : false -> mostrar tela para editar ( botao salvar -> torna true -> tabela de dados salvos / botao cancelar -> limpa os campos)
-    //const [editando, alteraEditando] = useState()
 
     async function buscaUsuario() {
 
@@ -301,7 +290,7 @@ export default function EditarPerfil() {
                 )
             } */}
 
-            <div className="foto mb-4">
+            <div className="titulo foto mb-4">
 
                 <h2>Editar Perfil</h2>
                 <p>Atualize suas informações pessoais.</p>
@@ -324,7 +313,7 @@ export default function EditarPerfil() {
 
                                 <div className="card-body">
 
-                                    <h5 className="mb-4">Dados pessoais</h5>
+                                    <h5 className="mb-4 text-center">Dados pessoais</h5>
 
                                     <form>
 
@@ -337,17 +326,12 @@ export default function EditarPerfil() {
 
                                             <div className="col-md-6 mb-3">
                                                 <label>Senha: </label>
-                                                <input type='password' className="form-control" value={item.senha} disabled />
+                                                <input type='password' className="form-control" value={"*********"} disabled />
                                             </div>
 
                                             <div className="col-md-6 mb-3">
                                                 <label>Nome: </label>
                                                 <input type="text" className="form-control" value={nome} onChange={e => alteraNome(e.target.value)} />
-                                            </div>
-
-                                            <div className="col-md-6 mb-3">
-                                                <label>CPF: </label>
-                                                <input type="text" className="form-control" value={item.cpf} disabled />
                                             </div>
 
                                             <div className="col-md-6 mb-3">
@@ -379,7 +363,7 @@ export default function EditarPerfil() {
                                             <div className="mt-4 d-flex justify-content-center">
 
                                                 <button className="btn-padrao me-4" onClick={salvar}>Salvar Alterações</button>
-                                                <button className="btn-padrao" onClick={cancelaEdicao}>Cancelar</button>
+                                                {/*<button className="btn-padrao" onClick={cancelaEdicao}>Cancelar</button>*/}
 
                                             </div>
 

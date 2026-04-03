@@ -9,11 +9,9 @@ export default function AjudaEmpresa() {
     return (
         <div>
 
-            <div className="introducao">
-
-                <h1> Central de ajuda </h1>
+            <div className="titulo">
+                <h2> Central de ajuda </h2>
                 <p> Tire suas dúvidas sobre como usar a plataforma. </p>
-
             </div>
 
             <div className="duvidas accordion" id="accordionExample">
