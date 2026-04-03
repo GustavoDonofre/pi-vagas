@@ -131,7 +131,7 @@ export default function MinhasCandidaturas() {
                                                 <div className="col-11">
                                                     <div className="col-4">
                                                         <div className="topo">
-                                                            {/* <h5 className="nome">{item.id_vaga.id_empresa.nome}</h5> NNOMEEEEEEEEE DA EMPRESAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA */}
+                                                            <h5 className="nome">{item.id_vaga.id_empresa.nome}</h5>
                                                             <p className="contratacao">{item.id_vaga.efetivo}</p>
                                                         </div>
                                                     </div>
@@ -147,7 +147,6 @@ export default function MinhasCandidaturas() {
                                                         </div>
                                                         <div className="col-4 d-flex justify-content-end">
                                                             <button className="btn-padrao" data-bs-dismiss="modal" onClick={() => cancelaCandidatura(item.id_candidatura)}> Cancelar </button>
-                                                            {/* <button className="btn-padrao" data-bs-toggle="modal" data-bs-target="#modal_perfil">Ver vaga</button> */}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -156,44 +155,7 @@ export default function MinhasCandidaturas() {
                                     </div>
 
                                 </div>
-
-                                {/* Modal das vagas */}
-                                {/* <div className="modal fade" id="modal_perfil">
-                                <div className="modal-dialog">
-                                    <div className="modal-content">
-                                        <div className="modal-header">
-                                            <h4> {item.id_empresa.nome} </h4>
-                                            <button className="btn-close" data-bs-dismiss="modal"></button>
-                                        </div>
-                                        <div className="modal-body">
-
-                                            <img src="https://placehold.co/100" className="rounded-circle img-fluid d-block mx-auto" />
-
-                                            <p><strong> {item.id_vaga.id_empresa.nome} </strong></p>
-                                            <p> {item.id_vaga.titulo} </p>
-
-                                            <br />
-
-                                            <p><strong>Área: </strong> {item.id_vaga.area} </p>
-                                            <p><strong>Descrição: </strong> {item.id_vaga.descricao} </p>
-
-                                            <br />
-
-                                            <p><strong>Salário: </strong> {item.id_vaga.salario} </p>
-                                            <p><strong>Tipo de contratação: </strong> {item.id_vaga.efetivo} </p>
-                                            <p><strong>Modelo de trabalho: </strong> {item.id_vaga.descricao} </p>
-
-                                            <br />
-
-                                            <p>Data de publicação: {formataData(item.id_vaga.criado_em)} </p>
-
-                                        </div>
-                                        <div className="modal-footer">
-                                            <button className="btn-padrao" data-bs-dismiss="modal" onClick={() => cancelaCandidatura(item.id)}> Cancelar candidatura </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> */}
+                                
                             </div>
                     )
             }

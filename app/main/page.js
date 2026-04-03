@@ -46,15 +46,18 @@ export default function paginainicial() {
         console.log('Autenticado com sucesso!')
         localStorage.setItem("id_usuario", data.user.id)
 
-        const resposta = await supabase.from('usuarios').select().eq("id", data.user.id)
+        const resposta = await supabase.from('usuarios')
+            .select()
+            .eq("id", data.user.id)
+
         if (resposta.data != null && resposta.data.length > 0)
             localStorage.setItem("nome_usuario", resposta.data[0].nome)
 
-        if (usuario.role == 1) {
+        if (usuario.role === 1) {
             window.location.href = "./main/feed_candidato"
         }
 
-        if (usuario.role == 2 || usuario.role == 0) {
+        if (usuario.role === 2 || usuario.role === 0) {
             window.location.href = "./main/feed_empresa"
         }
 
@@ -77,7 +80,7 @@ export default function paginainicial() {
                 </div >
 
                 <div className="mt-5 col-3 mb-5">
-                    <img src="/images/conecta-sanca.png" style={{ width: "700px", height: "auto" }} />
+                    <img src="/images/conecta-sanca.png" style={{ width: "650px", height: "auto" }} />
                 </div >
 
                 <div className="mt-5 col-4 mb-5 d-flex justify-content-end">

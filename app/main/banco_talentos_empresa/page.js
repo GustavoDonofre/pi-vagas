@@ -7,7 +7,8 @@ import { PegaCurriculoPeloIDUsuario } from '../conexao/bucket'
 
 export default function bancoTalentosEmp() {
 
-    // Arrumar empresa que esta logada / const id_empresa = localStorage.getItem("id_empresa")
+    const id_empresa = localStorage.getItem("id_usuario")
+    
     // Arrumar filtros
     // foto do candidato
 
