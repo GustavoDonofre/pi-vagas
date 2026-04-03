@@ -10,6 +10,7 @@ export default function Feed() {
     // Arrumar filtros
 
     if(typeof window === "undefined") return null
+
     const id_candidato = localStorage.getItem("id_usuario")
 
     const [feedCandidato, alteraFeedCandidato] = useState([])
@@ -22,11 +23,7 @@ export default function Feed() {
             .select(`*, id_empresa(*)`)
             .eq('ativo', true)
 
-        if (error) {
-            console.log(error)
-        }
-        console.log(feedCandidato)
-        alteraFeedCandidato(data || [])
+        alteraFeedCandidato(data)
 
     }
 
@@ -91,6 +88,11 @@ export default function Feed() {
     return (
 
         <div>
+
+            <h1>Bem-Vindo {id_candidato.nome} </h1>
+            <p>Descubra oportunidades e encontre vagas cadastradas por empresas.</p>
+            <br/>
+
             {/* Barra de pesquisa */}
             <form className="container-fluid d-flex justify-content-center">
                 <div className="input-group">
@@ -129,6 +131,7 @@ export default function Feed() {
             </div>
 
             <br />
+            <br/>
 
             {
                 feedCandidato.length == 0 ?
