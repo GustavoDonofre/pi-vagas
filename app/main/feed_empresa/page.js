@@ -4,6 +4,7 @@ import './empresa.css'
 import supabase from '../conexao/supabase'
 import { useParams } from 'next/navigation'
 import { PegaCurriculoPeloIDUsuario } from '../conexao/bucket'
+import { Router } from 'next/router'
 
 function Empresa() {
     const params = useParams()
@@ -23,6 +24,9 @@ function Empresa() {
     const [vagasExibir, alteraVagasExibir] = useState([])
     const [inscricoesExibir, alteraInscricoesExibir] = useState([])
     const [editando, alteraEditando] = useState(null)
+
+    const id_empresa = localStorage.getItem ("id_usuario")
+
 
     async function buscaVagas() {
 
@@ -68,7 +72,9 @@ function Empresa() {
 
     }
 
-    function editar(objeto) {
+    function editar(vaga) {
+        Router.push('/main/vagas?is=${vaga.id}')
+
         alteraEditando(objeto.id)
 
         alteraAtucao(objeto.atuacao)
@@ -83,17 +89,25 @@ function Empresa() {
 
     function cancelaEdicao() {
         alteraEditando(null)
+
+        alteraAtucao("")
+        alteraDescricao("")
+        alteraSalario("")
+        alteraTipo_vaga("")
+        alteraModo_trabalho("")
+        alteraPerido("")
+
     }
 
     async function atualizar() {
 
         const objeto = {
-            empresa: empresa,
+            empresa: id_empresa,
             descricao: descricao,
-            salario: "",
-            vagas: vagas,
-            modo: modo_trabalho,
-            periodo: periodo
+            salario: salario,
+            efetivo: vagas,
+            presencial: modo_trabalho,
+            turno: periodo
         }
         const { error } = await supabase
             .from('cadastro_vagas')
@@ -130,12 +144,12 @@ function Empresa() {
         e.preventDefault()
 
         const objeto = {
-            empresa: empresa,
+        id_empresa: id_empresa,
             descricao: descricao,
-            salario: "",
-            vagas: vagas,
-            modo: modo_trabalho,
-            periodo: periodo
+            salario: salario,
+            efetivo: vagas,
+            presencial: modo_trabalho,
+            turno: periodo
         }
 
         const { error } = await supabase
@@ -152,16 +166,16 @@ function Empresa() {
         if (!confirmar) return
 
         const { error } = await supabase
-            .from('incricoes')
-            .update({ ativo: 'true' })
-            .eq('id_vaga', id_vaga)
+            .from('cadastro_vagas')
+            .update({ status: 'encerrada' })
+            .eq('id', id_vaga)
 
         if (error) {
             alert("erro ao encerrar vaga")
             console.log(error)
         } else {
             alert("Vaga encerrada com sucesso!")
-            buscaVagas()
+            alteraVagasExibir(prev => prev.filter(v => id == !id_vaga))
         }
     }
 
@@ -233,12 +247,13 @@ function Empresa() {
                                         <div className="col-md-6 mb-4">
                                             <div className='card shadow-sm h-100 border-0'>
                                                 <h5 className="card-header d-flex justify-content-between align-items-center fw-bold">VAGA</h5>
-                                                <div className= "card-body">
+                                                <div className="card-body">
 
 
                                                     <p><strong>{item.area} </strong></p>
                                                     <p><strong>    </strong></p>
                                                     <p className="card-text" >Descrição da vaga</p>
+
                                                     <a className="btn btn-padrao text-light" data-bs-toggle="modal" data-bs-target="#modalCandidatos" onClick={() => VerCandidatos(item.id)} > ver candidatos </a>
                                                     <div className="text-end">
                                                         <div className="dropdown">
@@ -255,7 +270,7 @@ function Empresa() {
 
                                                                 <ul className="dropdown-menu dropdown-menu-end">
                                                                     <li>
-                                                                        <button className="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalVaga" onClick={() => editar(item.Cadastrar)}> ✏️ Editar vaga </button>
+                                                                        <button className="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalVaga" onClick={() => editar(item)}> ✏️ Editar vaga </button>
                                                                     </li>
                                                                     <li>
                                                                         <button className="dropdown-item text-danger" onClick={() => excluir(item.id)} >🗑️ Excluir vaga </button>
@@ -350,10 +365,11 @@ function Empresa() {
 
                                     <h1 className="text-center mb-4">Cadastro de Vagas</h1>
 
+
                                     <form onSubmit={Cadastrar}>
 
                                         <div className="mb-3">
-                                            <label className="form-label">Empresa</label>
+                                            <label className="form-label">{id_empresa}</label>
                                             <input type="text" className="form-control" placeholder="Nome da empresa" value={empresa} onChange={(e) => alteraEmpresa(e.target.value)} />
                                         </div>
 
@@ -384,8 +400,8 @@ function Empresa() {
                                             <label className="form-label">Tipo de Vaga</label>
                                             <select className="form-select" value={tipo_vaga} onChange={(e) => alteraTipo_vaga(e.target.value)}>
                                                 <option selected disabled>Selecione</option>
-                                                <option>Efetiva</option>
-                                                <option>Freelancer</option>
+                                                <option value={true}>Efetiva</option>
+                                                <option value={false}>Freelancer</option>
                                             </select>
                                         </div>
 
@@ -409,7 +425,18 @@ function Empresa() {
                                             </select>
                                         </div>
 
-                                        <button type="submit" className="btn btn-warning">Cadastrar Vaga</button>
+                                        {
+                                            editando != null ?
+                                                <div>
+                                                    <button onClick={atualizar}>Atualizar</button>
+                                                    <button onClick={() => cancelaEdicao()}>Cancelar</button>
+                                                </div>
+                                                :
+                                                <button type="submit" className="btn btn-warning">Cadastrar Vaga</button>
+                                        }
+
+
+
 
                                     </form>
                                 </div>
