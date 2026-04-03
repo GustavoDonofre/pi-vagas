@@ -20,7 +20,7 @@ export default function CadastroUsuario() {
     const [premium, setPremium] = useState(false);
 
     //Area usuario
-    const [senhaUsuario, setSenhaUsuario] = useState("");
+    const [senhaCandidato, setSenhaCandidato] = useState("");
     const [confirmaSenhaCandidato, setConfirmaSenhaCandidato] = useState("");
     const [dataNasc, setDataNasc] = useState("");
     const [cpf, setCpf] = useState("");
@@ -35,15 +35,16 @@ export default function CadastroUsuario() {
             //CADASTRO SUPABASE
             const { data, error } = await supabase.auth.signUp({
                 email: email,
-                password: senhaUsuario,
+                password: senhaCandidato,
             })
+            console.log("DATA:", data)
+            console.log("ERROR:", error)
 
             if (error) {
                 console.log(error)
                 alert('Dados inválidos! tente novamente')
                 return
             }
-            console.log(data.user.id)
 
             //CADASTRAR NA MINHA TABELA
             const obj = {
@@ -62,10 +63,11 @@ export default function CadastroUsuario() {
                 .from('usuarios')
                 .insert(obj)
 
-                console.log(response)
+            console.log(response)
 
             if (response.status == 201) {
                 alert('Candidato cadastrado com sucesso!!')
+                window.location.href = "./"
                 return
             } else {
                 console.log(response.error)
@@ -76,14 +78,17 @@ export default function CadastroUsuario() {
             //TODO: jogar autenticacao novamente para logar automaticamente no feed de cada um
         }
 
-        if (cadastro == true) {
+        if (cadastro == true) { // empresa
             //CADASTRO SUPABASE
             const { data, error } = await supabase.auth.signUp({
                 email: email,
                 password: senhaEmpresa,
             })
+            console.log("DATA:", data)
+            console.log("ERROR:", error)
 
             if (error) {
+                console.log(error)
                 alert('Dados inválidos! tente novamente')
                 return
             }
@@ -105,12 +110,14 @@ export default function CadastroUsuario() {
                 .from('usuarios')
                 .insert(obj)
 
-            if (response.ok) {
+            if (response.status == 201) {
                 alert('Empresa cadastrada com sucesso!!')
+                window.location.href = "./"
                 return
             } else {
                 console.log(response.error)
                 alert('Verifique os campos da sua empresa e tente novamente...')
+                return
             }
 
 
@@ -239,7 +246,7 @@ export default function CadastroUsuario() {
                                     <label htmlFor="senhaEmpresa" className="form-label">
                                         Digite sua senha *
                                     </label>
-                                    <input type="password" onChange={e => setSenhaUsuario(e.target.value)} id="senhaEmpresa" className="form-control" />
+                                    <input type="password" onChange={e => setSenhaCandidato(e.target.value)} id="senhaEmpresa" className="form-control" />
                                 </div>
 
                                 {/* Confirmar Senha */}

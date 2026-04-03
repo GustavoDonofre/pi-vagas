@@ -5,26 +5,22 @@ import supabase from "./conexao/supabase"
 
 export default function paginainicial() {
 
-    if(typeof window === "undefined") return null
-    
+    if (typeof window === "undefined") return null
+
     const id_usuario = localStorage.getItem("id_usuario")
 
     const [email, setEmail] = useState("")
     const [senha, setSenha] = useState("")
 
 
-    const [usuario, setUsuario] = useState(null)
+    const [usuarios, setUsuarios] = useState(null)
 
-    async function buscaUsuario() {
-
+    async function buscaUsuarios() {
         const { data, error } = await supabase
             .from("usuarios")
             .select()
-            .eq("id", id_usuario)
 
-        console.log(data)
-        setUsuario(data[0])
-
+        setUsuarios(data)
     }
 
 
@@ -36,36 +32,45 @@ export default function paginainicial() {
             password: senha,
         })
 
-        console.log(data)
+        if (error) {
+            alert("Email ou senha incorretos")
+            console.log(error)
+            return
+        }
 
         if (data.user == null) {
             alert("Dados inválidos")
             return
         }
 
-        console.log('Autenticado com sucesso!')
         localStorage.setItem("id_usuario", data.user.id)
+
 
         const resposta = await supabase.from('usuarios')
             .select()
             .eq("id", data.user.id)
 
-        if (resposta.data != null && resposta.data.length > 0)
-            localStorage.setItem("nome_usuario", resposta.data[0].nome)
+        const role = resposta.data[0].role
+        console.log('usuario role :', role)
 
-        if (usuario.role === 1) {
-            window.location.href = "./main/feed_candidato"
-        }
-
-        if (usuario.role === 2 || usuario.role === 0) {
-            window.location.href = "./main/feed_empresa"
+        if (!resposta || resposta.data.length == 0) {
+            alert('Usuario não encontrado!')
+            console.log(resposta)
+        } if (role == "1" || role == "0") {
+            alert("logado com sucesso!")
+            window.location.href = "./main/feed_candidato";
+            return
+        } if (role == "2") {
+            alert('logado com sucesso!')
+            window.location.href = "./main/feed_empresa";
+            return
         }
 
     }
 
 
     useEffect(() => {
-        buscaUsuario()
+        buscaUsuarios()
     }, [])
 
     return (
@@ -75,7 +80,7 @@ export default function paginainicial() {
 
                 <div className="mt-5 col-3 mb-5 margem">
                     <h1 className="titulo_pg"> As oportunidades de <div className="destaque_pg">São Carlos</div> agora têm lugar certo.</h1>
-                    <br/>
+                    <br />
                     <p>Encontre vagas efetivas ou freelancer na sua cidade. <br /> Simples, organizado e perto de você.</p>
                 </div >
 
@@ -159,7 +164,7 @@ export default function paginainicial() {
                 <p className="text-center text-muted">Sua busca por trabalho merece mais organização e confiança.</p>
 
                 <div className="row mt-4 justify-content-center">
-                    
+
                     <div className="card card_menor col-md-2">
                         <h5 className="titulo_card_menor ms-5 fw-bold">Vagas organizadas</h5>
                         <p className="text-muted ms-5">Chega de rolar feed infinito. Aqui as vagas estão catalogadas e fáceis de achar.</p>
