@@ -8,6 +8,7 @@ export default function Vagas() {
   const params = useParams()
 
   const [empresa, alteraEmpresa] = useState("")
+  const [titulo, alteraTitulo] = useState("")
   const [area, alteraArea] = useState("")
   const [descricao, alteraDescricao] = useState("")
   const [salario, alteraSalario] = useState("")
@@ -17,9 +18,12 @@ export default function Vagas() {
 
   const [vagas, alteraVagas] = useState([])
 
+  const nome_usuario = localStorage.getItem("nome_usuario")
+  const id_empresa = localStorage.getItem("id_usuario")
+
   async function buscarEmpresa() {
     const { data, error } = await supabase
-      .from('cadastrovendas')
+      .from('cadastro_vagas')
       .select(`*,
       id_empresa (*)
       `)
@@ -32,9 +36,10 @@ export default function Vagas() {
     e.preventDefault()
 
     const vaga = {
-      id_empresa: 4, //adicionar Id da empresa
-      area: area,
+      id_empresa: id_empresa, //adicionar Id da empresa
+      titulo: titulo,
       descricao: descricao,
+      area: area,
       salario: salario,
       efetivo: efetivo,
       presencial: presencial,
@@ -49,7 +54,8 @@ export default function Vagas() {
 
     if (error == null) {
       alert("vaga cadastrada com sucesso!")
-      alteraEmpresa("")
+      // alteraEmpresa("")
+      alteraTitulo ("")
       alteraArea("")
       alteraDescricao("")
       alteraSalario("")
@@ -60,6 +66,46 @@ export default function Vagas() {
     } else {
       alert("Dados inválidos, verifique os campos e tente novamente...")
     }
+  }
+
+  async function atualizar() {
+
+    const objeto = {
+      empresa: id_empresa,
+      descricao: descricao,
+      salario: salario,
+      efetivo: vagas,
+      presencial: modo_trabalho,
+      turno: periodo
+    }
+    const { error } = await supabase
+      .from('cadastro_vagas')
+      .update(objeto)
+      .eq('id', editando)
+
+    if (error == null) {
+      alert("Atualização realiza com sucesso!")
+      cancelaEdicao()
+      buscaTodos()
+    } else {
+      alert("Dados Inválidos! Verifique os campos e tente novamente...")
+    }
+
+    function cancelaEdicao() {
+        alteraEditando(null)
+
+        alteraTitulo ("")
+        alteraArea("")
+        alteraDescricao("")
+        alteraSalario("")
+        alteraEfetivo("")
+        alteraPresencial("")
+        alteraTurno("")
+
+    }
+
+
+    buscaTodos()
   }
 
   useEffect(() => {
@@ -77,10 +123,14 @@ export default function Vagas() {
           <form onSubmit={salvar}>
 
             <div className="mb-3">
-              <label className="form-label">Empresa</label>
+              <label className="form-label">{nome_usuario}</label>
               {/* <input value={empresa} type="text" className="form-control" disabled placeholder={localStorage.getItem('empresa')} /> */}
             </div>
 
+            <div className="mb-3">
+              <label className="form-label">titulo</label>
+              <input value={titulo} className="form-control" onChange={(e) => alteraTitulo(e.target.value)} />
+            </div>
             <div className="mb-3">
               <label className="form-label">Área de Atuação</label>
               <textarea value={area} className="form-control" rows="3" onChange={(e) => alteraArea(e.target.value)}></textarea>
@@ -133,6 +183,18 @@ export default function Vagas() {
                   <button type="button" className='btn btn-lg btn-outline-dark' onClick={() => window.location.href = "/main/feed_empresa"}> Cancelar </button>
                 </div>
                 <div className="col-6 d-flex justify-content-end">
+                  <div>
+                    {
+                      editando != null ?
+                        <div>
+                          <button onClick={atualizar}>Atualizar</button>
+                          <button onClick={() => cancelaEdicao()}>Cancelar</button>
+                        </div>
+                        :
+                        <button type="submit" className="btn btn-warning">Cadastrar Vaga</button>
+                    }
+
+                  </div>
                   <button type="submit" className="btn btn-padrao">Cadastrar Vaga</button>
                 </div>
               </div>
@@ -140,27 +202,7 @@ export default function Vagas() {
 
           </form>
 
-          <div>
-            {/* <ul>
-              {
-                vagas.length == 0 ?
-                  <p>oi</p>
-                  :
-                  vagas.map(
-                    item =>
-                    <li> 
-                    Empresa: {item.empresa} 
-                    Area: {item.area} 
-                    Descrição: {item.descricao} 
-                    Salario: {item.salario} 
-                    Tipo: {item.efetivo} 
-                    Modo: {item.presencial} 
-                    Turno: {item.turno}
-                    </li>
-                  )
-              }
-            </ul> */}
-          </div>
+
 
         </div>
       </div>
