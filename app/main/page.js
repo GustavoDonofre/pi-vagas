@@ -3,26 +3,28 @@
 import { useEffect, useState } from "react"
 import supabase from "./conexao/supabase"
 
+
 export default function paginainicial() {
 
     if (typeof window === "undefined") return null
-
-    const id_usuario = localStorage.getItem("id_usuario")
 
     const [email, setEmail] = useState("")
     const [senha, setSenha] = useState("")
 
 
-    const [usuarios, setUsuarios] = useState(null)
-
-    async function buscaUsuarios() {
+    async function setId(id) {
         const { data, error } = await supabase
             .from("usuarios")
-            .select()
+            .select('nome')
+            .eq('id', id)
 
-        setUsuarios(data)
+        if (error) {
+            console.error(error);
+            return;
+        }
+
+        localStorage.setItem("nome_usuario", data[0].nome)
     }
-
 
     async function autenticar(e) {
         e.preventDefault()
@@ -44,6 +46,7 @@ export default function paginainicial() {
         }
 
         localStorage.setItem("id_usuario", data.user.id)
+        setId(data.user.id)
 
 
         const resposta = await supabase.from('usuarios')
@@ -51,7 +54,9 @@ export default function paginainicial() {
             .eq("id", data.user.id)
 
         const role = resposta.data[0].role
-        console.log('usuario role :', role)
+        localStorage.setItem("role", role)
+
+        // console.log('usuario role :', role)
 
         if (!resposta || resposta.data.length == 0) {
             alert('Usuario não encontrado!')
@@ -67,11 +72,6 @@ export default function paginainicial() {
         }
 
     }
-
-
-    useEffect(() => {
-        buscaUsuarios()
-    }, [])
 
     return (
         <div>

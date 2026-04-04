@@ -1,14 +1,45 @@
-
-.menulateral{
+.menulateral {
     background-color: #ffffff;
-    margin-left:20px;
+    margin-left: 20px;
     padding: 20px;
-    height: 100vh;
+    /* height: 100vh; */
     border-radius: 20px;
     border: 1px solid #c9c9c9;
 }
 
-.menulateral .list-group a{
+.menulateral .list-group a {
     text-align: center;
     padding: 20px;
+}
+
+.opcao {
+    transition: all 0.25s ease;
+    cursor: pointer;
+}
+
+.opcao:hover {
+    background-color: #f8f9fa;
+    /* cinza claro */
+    transform: translateX(2px);
+    /* desliza pra direita */
+    color: #ff8800;
+    /* cor tipo Bootstrap */
+}
+
+.tooltip-inner {
+    background: linear-gradient(13deg, #ff8800, #ff6a00);
+    color: white;
+    font-weight: 500;
+    border-radius: 6px;
+    padding: 6px 10px;
+}
+
+.tooltip .tooltip-arrow::before {
+    border-top-color: #ff8800 !important;
+}
+
+/* Ajustar a seta para combinar */
+.tooltip.bs-tooltip-end .tooltip-arrow::before {
+    border-right-color: #ff7f00 !important;
+    /* seta na direita */
 }

@@ -19,9 +19,11 @@ export default function CadastroUsuario() {
     const [cnpj, setCnpj] = useState("");
     const [premium, setPremium] = useState(false);
 
-    //Area usuario
+    //Area candidato
     const [senhaCandidato, setSenhaCandidato] = useState("");
     const [confirmaSenhaCandidato, setConfirmaSenhaCandidato] = useState("");
+    const [curriculo, alteraCurriculo] = useState("")
+    const [portfolio, alteraPortfolio] = useState("")
     const [dataNasc, setDataNasc] = useState("");
     const [cpf, setCpf] = useState("");
 
