@@ -9,9 +9,6 @@ export default function bancoTalentosEmp() {
 
     const id_empresa = localStorage.getItem("id_usuario")
     
-    // Arrumar filtros
-    // foto do candidato
-
     const [bancoTalentos, alteraBancoTalentos] = useState([])
     const [candidatoInscrito, alteraCandidatoInscrito] = useState(null)
 
@@ -29,12 +26,9 @@ export default function bancoTalentosEmp() {
 
     }
 
-
-
     useEffect(() => {
         buscaBanco()
     }, [])
-
 
     return (
 
@@ -47,6 +41,7 @@ export default function bancoTalentosEmp() {
             <br />
 
             <div className="card_filtros">
+                
                 <div className="row g-3">
 
                     <div className="col-md-6">
@@ -140,7 +135,7 @@ export default function bancoTalentosEmp() {
 
                                                             <p><strong>Área: </strong> {candidatoInscrito.area} </p>
                                                             <p><strong>Turno de preferência: </strong> {candidatoInscrito.turno} </p>
-                                                            <p><strong>Tipo de contratação desejável: </strong> {candidatoInscrito.contratacao} </p>
+                                                            <p><strong>Contratação desejada: </strong> {candidatoInscrito.contratacao} </p>
                                                             <p><strong>Competências e Habilidades: </strong> {candidatoInscrito.competencias} </p>
 
                                                             <br />

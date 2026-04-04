@@ -11,14 +11,21 @@ export default function Feed() {
     const [feedCandidato, alteraFeedCandidato] = useState([])
 
     async function buscarVagas() {
-        const { data, error } = await supabase
 
+        const { data: inscricoes } = await supabase
+            .from('inscricoes')
+            .select('id_vaga')
+            .eq('id_candidato', id_candidato)
+
+        const idsInscritos = inscricoes.map(vaga => vaga.id_vaga) 
+
+        const { data, error } = await supabase
             .from('cadastro_vagas')
             .select(`*, id_empresa(*)`)
             .eq('ativo', true)
+            .not('id', 'in', `(${idsInscritos.join(',') || 0})`) 
 
         alteraFeedCandidato(data)
-
     }
 
     async function confirmacao(id) {
@@ -44,7 +51,6 @@ export default function Feed() {
         }
 
     }
-
 
     function formataData(data) {
         let data_formatada = new Date(data)

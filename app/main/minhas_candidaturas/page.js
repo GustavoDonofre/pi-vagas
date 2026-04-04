@@ -6,8 +6,6 @@ import supabase from '../conexao/supabase'
 
 export default function MinhasCandidaturas() {
 
-    // if(typeof window === "undefined") return null
-    // Se der tempo: status (contatado / não selecionado / em analise)
     const id_candidato = localStorage.getItem("id_usuario")
 
     const [minhasCandidaturas, alteraMinhasCandidaturas] = useState([])
@@ -17,15 +15,10 @@ export default function MinhasCandidaturas() {
         const { data, error } = await supabase
 
             .from('inscricoes')
-            .select((`*, id_vaga(*)`)) // selecione tudo da tabela + tudo na tabela vagas cadastradas
-            .eq('id_candidato', id_candidato) // a vaga desse senhor
-            .eq('ativo', true) // se a candidatura é true (ativa)
-            .order('inscrito_em', { ascending: false }) //ordena pras mais recentes 
-
-        if (error) {
-            console.log(error)
-            return
-        }
+            .select(`*, id_vaga(*, id_empresa (*))`)
+            .eq('id_candidato', id_candidato)
+            .eq('ativo', true)
+            .order('inscrito_em', { ascending: false })
 
         alteraMinhasCandidaturas(data)
     }
@@ -59,12 +52,6 @@ export default function MinhasCandidaturas() {
         return data_formatada;
     }
 
-    function formataHoras(hora) {
-        let horas_formatadas = new Date(hora)
-        horas_formatadas = horas_formatadas.toLocaleTimeString();
-
-        return horas_formatadas;
-    }
 
     useEffect(() => {
         buscarCandidaturas()
@@ -76,44 +63,18 @@ export default function MinhasCandidaturas() {
 
             <div className="titulo">
                 <h2> Minhas Candidaturas </h2>
+                <p> Nesta página, você pode conferir as vagas para as quais já se candidatou. </p>
+                <p>  </p>
             </div>
 
             <br />
             <br />
 
-            {/* Quantidade dos status / só de bonito */}
-            {/* <div class="card_info container">
-                    <div class="row justify-content-center g-4">
-
-                        <div class="col-md-4">
-                            <div class="card total_vagas p-2 text-center">
-                                <p><strong>Total</strong></p>
-                                <p>0</p>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="card contatado_vagas p-2 text-center">
-                                <p><strong>Contatado</strong></p>
-                                <p>0</p>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="card analise_vagas p-2 text-center">
-                                <p><strong>Em análise</strong></p>
-                                <p>0</p>
-                            </div>
-                        </div>
-
-                    </div>
-                </div> */}
-
             {
                 minhasCandidaturas.length == 0 ?
                 <div>
                     <h5>Sem registros no momento...</h5>
-                    <p>Você ainda não se candidatou a nenhuma vaga. <br/> Explore as oportunidades em <strong> "Início" </strong> e dê o primeiro passo!</p>
+                    <p>Explore as oportunidades em <strong> "Início" </strong> e dê o primeiro passo!</p>
                 </div>
                     :
                     minhasCandidaturas.map(
@@ -145,7 +106,6 @@ export default function MinhasCandidaturas() {
                                                                 <p>{item.id_vaga.titulo}</p>
                                                                 <p>|</p>
                                                                 <p>{item.id_vaga.turno}</p>
-                                                                <p className="justify-content-end">Status</p>
                                                             </div>
                                                         </div>
                                                         <div className="col-4 d-flex justify-content-end">
