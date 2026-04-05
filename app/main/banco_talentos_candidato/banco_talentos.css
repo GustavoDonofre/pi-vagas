@@ -6,6 +6,10 @@ body {
     text-align: center;
     margin-top: 30px;
 }
+.titulo h2{
+    color: #ff8945;
+    font-weight: 900
+}
 
 .inscricao {
     background-color: #fff2da;

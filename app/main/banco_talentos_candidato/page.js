@@ -13,38 +13,35 @@ export default function BancoTalentos() {
     const [cadastroTalentos, alteraCadastroTalentos] = useState(null) //null = ainda n sei / true = sim, tem dados / false = nao, nao tem dados
     const [editando, alteraEditando] = useState(null)
 
-    const [curriculo, alteraCurriculo] = useState("")
     const [portfolio, alteraPortfolio] = useState("")
-    const [area, alteraArea] = useState("")
     const [competencias, alteraCompetencias] = useState("")
     const [contratacao, alteraContratacao] = useState("")
     const [turno, alteraTurno] = useState("")
 
 
-
-    async function buscar() { // função que busca os dados no banco 
+    async function buscar() { // busca dados no banco 
 
         const { data, error } = await supabase
 
             .from('banco_talentos')
             .select(`*, id_candidato(*)`)
-            .eq('id_candidato', id_candidato) // equals -> igual a 
-            //.eq('ativo', true)
+            .eq('id_candidato', id_candidato)
+            .eq('ativo', true)
 
         console.log(data)
         console.log(error)
 
-        if (error) { // se alguma coisa der errado na comunicação com o banco
+        if (error) { // se erro na comunicação com o banco
             alteraCadastroTalentos(false)
             return
         }
 
-        if (!data) { // ! -> nao , data -> dado / se não existir dados
+        if (!data) { // se dado não existir
             alteraCadastroTalentos(false)
             return
         }
 
-        if (data.length > 0) { // se tiver dados no banco, é maior que 0, variavel TRUE
+        if (data.length > 0) {
             alteraCadastroTalentos(true)
             alteraBancoTalentos(data)
         } else { //se nao for maior, ele é menor ou igual, então varivel como false
@@ -56,10 +53,8 @@ export default function BancoTalentos() {
     async function atualizar(e) { //função para atualizar os dados no banco e atualizar a pagina
         e.preventDefault()
 
-        const obj = { //obj a ser mordificado
+        const obj = {
 
-            //curriculo: curriculo,
-            //area: area,
             portfolio: portfolio,
             competencias: competencias,
             contratacao: contratacao,
@@ -67,7 +62,7 @@ export default function BancoTalentos() {
 
         }
 
-        const { error } = await supabase //da minha tabela do banco -> atualizar o obj 
+        const { error } = await supabase
 
             .from('banco_talentos')
             .update(obj)
@@ -93,8 +88,6 @@ export default function BancoTalentos() {
 
         alteraCadastroTalentos(false)
 
-        //alteraCurriculo(objeto.curriculo)
-        //alteraArea(objeto.area)
         alteraCompetencias(objeto.competencias)
         alteraPortfolio(objeto.portfolio)
         alteraContratacao(objeto.contratacao)
@@ -108,8 +101,6 @@ export default function BancoTalentos() {
         e.preventDefault()
 
         const bancoCandidato = {
-            //curriculo: curriculo,
-            //area: area,
             portfolio: portfolio,
             competencias: competencias,
             contratacao: contratacao,
@@ -117,74 +108,65 @@ export default function BancoTalentos() {
             id_candidato: id_candidato
         }
 
-        /*if (!bancoCandidato.curriculo) {
-            alert("Anexe um currículo");
-            return;
-        }
-
-        if (!bancoCandidato.area) {
-            alert("Informe uma área")
+        if (!competencias || competencias.length < 5) {
+            alert("Escreve melhor suas competências.")
             return
         }
 
-        if (bancoCandidato.area.length < 5) {
-            alert("Informe uma área válida")
-            return
-        }*/
-
-        if (!bancoCandidato.competencias) {
-            alert("Informe uma competência")
+        if (!contratacao) {
+            alert("Informe um tipo de contratação.")
             return
         }
 
-        if (bancoCandidato.competencias.length < 5) {
-            alert("Informe uma competência válida")
+        if (!turno) {
+            alert("Informe um turno.")
             return
         }
 
-        if (!bancoCandidato.contratacao) {
-            alert("Informe um tipo de contratação")
-            return
-        }
-
-        if (!bancoCandidato.turno) {
-            alert("Informe um turno")
-            return
-        }
-
-        /*const resposta = await supabase.storage.from('curriculos').upload(id_candidato, curriculo)
-        console.log(resposta)
-        if (resposta.error) {
-            alert("Erro ao enviar currículo!")
-            return
-        }
-
-        delete bancoCandidato.curriculo*/
-
-        const { error } = await supabase
+        const { data, error } = await supabase
             .from('banco_talentos')
-            .insert(bancoCandidato)
+            .select('*')
+            .eq('id_candidato', id_candidato)
+            .maybeSingle() // 1 ou nem um
 
-        if (error == null) {
-            alert("Cadastro realizado com sucesso!")
-
-            alteraCadastroTalentos(true)
-
-            buscar() // recarrega os dados
-
-        } else {
-            alert("Erro ao cadastrar!")
+        if (error) {
+            alert("Erro ao verificar cadastro")
+            console.log(error)
+            return
         }
 
-        console.log(error)
-        console.log(bancoCandidato)
+        if (data) { // tem dados? -> updateee
+            const { error: errorUpdate } = await supabase
+                .from('banco_talentos')
+                .update({ ...bancoCandidato, ativo: true })
+                .eq('id_candidato', id_candidato)
 
+            if (errorUpdate == null) {
+                alert("Cadastro atualizado com sucesso!")
+                alteraCadastroTalentos(true)
+                buscar()
+            } else {
+                alert("Erro ao atualizar!")
+                console.log(errorUpdate)
+            }
+        } else { // n tem dados??? -> INSERTTT
+            const { error: errorInsert } = await supabase
+                .from('banco_talentos')
+                .insert({ ...bancoCandidato, ativo: true })
+
+            if (errorInsert == null) {
+                alert("Cadastro realizado com sucesso!")
+                alteraCadastroTalentos(true)
+                buscar()
+            } else {
+                alert("Erro ao cadastrar!")
+                console.log(errorInsert)
+            }
+        }
     }
 
     function cancelar() {
 
-        //alteraCurriculo("")
-        //alteraArea("")
         alteraPortfolio("")
         alteraCompetencias("")
         alteraContratacao("")
@@ -223,21 +205,13 @@ export default function BancoTalentos() {
     }, [])
 
 
-    if (cadastroTalentos == null) { // isso trata o null da variavel antes de ir para o operador / evita aparecer uma tela errada
+    if (cadastroTalentos == null) {
         return <p>Carregando...</p>
     }
 
     return (
 
-
         <div>
-            {/* 
-            <div>
-                Curriculo do candidato:
-                <iframe allow='true' width={595} height={842} src={"https://qrcmtnxakmuwbunyoooc.supabase.co/storage/v1/object/public/curriculos/"+id_candidato} ></iframe>
-            </div>
-            
-            */}
 
             {
                 cadastroTalentos == true ?
@@ -246,7 +220,6 @@ export default function BancoTalentos() {
                         <div className="titulo">
                             <h2> Banco de Talentos </h2>
                             <br />
-                            <p> Cadastre-se para que empresas de São Carlos encontrem você. </p>
                         </div>
 
                         <br />
@@ -261,53 +234,45 @@ export default function BancoTalentos() {
                             bancoTalentos.map(
                                 item =>
 
-                                    <div className="card card_salvo p-4">
+                                    <div className="card card_salvo p-4 text-center">
                                         <h5 className="mb-4"> Seus dados cadastrados </h5>
+                                        <br />
 
                                         <div className="row">
 
                                             <div className="col-md-6 mb-3">
-                                                <p className="text-muted mb-1"> Curriculo </p>
+                                                <p className="mb-1"><strong> Curriculo: </strong></p>
                                                 <p> <a target='_blank' href={PegaCurriculoPeloIDUsuario(id_candidato)}> Acessar aqui </a> </p>
-                                                <p>Caso deseje alterar este campo, acessar "editar perfil"</p>
                                             </div>
 
-                                            {/*</div>(candidatoInscrito.id_candidato.id)}> Acessar curriculo </a> </p>*/}
-
                                             <div className="col-md-6 mb-3">
-                                                <p className="text-muted mb-1"> Portfolio </p>
-                                                {/*<p> <a target="_blank"  href={item.portfolio} > Acessar aqui </a> </p>*/}
-                                                <p> {item.portfolio ? ( <a href={item.portfolio} target="_blank" rel="noopener noreferrer"> Acessar aqui </a>) 
-                                                    : 
-                                                    ( <p>Não informado</p>)
-                                                    }
+                                                <p className="mb-1"><strong> Portfolio: </strong></p>
+                                                <p> {item.portfolio ? (<a href={item.portfolio} target="_blank" rel="noopener noreferrer"> Acessar aqui </a>)
+                                                    :
+                                                    (<p>Não informado</p>)
+                                                }
                                                 </p>
                                             </div>
 
                                             <div className="col-md-6 mb-3">
-                                                <p className="text-muted mb-1"> Área </p>
-                                                <p> {item.area} </p>
-                                            </div>
-
-                                            <div className="col-md-6 mb-3">
-                                                <p className="text-muted mb-1"> Competencias </p>
+                                                <p className="mb-1"> <strong>Competências Profissionais: </strong></p>
                                                 <p> {item.competencias} </p>
                                             </div>
 
                                             <div className="col-md-6 mb-3">
-                                                <p className="text-muted mb-1"> Contratação </p>
+                                                <p className="mb-1"><strong> Contratação: </strong></p>
                                                 <p> {item.contratacao} </p>
                                             </div>
 
                                             <div className="col-md-6 mb-3">
-                                                <p className="text-muted mb-1"> Turno </p>
+                                                <p className="mb-1"><strong> Turno: </strong></p>
                                                 <p> {item.turno} </p>
                                             </div>
 
                                         </div>
 
                                         <button className='btn-padrao mb-3' onClick={() => editar(item)}> Editar </button>
-                                        <button className='btn-padrao' onClick={() => cancelarCandidatura(item)}> Cancelar Candidatura </button>
+                                        <button className='btn-acao' onClick={() => cancelarCandidatura(item)}> Cancelar Candidatura </button>
 
                                     </div>
 
@@ -321,7 +286,7 @@ export default function BancoTalentos() {
                         <div className="titulo">
                             <h2> Banco de Talentos </h2>
                             <br />
-                            <p> <strong>Cadastre-se para que empresas de São Carlos encontrem você.</strong> <br/> Aumente suas chances de contratação e receba oportunidades alinhadas ao seu perfil. </p>
+                            <p> <strong>Cadastre-se para que empresas de São Carlos encontrem você.</strong> <br /> Aumente suas chances de contratação e receba oportunidades alinhadas ao seu perfil. </p>
                         </div>
 
                         <br />
@@ -331,28 +296,13 @@ export default function BancoTalentos() {
 
                             <form className="form_banco row g-3">
 
-                                {/*
-
                                 <div>
-                                    <label className="form-label"> Currículo </label>
-                                    <input type="file" accept=".pdf" className="form-control" onChange={e => alteraCurriculo(e.target.files[0])} />
-                                    <p className="text-body-tertiary"> PDF </p>
-                                </div>
-
-                                <div>
-                                    <label className="form-label"> Área de atuação </label>
-                                    <textarea className="form-control" placeholder="Ex: atendimento, vendas, administrativo, TI..." value={area} onChange={e => alteraArea(e.target.value)} />
-                                </div>
-
-                                */}
-
-                                <div>
-                                    <label className="form-label"> <strong>Portfolio</strong> (opcional) </label>
+                                    <label className="form-label"> <strong>Portfólio</strong> (opcional) </label>
                                     <input type="url" placeholder="ex: https://github.com/seunome" className="form-control mb-4" value={portfolio} onChange={e => alteraPortfolio(e.target.value)} />
                                 </div>
 
                                 <div>
-                                    <label className="form-label"> <strong>Competências e Habilidades</strong></label>
+                                    <label className="form-label"> <strong>Competências e Habilidades Profissionais</strong></label>
                                     <textarea className="form-control mb-4" placeholder="ex: comunicação, organização, Excel, redes sociais..." value={competencias} onChange={e => alteraCompetencias(e.target.value)} />
                                 </div>
 
@@ -360,7 +310,7 @@ export default function BancoTalentos() {
                                     <label className="form-label"><strong>Tipo de contratação</strong></label>
                                     <select className="form-select" value={contratacao} onChange={e => alteraContratacao(e.target.value)}>
                                         <option value="" hidden> Selecione </option>
-                                        <option value="todosContratacao"> Todos </option>
+                                        <option value="todos"> Todos </option>
                                         <option value="efetivo"> Efetivo </option>
                                         <option value="freelancer"> Freelancer </option>
                                     </select>
@@ -370,7 +320,7 @@ export default function BancoTalentos() {
                                     <label className="form-label"> <strong>Turno de preferência</strong> </label>
                                     <select className="form-select" value={turno} onChange={e => alteraTurno(e.target.value)}>
                                         <option value="" hidden> Selecione </option>
-                                        <option value="todosTurno"> Todos </option>
+                                        <option value="todos"> Todos </option>
                                         <option value="matutino"> Matutino </option>
                                         <option value="vespertino"> Vespertino </option>
                                         <option value="noturno"> Noturno </option>
@@ -382,7 +332,7 @@ export default function BancoTalentos() {
                                 </div>
 
                                 <div className="col-md-6">
-                                    <button className="btn-padrao" onClick={() => cancelar()}> Cancelar </button>
+                                    <button className="btn-acao" onClick={() => cancelar()}> Cancelar </button>
                                 </div>
 
                             </form >
