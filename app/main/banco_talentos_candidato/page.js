@@ -10,7 +10,7 @@ export default function BancoTalentos() {
     const id_candidato = localStorage.getItem("id_usuario")
 
     const [bancoTalentos, alteraBancoTalentos] = useState([])
-    const [cadastroTalentos, alteraCadastroTalentos] = useState(null) //null = ainda n sei / true = sim, tem dados / false = nao, nao tem dados
+    const [cadastroTalentos, alteraCadastroTalentos] = useState(null)
     const [editando, alteraEditando] = useState(null)
 
     const [portfolio, alteraPortfolio] = useState("")
@@ -19,7 +19,7 @@ export default function BancoTalentos() {
     const [turno, alteraTurno] = useState("")
 
 
-    async function buscar() { // busca dados no banco 
+    async function buscar() {
 
         const { data, error } = await supabase
 
@@ -50,7 +50,7 @@ export default function BancoTalentos() {
 
     }
 
-    async function atualizar(e) { //função para atualizar os dados no banco e atualizar a pagina
+    async function atualizar(e) {
         e.preventDefault()
 
         const obj = {
@@ -166,11 +166,6 @@ export default function BancoTalentos() {
     }
 
     function cancelar() {
-
-        alteraPortfolio("")
-        alteraCompetencias("")
-        alteraContratacao("")
-        alteraTurno("")
 
         alteraEditando(null) // sai do modo edição
 
@@ -310,9 +305,9 @@ export default function BancoTalentos() {
                                     <label className="form-label"><strong>Tipo de contratação</strong></label>
                                     <select className="form-select" value={contratacao} onChange={e => alteraContratacao(e.target.value)}>
                                         <option value="" hidden> Selecione </option>
-                                        <option value="todos"> Todos </option>
-                                        <option value="efetivo"> Efetivo </option>
-                                        <option value="freelancer"> Freelancer </option>
+                                        <option value="Aberto a todos os regimes de contratação."> Todos </option>
+                                        <option value="Efetivo."> Efetivo </option>
+                                        <option value="Freelancer."> Freelancer </option>
                                     </select>
                                 </div>
 
@@ -320,10 +315,10 @@ export default function BancoTalentos() {
                                     <label className="form-label"> <strong>Turno de preferência</strong> </label>
                                     <select className="form-select" value={turno} onChange={e => alteraTurno(e.target.value)}>
                                         <option value="" hidden> Selecione </option>
-                                        <option value="todos"> Todos </option>
-                                        <option value="matutino"> Matutino </option>
-                                        <option value="vespertino"> Vespertino </option>
-                                        <option value="noturno"> Noturno </option>
+                                        <option value="Disponibilidade para qualquer turno."> Todos </option>
+                                        <option value="Matutino."> Matutino </option>
+                                        <option value="Vespertino."> Vespertino </option>
+                                        <option value="Noturno."> Noturno </option>
                                     </select>
                                 </div>
 

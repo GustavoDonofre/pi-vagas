@@ -2,6 +2,7 @@
     text-align: center;
     margin-top: 30px;
 }
+
 .titulo h2{
     color: #ff8945;
     font-weight: 900
@@ -41,4 +42,36 @@
     border: 2px solid #ffd4b8;
     border-radius: 20px;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+
+.card{
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    margin-bottom: 20px;
+}
+
+.topo{
+    display: flex;
+    gap: 10px;
+}
+
+.nome{
+    font-weight: bold;
+}
+
+.contratacao{
+    background: #fff3eb;
+    color: #ff7a00;
+    padding: 4px 10px;
+    border-radius: 15px;
+    font-size: 12px;
+}
+
+.info{
+    display: flex;
+    gap: 15px;
+    color: #6c757d;
+    font-size: 14px;
 }

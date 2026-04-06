@@ -98,7 +98,7 @@ export default function bancoTalentosEmp() {
                                                         <div className="info">
                                                             <p>{item.turno}</p>
                                                             <p>|</p>
-                                                            <p>{item.area}</p>
+                                                            <p>{item.area_atuacao}</p>
                                                         </div>
                                                     </div>
                                                     <div className="col-4 d-flex justify-content-end">

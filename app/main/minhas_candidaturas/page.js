@@ -72,10 +72,10 @@ export default function MinhasCandidaturas() {
 
             {
                 minhasCandidaturas.length == 0 ?
-                <div>
-                    <h5>Sem registros no momento...</h5>
-                    <p>Explore as oportunidades em <strong> "Início" </strong> e dê o primeiro passo!</p>
-                </div>
+                    <div>
+                        <h5>Sem registros no momento...</h5>
+                        <p>Explore as oportunidades em <strong> "Início" </strong> e dê o primeiro passo!</p>
+                    </div>
                     :
                     minhasCandidaturas.map(
                         item =>
@@ -109,7 +109,7 @@ export default function MinhasCandidaturas() {
                                                             </div>
                                                         </div>
                                                         <div className="col-4 d-flex justify-content-end">
-                                                            <button className="btn-padrao" data-bs-dismiss="modal" onClick={() => cancelaCandidatura(item.id_candidatura)}> Cancelar </button>
+                                                            <button className="btn-acao" data-bs-dismiss="modal" onClick={() => cancelaCandidatura(item.id_candidatura)}> Cancelar Candidatura </button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -118,7 +118,7 @@ export default function MinhasCandidaturas() {
                                     </div>
 
                                 </div>
-                                
+
                             </div>
                     )
             }
