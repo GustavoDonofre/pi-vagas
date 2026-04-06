@@ -7,8 +7,12 @@ import './feed_candidato.css'
 export default function Feed() {
 
     const id_candidato = localStorage.getItem("id_usuario")
-
     const [feedCandidato, alteraFeedCandidato] = useState([])
+
+    const [busca, alteraBusca] = useState("")
+    const [turno, alteraTurno] = useState("")
+    const [tipo, alteraTipo] = useState("")
+
 
     async function buscarVagas() {
 
@@ -17,13 +21,13 @@ export default function Feed() {
             .select('id_vaga')
             .eq('id_candidato', id_candidato)
 
-        const idsInscritos = inscricoes.map(vaga => vaga.id_vaga) 
+        const idsInscritos = inscricoes.map(vaga => vaga.id_vaga)
 
         const { data, error } = await supabase
             .from('cadastro_vagas')
             .select(`*, id_empresa(*)`)
             .eq('ativo', true)
-            .not('id', 'in', `(${idsInscritos.join(',') || 0})`) 
+            .not('id', 'in', `(${idsInscritos.join(',') || 0})`)
 
         alteraFeedCandidato(data)
     }
@@ -59,9 +63,20 @@ export default function Feed() {
         return data_formatada;
     }
 
+     async function alteraBusca() {
+        const { data, error } = await supabase
+            .from('cadastro_vagas')
+            .select(`*, id_empresa(*)`)
+            .ilike('', '%' + alteraBusca + '%') //like, como, parecido, no meio. % no começo e no final serve para pesquisar a palavra em qualquer posição
+
+        alteraFeedCandidato(data)
+    }
+
+
     useEffect(() => {
         buscarVagas()
     }, [])
+
 
     return (
 
@@ -84,13 +99,13 @@ export default function Feed() {
                         <label className="form-label"> Barra de pesquisa </label>
                         <div className="input-group">
                             <span className="input-group-text">🔍</span>
-                            <input type="text" className="form-control" placeholder="Buscar vagas..." />
+                            <input type="text" className="form-control" placeholder="Buscar vagas..." onChange={(e) => alteraBusca(e.target.value)} />
                         </div>
                     </form>
 
                     <div className="col-4">
                         <label className="form-label"> Turno </label>
-                        <select className="form-select">
+                        <select className="form-select" value={turno} onChange={(e) => alteraTurno(e.target.value)}>
                             <option hidden> Todos </option>
                             <option value="matutino"> Matutino </option>
                             <option value="vespertino"> Vespertino </option>
@@ -100,7 +115,7 @@ export default function Feed() {
 
                     <div className="col-4">
                         <label className="form-label"> Tipo de contratação </label>
-                        <select className="form-select">
+                        <select className="form-select" value={tipo} onChange={(e) => alteraTipo(e.target.value)}>
                             <option hidden> Todos </option>
                             <option value="efetivo"> Efetivo </option>
                             <option value="temporario"> Temporário </option>
