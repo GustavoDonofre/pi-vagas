@@ -63,14 +63,14 @@ export default function Feed() {
         return data_formatada;
     }
 
-     async function alteraBusca() {
+    /*async function alteraBusca() {
         const { data, error } = await supabase
             .from('cadastro_vagas')
             .select(`*, id_empresa(*)`)
             .ilike('', '%' + alteraBusca + '%') //like, como, parecido, no meio. % no começo e no final serve para pesquisar a palavra em qualquer posição
 
         alteraFeedCandidato(data)
-    }
+    }*/
 
 
     useEffect(() => {
