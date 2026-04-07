@@ -33,14 +33,11 @@ export default function EditarPerfil() {
 
     function editar(objeto) {
 
-        //alteraEditando(objeto.id)
-
         alteraNome(objeto.nome)
         alteraDataNascimento(objeto.data_nasc)
         alteraTelefone(objeto.contato)
         alteraEndereco(objeto.endereco)
         alteraArea(objeto.area_atuacao)
-        //alteraCurriculo(objeto.curriculo)
 
     }
 
@@ -54,6 +51,29 @@ export default function EditarPerfil() {
 
         e.preventDefault()
 
+        
+        const obj = {
+            nome: nome,
+            contato: telefone,
+            endereco: endereco,
+            area_atuacao: area,
+            data_nasc: dataNascimento,
+        }
+
+        const { error } = await supabase
+        .from('usuarios')
+        .update(obj)
+        .eq('id', id_candidato)
+        
+        if (error == null) {
+            alert("Atualização realizada com sucesso!")
+            alteraPerfil(true)
+            buscaUsuario()
+            
+        } else {
+            alert("Dados inválidos! Verifique os campos e tente novamente...")
+        }
+        
         const resposta = await supabase.storage
             .from('fotos_perfil')
             .upload(id_candidato, foto)
@@ -64,30 +84,6 @@ export default function EditarPerfil() {
             alert("Erro ao enviar foto!")
             return
         }
-
-        const obj = {
-            nome: nome,
-            contato: telefone,
-            endereco: endereco,
-            area_atuacao: area,
-            data_nasc: dataNascimento,
-        }
-
-        const { error } = await supabase
-            .from('usuarios')
-            .update(obj)
-            .eq('id', id_candidato)
-
-        if (error == null) {
-            alert("Atualização realizada com sucesso!")
-            alteraPerfil(true)
-            buscaUsuario()
-
-        } else {
-            alert("Dados inválidos! Verifique os campos e tente novamente...")
-        }
-
-        console.log(error)
 
     }
 
@@ -102,9 +98,9 @@ export default function EditarPerfil() {
             <div className="titulo foto mb-4">
                 <h2>Editar Perfil</h2>
                 <p>Atualize suas informações pessoais.</p> <br />
-                <img src={PegaFotoPerfilPeloIDUsuario(id_candidato)} style={{ width: "110px" }} className="rounded-circle" />
+                {/* <img src={PegaFotoPerfilPeloIDUsuario(id_candidato)} style={{ width: "110px" }} className="rounded-circle" />
                 <br />
-                <label className="btn-padrao mt-3"> Editar foto <input type="file" accept="image/*" style={{ display: "none" }} onChange={e => alteraFoto(e.target.files[0])} disabled /> </label>
+                <label className="btn-padrao mt-3"> Editar foto <input type="file" accept="image/*" style={{ display: "none" }} onChange={e => alteraFoto(e.target.files[0])} disabled /> </label> */}
             </div>
 
 
@@ -121,10 +117,10 @@ export default function EditarPerfil() {
                                         <div className="d-flex flex-column align-items-center mb-3">
                                             <img src={PegaFotoPerfilPeloIDUsuario(id_candidato)} style={{ width: "110px" }} className="rounded-circle" />
                                             <br />
-                                            <label className="btn btn-primary btn-sm disabled">
+                                            <p>
                                                 Editar foto
-                                                <input type="file" style={{ display: "none" }} disabled />
-                                            </label>
+                                                </p>
+                                            
                                         </div>
 
                                         <h5 className="mb-4 text-center">Dados pessoais</h5>
@@ -139,7 +135,7 @@ export default function EditarPerfil() {
 
                                                 <div className="col-md-6 mb-3">
                                                     <label>Senha: </label>
-                                                    <input type='password' className="form-control" value={item.senha} disabled />
+                                                    <input type='password' className="form-control" value={"**********"} disabled />
                                                 </div>
 
                                                 <div className="col-md-6 mb-3">
@@ -208,11 +204,11 @@ export default function EditarPerfil() {
 
                                             <div className="d-flex flex-column align-items-center mb-3">
                                                 <img src={PegaFotoPerfilPeloIDUsuario(id_candidato)} style={{ width: "110px" }} className="rounded-circle" />
-                                                <br />
+                                                
                                                 <label className="btn-padrao mt-3"> Editar foto <input type="file" accept="image/*" style={{ display: "none" }} onChange={e => alteraFoto(e.target.files[0])} /> </label>
                                             </div>
 
-                                            <h5 className="mb-4">Dados pessoais</h5>
+                                            <h5 className="mb-4 mt-5 text-center">Dados pessoais</h5>
 
                                             <form>
 
@@ -225,7 +221,7 @@ export default function EditarPerfil() {
 
                                                     <div className="col-md-6 mb-3">
                                                         <label>Senha: </label>
-                                                        <input type='password' className="form-control" value={item.senha} disabled />
+                                                        <input type='password' className="form-control" value={"**********"} disabled />
                                                     </div>
 
                                                     <div className="col-md-6 mb-3">

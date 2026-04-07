@@ -1,0 +1,22 @@
+body{
+    background-color: #f6f6f6;
+}
+
+.titulo h2{
+    color: #ff8945;
+    font-weight: 900
+}
+
+.card{
+    width: 50%;
+    margin: auto;
+    margin-bottom: 100px;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.foto{
+    text-align: center;
+    margin-top: 30px;
+}
