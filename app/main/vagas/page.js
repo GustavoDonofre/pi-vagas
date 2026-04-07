@@ -15,21 +15,32 @@ export default function Vagas() {
   const [efetivo, alteraEfetivo] = useState("")
   const [presencial, alteraPresencial] = useState("")
   const [turno, alteraTurno] = useState("")
+  const [editando, alteraEditando] = useState(false)
 
   const [vagas, alteraVagas] = useState([])
 
   const nome_usuario = localStorage.getItem("nome_usuario")
   const id_empresa = localStorage.getItem("id_usuario")
 
-  async function buscarEmpresa() {
+  async function buscarEmpresa(id_editando) {
     const { data, error } = await supabase
       .from('cadastro_vagas')
       .select(`*,
       id_empresa (*)
       `)
-      .eq(`id`, params.id_empresa)
+      .eq(`id`, id_editando)
 
-    alteraVagas(data)
+    if(data != null){
+      alteraTitulo(data[0].titulo)
+      alteraArea(data[0].area)
+      alteraDescricao(data[0].descricao)
+      alteraSalario(data[0].salario)
+      alteraEfetivo(data[0].efetivo)
+      alteraPresencial(data[0].presencial)
+      alteraTurno(data[0].turno)
+      alteraVagas(data)
+    }
+
   }
 
   async function salvar(e) {
@@ -55,7 +66,7 @@ export default function Vagas() {
     if (error == null) {
       alert("vaga cadastrada com sucesso!")
       // alteraEmpresa("")
-      alteraTitulo ("")
+      alteraTitulo("")
       alteraArea("")
       alteraDescricao("")
       alteraSalario("")
@@ -75,8 +86,8 @@ export default function Vagas() {
       descricao: descricao,
       salario: salario,
       efetivo: vagas,
-      presencial: modo_trabalho,
-      turno: periodo
+      presencial: presencial,
+      turno: turno
     }
     const { error } = await supabase
       .from('cadastro_vagas')
@@ -92,15 +103,15 @@ export default function Vagas() {
     }
 
     function cancelaEdicao() {
-        alteraEditando(null)
+      alteraEditando(null)
 
-        alteraTitulo ("")
-        alteraArea("")
-        alteraDescricao("")
-        alteraSalario("")
-        alteraEfetivo("")
-        alteraPresencial("")
-        alteraTurno("")
+      alteraTitulo("")
+      alteraArea("")
+      alteraDescricao("")
+      alteraSalario("")
+      alteraEfetivo("")
+      alteraPresencial("")
+      alteraTurno("")
 
     }
 
@@ -108,8 +119,30 @@ export default function Vagas() {
     buscaTodos()
   }
 
+  function editar(vaga) {
+
+    alteraEditando(true)
+
+    alteraTitulo(objeto.titulo)
+    alteraArea(objeto.area)
+    alteraDescricao(objeto.descricao)
+    alteraSalario(objeto.salario)
+    alteraEfetivo(objeto.efetivo)
+    alteraPresencial(objeto.presencial)
+    alteraTurno(objeto.turno)
+
+  }
+
   useEffect(() => {
-    buscarEmpresa()
+
+    let id_editando = null
+    if(typeof window !== "undefined"){
+      id_editando = window.location.search.split("=")[1]
+      console.log("Editar o id: "+id_editando)
+    }
+
+    buscarEmpresa(id_editando)
+    
   }, [])
 
   return (
@@ -180,22 +213,25 @@ export default function Vagas() {
             <div className="col-12">
               <div className="row">
                 <div className="col-6">
-                  <button type="button" className='btn btn-lg btn-outline-dark' onClick={() => window.location.href = "/main/feed_empresa"}> Cancelar </button>
-                </div>
-                <div className="col-6 d-flex justify-content-end">
-                  <div>
-                    {
-                      editando != null ?
-                        <div>
-                          <button onClick={atualizar}>Atualizar</button>
-                          <button onClick={() => cancelaEdicao()}>Cancelar</button>
-                        </div>
-                        :
-                        <button type="submit" className="btn btn-warning">Cadastrar Vaga</button>
-                    }
 
+
+                  <div className="col-6 d-flex justify-content-end">
+                    <div>
+                      {
+                        editando == true ?
+                          <div>
+                            <button onClick={atualizar}>Atualizar</button>
+                            <button onClick={() => cancelaEdicao()}>Cancelar</button>
+                          </div>
+                          :
+                          <div>
+                        <button type="submit" className="btn btn-padrao" onClick={() => window.location.href = "/main/feed_empresa"}>Cadastrar Vaga</button>
+                        <button type="button" className='btn btn-lg btn-outline-dark' onClick={() => window.location.href = "/main/feed_empresa"}> Cancelar </button>
+                        </div>
+                      }
+                    </div>
                   </div>
-                  <button type="submit" className="btn btn-padrao">Cadastrar Vaga</button>
+
                 </div>
               </div>
             </div>
