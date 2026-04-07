@@ -23,14 +23,14 @@ function Empresa() {
 
     const [vagas, alteraVagas] = useState([])
 
-    const [ quantidadeCandidatos, alteraQuantidadeCandidatos ] = useState(0);
+    const [quantidadeCandidatos, alteraQuantidadeCandidatos] = useState(0);
     const [vagasExibir, alteraVagasExibir] = useState([])
     const [vagasAtivasExibir, alteraVagasAtivas] = useState([])
     const [inscricoesExibir, alteraInscricoesExibir] = useState([])
     const [editando, alteraEditando] = useState(null)
 
     const id_empresa = localStorage.getItem("id_usuario")
-    const [id_vaga, alteraId_vaga] = useState([]) 
+    const [id_vaga, alteraId_vaga] = useState([])
 
     async function buscaTodasVagas() {
 
@@ -38,7 +38,7 @@ function Empresa() {
             .from('cadastro_vagas')
             .select()
 
-            console.log(data)
+        console.log(data)
         alteraId_vaga(data.id)
 
     }
@@ -96,10 +96,10 @@ function Empresa() {
 
     function editar(id) {
 
-       {window.location.href = "/main/vagas?editando="+id}
+        { window.location.href = "/main/vagas?editando=" + id }
 
         alteraEditando(objeto.id)
-        
+
         alteraTitulo(objeto.titulo)
         alteraArea(objeto.area)
         alteraDescricao(objeto.descricao)
@@ -124,7 +124,7 @@ function Empresa() {
 
     }
 
-    async function atualizar(vagas.id) {
+    async function atualizar() {
 
         const objeto = {
             empresa: id_empresa,
@@ -205,7 +205,7 @@ function Empresa() {
         } else {
             alert("Vaga encerrada com sucesso!")
             alteraVagasAtivas()
-            window.location.reload ()
+            window.location.reload()
         }
     }
 
@@ -222,14 +222,14 @@ function Empresa() {
         buscaInscricoes()
     }, [])
 
-    useEffect(()=> {
-        if(vagasAtivasExibir == null)
+    useEffect(() => {
+        if (vagasAtivasExibir == null)
             return
 
         buscaQuantidadeVaga()
-        async function buscaQuantidadeVaga(){
+        async function buscaQuantidadeVaga() {
 
-            const ids = vagasAtivasExibir.map( vaga => vaga.id )
+            const ids = vagasAtivasExibir.map(vaga => vaga.id)
             console.log(ids)
 
             const { data, error } = await supabase
@@ -305,19 +305,33 @@ function Empresa() {
                                                     <p><strong> Área: {item.area} </strong></p>
                                                     <p className="card-text"><strong>Descrição da vaga: {item.descricao} </strong></p>
 
-                                                    <a className="btn btn-padrao text-light" data-bs-toggle="modal" data-bs-target="#modalCandidatos" onClick={() => VerCandidatos(item.id)} > ver candidatos </a>
-                                                    <div className="text-end">
+                                                    <div>
 
-                                                        <div className="position-relative">
-                                                            <h5 className="card-title">Status da vaga</h5>
+                                                        <div className="btn-group dropend btn-acoes" role="group">
+                                                            <button type="button" class="btn btn-padrao dropdown-toggle text-light" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                Ações
+                                                            </button>
+                                                            <ul className="dropdown-menu">
+                                                                <li> <button className="dropdown-item"  onClick={() => VerCandidatos(item.id)}> Ver Candidatos </button></li>
+                                                                <li> <button className="dropdown-item"  onClick={() => editar(item.id)}> ✏️ Editar vaga </button></li>
+                                                                <li> <button className="dropdown-item"  onClick={() => encerrarVaga(item.id)} > Encerrar Vaga </button></li>
+                                                            </ul>
+                                                        </div>
 
-                                                        </div>
-                                                        <div>
-                                                            <a className="btn btn-padrao btn-sm" onClick={() => encerrarVaga(item.id)} > Encerrar Vaga </a>
-                                                            <button className="btn btn-sm btn-outline-dark" data-bs-toggle="modal" data-bs-target="#modalVaga" onClick={() => editar(item.id)}> ✏️ Editar vaga </button>
-                                                        </div>
 
                                                     </div>
+
+                                                    {/* <div className="text-end">
+
+                                                        <div>
+                                                            <a className="btn btn-padrao text-light" data-bs-toggle="modal" data-bs-target="#modalCandidatos" onClick={() => VerCandidatos(item.id)} > ver candidatos </a>
+
+                                                            <a className="btn btn-padrao btn-sm" onClick={() => encerrarVaga(item.id)} > Encerrar Vaga </a>
+
+                                                            <button className="btn btn-sm btn-outline-dark" data-bs-toggle="modal" data-bs-target="#modalVaga" onClick={() => editar(item.id)}> ✏️ Editar vaga </button>
+                                                        </div>
+                                                    </div> */}
+
                                                 </div>
                                             </div>
                                         </div>

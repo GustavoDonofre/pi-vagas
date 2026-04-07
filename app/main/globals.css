@@ -158,3 +158,13 @@ body {
 .margem_card {
     margin-left: 700px;
 }
+
+.card-vaga {
+  position: relative;
+}
+
+.btn-acoes {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
