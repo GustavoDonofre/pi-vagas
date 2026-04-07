@@ -3,7 +3,7 @@
 import './editar_perfil.css'
 import supabase from '../conexao/supabase'
 import { useEffect, useState } from 'react'
-import { PegaCurriculoPeloIDUsuario } from '../conexao/bucket'
+import { PegaCurriculoPeloIDUsuario, PegaFotoPerfilPeloIDUsuario } from '../conexao/bucket'
 
 export default function EditarPerfil() {
 
@@ -14,9 +14,8 @@ export default function EditarPerfil() {
     const [telefone, alteraTelefone] = useState("")
     const [endereco, alteraEndereco] = useState("")
     const [area, alteraArea] = useState("")
-    const [foto, alteraFoto] = useState()
- 
-    const [curriculo, alteraCurriculo] = useState(null)
+
+    const [foto, alteraFoto] = useState(null)
     const [listaUsuarios, alteraListaUsuarios] = useState([])
     const [perfil, alteraPerfil] = useState(true)
 
@@ -55,6 +54,17 @@ export default function EditarPerfil() {
 
         e.preventDefault()
 
+        const resposta = await supabase.storage
+            .from('fotos_perfil')
+            .upload(id_candidato, foto)
+
+        console.log(resposta)
+
+        if (error) {
+            alert("Erro ao enviar foto!")
+            return
+        }
+
         const obj = {
             nome: nome,
             contato: telefone,
@@ -92,10 +102,9 @@ export default function EditarPerfil() {
             <div className="titulo foto mb-4">
                 <h2>Editar Perfil</h2>
                 <p>Atualize suas informações pessoais.</p> <br />
-                <img src="https://placehold.co/100" className="rounded-circle" />
-                <br /> 
-                <button className="btn-padrao mt-3"> Editar foto </button>
-                {/* <input type="file" onChange={e => alteraFoto(e.target.files[0])}/> */}
+                <img src={PegaFotoPerfilPeloIDUsuario(id_candidato)} style={{ width: "110px" }} className="rounded-circle" />
+                <br />
+                <label className="btn-padrao mt-3"> Editar foto <input type="file" accept="image/*" style={{ display: "none" }} onChange={e => alteraFoto(e.target.files[0])} disabled /> </label>
             </div>
 
 
@@ -108,7 +117,18 @@ export default function EditarPerfil() {
 
                                 <div className="card">
                                     <div className="card-body">
-                                        <h5 className="mb-4">Dados pessoais</h5>
+
+                                        <div className="d-flex flex-column align-items-center mb-3">
+                                            <img src={PegaFotoPerfilPeloIDUsuario(id_candidato)} style={{ width: "110px" }} className="rounded-circle" />
+                                            <br />
+                                            <label className="btn btn-primary btn-sm disabled">
+                                                Editar foto
+                                                <input type="file" style={{ display: "none" }} disabled />
+                                            </label>
+                                        </div>
+
+                                        <h5 className="mb-4 text-center">Dados pessoais</h5>
+
                                         <form>
                                             <div className="row">
 
@@ -185,6 +205,12 @@ export default function EditarPerfil() {
                                     <div className="card">
 
                                         <div className="card-body">
+
+                                            <div className="d-flex flex-column align-items-center mb-3">
+                                                <img src={PegaFotoPerfilPeloIDUsuario(id_candidato)} style={{ width: "110px" }} className="rounded-circle" />
+                                                <br />
+                                                <label className="btn-padrao mt-3"> Editar foto <input type="file" accept="image/*" style={{ display: "none" }} onChange={e => alteraFoto(e.target.files[0])} /> </label>
+                                            </div>
 
                                             <h5 className="mb-4">Dados pessoais</h5>
 
