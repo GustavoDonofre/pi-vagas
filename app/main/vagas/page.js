@@ -161,7 +161,7 @@ export default function Vagas() {
             </div>
 
             <div className="mb-3">
-              <label className="form-label">titulo</label>
+              <label className="form-label">Título</label>
               <input value={titulo} className="form-control" onChange={(e) => alteraTitulo(e.target.value)} />
             </div>
             <div className="mb-3">

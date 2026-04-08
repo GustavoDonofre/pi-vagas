@@ -4,6 +4,7 @@ import './empresa.css'
 import supabase from '../conexao/supabase'
 import { useParams } from 'next/navigation'
 import { PegaCurriculoPeloIDUsuario } from '../conexao/bucket'
+import 'bootstrap/js/dist/dropdown.js'
 import { Router } from 'next/router'
 import { Tiro_Bangla } from 'next/font/google'
 
@@ -255,32 +256,25 @@ function Empresa() {
 
                 <br />
 
+
                 {/* barra superior com vagas */}
                 <div className='col-12'>
-                    <div className="card_info container">
-                        <div className="row justify-content-center g-4">
-                            <div className="col-md-4">
-                                <div className="card p-2 text-center">
-                                    <p>Vagas ativas</p>
-                                    <p>{vagasAtivas}</p>
-                                </div>
-                            </div>
-                            <div className="col-md-4">
-                                <div className="card p-2 text-center">
-                                    <p>Total de candidatos</p>
-                                    <p>{quantidadeCandidatos}</p>
-                                </div>
-                            </div>
-                            <div className="col-md-4">
-                                <div className="card p-2 text-center">
-                                    <p>Vagas publicadas</p>
-                                    <p>{vagasPublicadas}</p>
-                                </div>
-                            </div>
+                    <div className="row">
+                        <div className="col-2 d-flex align-items-center justify-content-start">
+                            <button className="btn-padrao" onClick={() => window.location.href = "/main/vagas"} > Criar vaga </button>
                         </div>
-                    </div>
-                    <div className="d-flex justify-content-end pt-2">
-                        <button className="botaoVaga btn-padrao" onClick={() => window.location.href = "/main/vagas"} > Criar vaga </button>
+                        <div className="card card_menor col-3 rounded-4 shadow-sm p-2 text-center">
+                            <h5>Vagas ativas</h5>
+                            <h5>{vagasAtivas}</h5>
+                        </div>
+                        <div className="card card_menor col-3 rounded-4 p-2 shadow-sm text-center">
+                            <h5>Total de candidatos</h5>
+                            <h5>{quantidadeCandidatos}</h5>
+                        </div>
+                        <div className="card card_menor col-3 rounded-4 shadow-sm p-2 text-center">
+                            <h5>Vagas publicadas</h5>
+                            <h5>{vagasPublicadas}</h5>
+                        </div>
 
                     </div>
                 </div>
@@ -295,42 +289,24 @@ function Empresa() {
                                 :
                                 vagasExibir.map(
                                     item =>
-
                                         <div className="col-md-6 mb-4">
-                                            <div className='card shadow-sm h-100 border-0'>
+                                            <div className='card shadow-sm h-100 border-20'>
                                                 <h5 className="card-header d-flex justify-content-between align-items-center fw-bold">{item.titulo}</h5>
                                                 <div className="card-body">
-
-
-                                                    <p><strong> Área: {item.area} </strong></p>
-                                                    <p className="card-text"><strong>Descrição da vaga: {item.descricao} </strong></p>
-
-                                                    <div>
-
-                                                        <div className="btn-group dropend btn-acoes" role="group">
-                                                            <button type="button" class="btn btn-padrao dropdown-toggle text-light" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <p> Área: {item.area} </p>
+                                                    <p> Descrição da vaga: {item.descricao}</p>
+                                                    <div className='col-12 d-flex justify-content-end'>
+                                                        <div class="btn-group dropend text-end">
+                                                            <button type="button" class="btn-acao text-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                                                 Ações
                                                             </button>
-                                                            <ul className="dropdown-menu">
-                                                                <li> <button className="dropdown-item"  onClick={() => VerCandidatos(item.id)}> Ver Candidatos </button></li>
-                                                                <li> <button className="dropdown-item"  onClick={() => editar(item.id)}> ✏️ Editar vaga </button></li>
-                                                                <li> <button className="dropdown-item"  onClick={() => encerrarVaga(item.id)} > Encerrar Vaga </button></li>
+                                                            <ul class="dropdown-menu">
+                                                                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalCandidatos" onClick={() => VerCandidatos(item.id)} >Ver candidatos</a></li>
+                                                                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalVaga" onClick={() => editar(item.id)}>Editar vaga</a></li>
+                                                                <li><a class="dropdown-item" onClick={() => encerrarVaga(item.id)} >Encerrar Vaga</a></li>
                                                             </ul>
                                                         </div>
-
-
                                                     </div>
-
-                                                    {/* <div className="text-end">
-
-                                                        <div>
-                                                            <a className="btn btn-padrao text-light" data-bs-toggle="modal" data-bs-target="#modalCandidatos" onClick={() => VerCandidatos(item.id)} > ver candidatos </a>
-
-                                                            <a className="btn btn-padrao btn-sm" onClick={() => encerrarVaga(item.id)} > Encerrar Vaga </a>
-
-                                                            <button className="btn btn-sm btn-outline-dark" data-bs-toggle="modal" data-bs-target="#modalVaga" onClick={() => editar(item.id)}> ✏️ Editar vaga </button>
-                                                        </div>
-                                                    </div> */}
 
                                                 </div>
                                             </div>
