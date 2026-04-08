@@ -123,23 +123,23 @@ body {
 }
 
 .card_menor {
-    background-color: #fffbf9;
-    border-radius: 20px;
-    padding: 20px;
-    margin-right: 10px;
-    border: 1px solid #dda564;
-    transition: all 0.2s ease-in-out;
-    height: 100%;
+    background-color: #fffbf9 !important;
+    border-radius: 20px !important;
+    padding: 20px !important;
+    margin-right: 10px !important;
+    border: 1px solid #dda564 !important;
+    transition: all 0.2s ease-in-out !important;
+    height: 100% !important;
 }
 
 .card_menor h5 {
-    color: #ff8800;
-    text-align: center;
+    color: #ff8800 !important;
+    text-align: center !important;
 }
 
 .card_menor:hover {
-    transform: translateY(-3px);
-    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.08);
+    transform: translateY(-3px) !important;
+    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.08) !important;
 }
 
 .card_2 {
@@ -159,12 +159,3 @@ body {
     margin-left: 700px;
 }
 
-.card-vaga {
-  position: relative;
-}
-
-.btn-acoes {
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-}
