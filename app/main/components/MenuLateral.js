@@ -3,8 +3,11 @@ import Link from "next/link"
 import "./MenuLateral.css"
 import * as bootstrap from "bootstrap/dist/js/bootstrap.bundle.min.js";
 import { useEffect, useState } from "react"
+import { PegaFotoPerfilPeloIDUsuario } from "../conexao/bucket";
 
 export default function MenuLateral() {
+
+    const id_usuario = localStorage.getItem("id_usuario")
 
     // const [nome_usuario, alteraNome_usuario] = useState(null)
     const [nomeUsuario, setNomeUsuario] = useState(null)
@@ -34,7 +37,13 @@ export default function MenuLateral() {
     return (
         <div className="menulateral">
             <div className="text-center">
-                <img src={"https://ui-avatars.com/api/?background=random&name=" + nomeUsuario} className="rounded-circle" />
+                {
+                    <img src={PegaFotoPerfilPeloIDUsuario(id_usuario)} style={{ width: "110px" }} className="rounded-circle"
+                        onError={(e) => {
+                            e.target.onerror = null
+                            e.target.src = "https://ui-avatars.com/api/?background=random&name=" + nome
+                        }} />
+                }
                 <br /><br />
                 <h2 className="fs-5"> {nomeUsuario} </h2>
             </div>

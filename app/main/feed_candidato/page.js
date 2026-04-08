@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import supabase from '../conexao/supabase'
 import './feed_candidato.css'
+import { PegaFotoPerfilPeloIDUsuario } from '../conexao/bucket'
 
 export default function Feed() {
 
@@ -145,8 +146,12 @@ export default function Feed() {
                                             <div className="row">
                                                 <div className="col-1">
                                                     <div>
-                                                        <img src="https://placehold.co/70" className="rounded-circle img-fluid" />
-                                                    </div>
+                                                    <img src={PegaFotoPerfilPeloIDUsuario(item.id_empresa.id)} style={{ width: "90px" }} className="rounded-circle"
+                                                        onError={(e) => {
+                                                            e.target.onerror = null
+                                                            e.target.src = "https://ui-avatars.com/api/?background=random&name=" + item.id_empresa.nome
+                                                        }} />
+                                                </div>
                                                 </div>
 
                                                 <div className="col-11">
@@ -185,7 +190,14 @@ export default function Feed() {
                                             </div>
                                             <div className="modal-body">
 
-                                                <img src="https://placehold.co/100" className="rounded-circle img-fluid d-block mx-auto" />
+                                                <div className="justify-content-center">
+                                                    <img src={PegaFotoPerfilPeloIDUsuario(item.id)} style={{ width: "80px" }} className="rounded-circle"
+                                                        onError={(e) => {
+                                                            e.target.onerror = null
+                                                            e.target.src = "https://ui-avatars.com/api/?background=random&name=" + item.id_empresa.nome
+                                                        }} />
+                                                </div>
+
                                                 <p className='text-center mt-3'><strong> {item.id_empresa.nome} </strong></p>
 
                                                 <p className='text-center'><strong> Título: </strong> {item.titulo} </p>

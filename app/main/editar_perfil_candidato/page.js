@@ -51,7 +51,7 @@ export default function EditarPerfil() {
 
         e.preventDefault()
 
-        
+
         const obj = {
             nome: nome,
             contato: telefone,
@@ -61,19 +61,19 @@ export default function EditarPerfil() {
         }
 
         const { error } = await supabase
-        .from('usuarios')
-        .update(obj)
-        .eq('id', id_candidato)
-        
+            .from('usuarios')
+            .update(obj)
+            .eq('id', id_candidato)
+
         if (error == null) {
             alert("Atualização realizada com sucesso!")
             alteraPerfil(true)
             buscaUsuario()
-            
+
         } else {
             alert("Dados inválidos! Verifique os campos e tente novamente...")
         }
-        
+
         const resposta = await supabase.storage
             .from('fotos_perfil')
             .upload(id_candidato, foto)
@@ -83,6 +83,9 @@ export default function EditarPerfil() {
         if (error) {
             alert("Erro ao enviar foto!")
             return
+        } else {
+            alteraPerfil(true)
+            buscaUsuario()
         }
 
     }
@@ -115,12 +118,20 @@ export default function EditarPerfil() {
                                     <div className="card-body">
 
                                         <div className="d-flex flex-column align-items-center mb-3">
-                                            <img src={PegaFotoPerfilPeloIDUsuario(id_candidato)} style={{ width: "110px" }} className="rounded-circle" />
+
+                                            {
+                                                <img src={PegaFotoPerfilPeloIDUsuario(id_candidato)} style={{ width: "110px" }} className="rounded-circle"
+                                                    onError={(e) => {
+                                                        e.target.onerror = null
+                                                        e.target.src = "https://ui-avatars.com/api/?background=random&name=" + nome
+                                                    }} />
+                                            }
+
                                             <br />
                                             <p>
                                                 Editar foto
-                                                </p>
-                                            
+                                            </p>
+
                                         </div>
 
                                         <h5 className="mb-4 text-center">Dados pessoais</h5>
@@ -203,8 +214,15 @@ export default function EditarPerfil() {
                                         <div className="card-body">
 
                                             <div className="d-flex flex-column align-items-center mb-3">
-                                                <img src={PegaFotoPerfilPeloIDUsuario(id_candidato)} style={{ width: "110px" }} className="rounded-circle" />
-                                                
+
+                                                {
+                                                    <img src={PegaFotoPerfilPeloIDUsuario(id_candidato)} style={{ width: "110px" }} className="rounded-circle"
+                                                        onError={(e) => {
+                                                            e.target.onerror = null
+                                                            e.target.src = "https://ui-avatars.com/api/?background=random&name=" + nome
+                                                        }} />
+                                                }
+
                                                 <label className="btn-padrao mt-3"> Editar foto <input type="file" accept="image/*" style={{ display: "none" }} onChange={e => alteraFoto(e.target.files[0])} /> </label>
                                             </div>
 

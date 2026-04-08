@@ -3,17 +3,18 @@
 import './banco_talentos_emp.css'
 import supabase from '../conexao/supabase'
 import { useEffect, useState } from 'react'
-import { PegaCurriculoPeloIDUsuario } from '../conexao/bucket'
+import { PegaCurriculoPeloIDUsuario, PegaFotoPerfilPeloIDUsuario } from '../conexao/bucket'
 
 export default function bancoTalentosEmp() {
 
     const id_empresa = localStorage.getItem("id_usuario")
-    
+
     const [bancoTalentos, alteraBancoTalentos] = useState([])
     const [candidatoInscrito, alteraCandidatoInscrito] = useState(null)
 
     const [filtroTurno, alteraFiltroTurno] = useState("")
     const [filtroContratacao, alteraFiltroContratacao] = useState("")
+    const [idCandidato, alteraIdCandidato] = useState([])
 
     async function buscaBanco() {
 
@@ -41,7 +42,7 @@ export default function bancoTalentosEmp() {
             <br />
 
             <div className="card_filtros">
-                
+
                 <div className="row g-3">
 
                     <div className="col-md-6">
@@ -82,15 +83,16 @@ export default function bancoTalentosEmp() {
                                         <div className="row">
                                             <div className="col-1">
                                                 <div>
-                                                    <img src="https://placehold.co/70" className="rounded-circle img-fluid" />
+                                                    <img src={PegaFotoPerfilPeloIDUsuario(item.id_candidato.id)} style={{ width: "90px" }} className="rounded-circle"
+                                                        onError={(e) => {
+                                                            e.target.onerror = null
+                                                            e.target.src = "https://ui-avatars.com/api/?background=random&name=" + item.id_candidato.nome
+                                                        }} />
                                                 </div>
                                             </div>
-                                            <div className="col-11">
-                                                <div className="col-4">
-                                                    <div className="topo">
-                                                        <h5 className="nome">{item.id_candidato.nome}</h5>
-                                                        <p className="contratacao">{item.contratacao}</p>
-                                                    </div>
+                                            <div className="col-11 ">
+                                                <div className="col-6">
+                                                    <h5 className="nome">{item.id_candidato.nome}</h5>
                                                 </div>
                                                 <div className="row">
 
@@ -98,7 +100,7 @@ export default function bancoTalentosEmp() {
                                                         <div className="info">
                                                             <p>{item.turno}</p>
                                                             <p>|</p>
-                                                            <p>{item.area_atuacao}</p>
+                                                            <p>{item.contratacao}</p>
                                                         </div>
                                                     </div>
                                                     <div className="col-4 d-flex justify-content-end">
@@ -144,7 +146,7 @@ export default function bancoTalentosEmp() {
                                                             <p><strong>Portfolio: </strong> {candidatoInscrito.portfolio ? (<a href={candidatoInscrito.portfolio} target="_blank" rel="noopener noreferrer"> Acessar portfolio </a>)
                                                                 :
                                                                 (<p>Não informado</p>)
-                                                                }
+                                                            }
                                                             </p>
 
                                                         </div>

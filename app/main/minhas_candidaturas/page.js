@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import './minhas_candidaturas.css'
 import supabase from '../conexao/supabase'
+import { PegaFotoPerfilPeloIDUsuario } from '../conexao/bucket'
 
 export default function MinhasCandidaturas() {
 
@@ -46,11 +47,6 @@ export default function MinhasCandidaturas() {
         }
     }
 
-    function formataData(data) {
-        let data_formatada = new Date(data)
-        data_formatada = data_formatada.toLocaleDateString();
-        return data_formatada;
-    }
 
 
     useEffect(() => {
@@ -87,8 +83,12 @@ export default function MinhasCandidaturas() {
                                         <div className="col-12">
                                             <div className="row">
                                                 <div className="col-1">
-                                                    <div>
-                                                        <img src="https://placehold.co/70" className="rounded-circle img-fluid" />
+                                                    <div className="justify-content-center">
+                                                        <img src={PegaFotoPerfilPeloIDUsuario(item.id_vaga.id_empresa.id)} style={{ width: "80px" }} className="rounded-circle"
+                                                            onError={(e) => {
+                                                                e.target.onerror = null
+                                                                e.target.src = "https://ui-avatars.com/api/?background=random&name=" + item.id_vaga.id_empresa.nome
+                                                            }} />{console.log(" aquiiiiiiiiiiiiiiiii:",item.id_vaga.id_empresa.id)}
                                                     </div>
                                                 </div>
 
