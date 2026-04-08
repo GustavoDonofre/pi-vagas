@@ -7,7 +7,7 @@ import { PegaFotoPerfilPeloIDUsuario } from "../conexao/bucket";
 
 export default function MenuLateral() {
 
-    const id_usuario = localStorage.getItem("id_usuario")
+    const id_usuario = localStorage.getItem("id")
 
     // const [nome_usuario, alteraNome_usuario] = useState(null)
     const [nomeUsuario, setNomeUsuario] = useState(null)
