@@ -7,7 +7,8 @@ import { PegaFotoPerfilPeloIDUsuario } from "../conexao/bucket";
 
 export default function MenuLateral() {
 
-    const id_usuario = localStorage.getItem("id")
+    const id_usuario = localStorage.getItem("id_usuario")
+    const nome_usuario = localStorage.getItem("nome_usuario")
 
     // const [nome_usuario, alteraNome_usuario] = useState(null)
     const [nomeUsuario, setNomeUsuario] = useState(null)
@@ -41,7 +42,7 @@ export default function MenuLateral() {
                     <img src={PegaFotoPerfilPeloIDUsuario(id_usuario)} style={{ width: "110px" }} className="rounded-circle"
                         onError={(e) => {
                             e.target.onerror = null
-                            e.target.src = "https://ui-avatars.com/api/?background=random&name=" + nome
+                            e.target.src = "https://ui-avatars.com/api/?background=random&name=" + nome_usuario
                         }} />
                 }
                 <br /><br />
