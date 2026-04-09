@@ -120,10 +120,11 @@ export default function EditarPerfil() {
                                         <div className="d-flex flex-column align-items-center mb-3">
 
                                             {
-                                                <img src={PegaFotoPerfilPeloIDUsuario(id_candidato)} style={{ width: "110px" }} className="rounded-circle"
+                                                <img src={PegaFotoPerfilPeloIDUsuario(id_candidato)} style={{ width: "100px" }} className="rounded-circle"
                                                     onError={(e) => {
                                                         e.target.onerror = null
                                                         e.target.src = "https://ui-avatars.com/api/?background=random&name=" + nome
+                                                        e.target.style.width = "100px"
                                                     }} />
                                             }
 

@@ -87,6 +87,7 @@ export default function bancoTalentosEmp() {
                                                         onError={(e) => {
                                                             e.target.onerror = null
                                                             e.target.src = "https://ui-avatars.com/api/?background=random&name=" + item.id_candidato.nome
+                                                            e.target.style.width = "90px"
                                                         }} />
                                                 </div>
                                             </div>

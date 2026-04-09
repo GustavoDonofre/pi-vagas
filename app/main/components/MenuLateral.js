@@ -39,7 +39,7 @@ export default function MenuLateral() {
         <div className="menulateral">
             <div className="text-center">
                 {
-                    <img src={PegaFotoPerfilPeloIDUsuario(id_usuario)} style={{ width: "110px" }} className="rounded-circle"
+                    <img src={PegaFotoPerfilPeloIDUsuario(id_usuario)} style={{ width: "100px" }} className="rounded-circle"
                         onError={(e) => {
                             e.target.onerror = null
                             e.target.src = "https://ui-avatars.com/api/?background=random&name=" + nome_usuario 
