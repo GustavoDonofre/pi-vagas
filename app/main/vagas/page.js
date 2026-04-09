@@ -220,7 +220,7 @@ export default function Vagas() {
                       {
                         editando == true ?
                           <div>
-                            <button onClick={atualizar}>Atualizar</button>
+                            <button onClick={() => atualizar()}>Atualizar</button>
                             <button onClick={() => cancelaEdicao()}>Cancelar</button>
                           </div>
                           :
