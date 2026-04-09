@@ -43,6 +43,7 @@ export default function EditarPerfil() {
 
     function cancelaEdicao() {
 
+        editar(listaUsuarios[0])
         alteraPerfil(true)
 
     }
@@ -281,8 +282,8 @@ export default function EditarPerfil() {
 
                                                     <div className="mt-4 d-flex justify-content-center">
 
-                                                        <button className="btn-padrao me-4" onClick={salvar}>Salvar Alterações</button>
-                                                        <button className="btn-acao" onClick={cancelaEdicao}>Cancelar</button>
+                                                        <button className="btn-padrao me-4" type="submit" onClick={salvar}>Salvar Alterações</button>
+                                                        <button className="btn-acao" type="button" onClick={cancelaEdicao}>Cancelar</button> {/* NAO tirar o type button*/}
 
                                                     </div>
 

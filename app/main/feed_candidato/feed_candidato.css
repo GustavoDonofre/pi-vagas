@@ -22,6 +22,8 @@ body{
     padding: 20px;
     border-radius: 20px;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    margin-left: 50px;
+    margin-right: 50px;
 }
 
 .card{
@@ -38,6 +40,7 @@ body{
 
 .nome{
     font-weight: bold;
+    margin-left: 50px;
 }
 
 .contratacao{
@@ -53,4 +56,5 @@ body{
     gap: 15px;
     color: #6c757d;
     font-size: 14px;
+    margin-left: 50px;
 }

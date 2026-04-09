@@ -73,55 +73,64 @@ export default function MinhasCandidaturas() {
                         <p>Explore as oportunidades em <strong> "Início" </strong> e dê o primeiro passo!</p>
                     </div>
                     :
-                    minhasCandidaturas.map(
-                        item =>
-                            <div>
-                                {/* Vagas Candidatadas */}
-                                <div className="card">
+                    <div className="row justify-content-center">
+                        {
+                            minhasCandidaturas.map(item =>
 
-                                    <div className="perfil">
-                                        <div className="col-12">
-                                            <div className="row">
-                                                <div className="col-1">
-                                                    <div className="justify-content-center">
-                                                        <img src={PegaFotoPerfilPeloIDUsuario(item.id_vaga.id_empresa.id)} style={{ width: "90px" }} className="rounded-circle"
-                                                            onError={(e) => {
-                                                                e.target.onerror = null
-                                                                e.target.src = "https://ui-avatars.com/api/?background=random&name=" + item.id_vaga.id_empresa.nome
-                                                                e.target.style.width = "90px"
-                                                            }} />
-                                                    </div>
-                                                </div>
-
-                                                <div className="col-11">
-                                                    <div className="col-4">
-                                                        <div className="topo">
-                                                            <h5 className="nome">{item.id_vaga.id_empresa.nome}</h5>
-                                                            <p className="contratacao">{item.id_vaga.efetivo}</p>
+                                <div className="col-5">
+                                    <div className="card">
+                                        <div className="perfil">
+                                            <div className="col-12">
+                                                <div className="row">
+                                                    <div className="col-1">
+                                                        <div className="justify-content-center">
+                                                            <img src={PegaFotoPerfilPeloIDUsuario(item.id_vaga.id_empresa.id)} style={{ width: "80px" }} className="rounded-circle"
+                                                                onError={(e) => {
+                                                                    e.target.onerror = null
+                                                                    e.target.src = "https://ui-avatars.com/api/?background=random&name=" + item.id_vaga.id_empresa.nome
+                                                                    e.target.style.width = "80px"
+                                                                }} />
                                                         </div>
                                                     </div>
-                                                    <div className="row">
 
-                                                        <div className="col-8">
-                                                            <div className="info">
-                                                                <p>{item.id_vaga.titulo}</p>
-                                                                <p>|</p>
-                                                                <p>{item.id_vaga.turno}</p>
+                                                    <div className="col-11">
+
+                                                        <div className="col-10">
+                                                            <div className="topo">
+                                                                <h5 className="nome">{item.id_vaga.id_empresa.nome}</h5>
+                                                                <p className="contratacao">{item.id_vaga.efetivo}</p>
                                                             </div>
                                                         </div>
-                                                        <div className="col-4 d-flex justify-content-end">
-                                                            <button className="btn-acao" data-bs-dismiss="modal" onClick={() => cancelaCandidatura(item.id_candidatura)}> Cancelar Candidatura </button>
+
+                                                        <div className="row">
+
+                                                            <div className="col-8">
+                                                                <div className="info">
+                                                                    <p>{item.id_vaga.titulo}</p>
+                                                                    <p>|</p>
+                                                                    <p>{item.id_vaga.turno}</p>
+                                                                </div>
+                                                            </div>
+
+                                                            <div className="col-4 d-flex justify-content-end">
+                                                                <button className="btn-acao" data-bs-dismiss="modal" onClick={() => cancelaCandidatura(item.id_candidatura)}> Cancelar Candidatura </button>
+                                                            </div>
+
                                                         </div>
+
                                                     </div>
+                                                    
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
 
-                            </div>
-                    )
+
+                            )
+
+                        }
+                    </div>
             }
 
         </div>

@@ -86,7 +86,7 @@ export default function Feed() {
             <div className="titulo">
                 <h2> Bem-Vindo </h2>
                 <br />
-                <p> Descubra oportunidades e encontre vagas cadastradas por empresas. </p>
+                <p> Explore vagas recentemente publicadas por empresas e candidate-se às que combinam com seu perfil. </p>
             </div>
 
             <br />
@@ -134,100 +134,123 @@ export default function Feed() {
                 feedCandidato.length == 0 ?
                     <h4>Sem registros no momento...</h4>
                     :
-                    feedCandidato.map(
-                        item =>
-                            <div>
+                    <div className="row justify-content-center">
+                        {
+                            feedCandidato.map(item =>
 
-                                {/* Card da vaga */}
-                                <div className="card">
-
-                                    <div className="perfil">
-                                        <div className="col-12">
-                                            <div className="row">
-                                                <div className="col-1">
-                                                    <div>
-                                                    <img src={PegaFotoPerfilPeloIDUsuario(item.id_empresa.id)} style={{ width: "90px" }} className="rounded-circle"
-                                                        onError={(e) => {
-                                                            e.target.onerror = null
-                                                            e.target.src = "https://ui-avatars.com/api/?background=random&name=" + item.id_empresa.nome
-                                                            e.target.style.width = "80px"
-                                                        }} />
-                                                </div>
-                                                </div>
-
-                                                <div className="col-11">
-                                                    <div className="col-4">
-                                                        <div className="topo">
-                                                            <h5 className="nome">{item.id_empresa.nome}</h5>
-                                                            <p className="contratacao">{item.efetivo}</p>
-                                                        </div>
+                                <div className="col-5">
+                                    <div className="card">
+                                        <div className="perfil">
+                                            <div className="col-12">
+                                                <div className="row">
+                                                    <div className="col-1">
+                                                        <img
+                                                            src={PegaFotoPerfilPeloIDUsuario(item.id_empresa.id)}
+                                                            style={{ width: "80px" }}
+                                                            className="rounded-circle"
+                                                            onError={(e) => {
+                                                                e.target.onerror = null
+                                                                e.target.src = "https://ui-avatars.com/api/?background=random&name=" + item.id_empresa.nome
+                                                                e.target.style.width = "80px"
+                                                            }}
+                                                        />
                                                     </div>
-                                                    <div className="row">
 
-                                                        <div className="col-8">
-                                                            <div className="info">
-                                                                <p>{item.titulo}</p>
-                                                                <p>|</p>
-                                                                <p>{item.descricao}</p>
+                                                    <div className="col-11">
+
+                                                        <div className="col-10">
+                                                            <div className="topo">
+                                                                <h5 className="nome">{item.id_empresa.nome}</h5>
+                                                                <p className="contratacao">{item.turno}</p>
                                                             </div>
                                                         </div>
-                                                        <div className="col-4 d-flex justify-content-end">
-                                                            <button className="btn-padrao" data-bs-toggle="modal" data-bs-target={`#modal_perfil_${item.id}`}>Ver vaga</button>
+
+                                                        <div className="row">
+
+                                                            <div className="col-8">
+                                                                <div className="info">
+                                                                    <p>{item.titulo}</p>
+                                                                    <p>|</p>
+                                                                    <p>{item.efetivo}</p>
+                                                                </div>
+                                                            </div>
+
+                                                            <div className="col-4 d-flex justify-content-end">
+                                                                <button className="btn-padrao" data-bs-toggle="modal" data-bs-target={`#modal_perfil_${item.id}`}> Ver vaga </button>
+                                                            </div>
+
                                                         </div>
+                                                        
                                                     </div>
+
                                                 </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    {/* Modal */}
+                                    <div className="modal fade" id={`modal_perfil_${item.id}`}>
+                                        <div className="modal-dialog">
+                                            <div className="modal-content">
+                                                <div className="modal-header">
+                                                    <button className="btn-close" data-bs-dismiss="modal"></button>
+                                                </div>
+                                                <div className="modal-body">
+
+                                                    <div className="d-flex justify-content-center">
+                                                        <img
+                                                            src={PegaFotoPerfilPeloIDUsuario(item.id_empresa.id)}
+                                                            style={{ width: "80px" }}
+                                                            className="rounded-circle"
+                                                            onError={(e) => {
+                                                                e.target.onerror = null
+                                                                e.target.src = "https://ui-avatars.com/api/?background=random&name=" + item.id_empresa.nome
+                                                                e.target.style.width = "90px"
+                                                            }}
+                                                        />
+                                                    </div>
+
+                                                    <h3 className='text-center mt-3'><strong>{item.id_empresa.nome}</strong></h3>
+                                                    <br />
+                                                    <p className='text-center'><label className='text-muted'><i className="bi bi-briefcase me-2"></i> Título:</label> {item.titulo}</p>
+                                                    <p className='text-center'> <label className='text-muted small'><i className="bi bi-briefcase me-2"></i> Localização:</label> {item.id_empresa.endereco}</p>
+
+                                                    <br />
+
+                                                    <p><label className='text-muted small'><i className="bi bi-card-text me-1"></i>Descrição:</label> {item.descricao}</p>
+                                                    <p><label className='text-muted small'><i className="bi bi-tags"></i> Área:</label> {item.area}</p>
+
+                                                    <br />
+
+                                                    <p><label className='text-muted small'><i className="bi bi-cash-coin me-2 text-success"></i>Salário:</label> R${item.salario}</p>
+                                                    <p><label className='text-muted small'><i className="bi bi-file-earmark-check me-2 text-warning"></i>Tipo de contratação:</label> {item.efetivo}</p>
+                                                    <p><label className='text-muted small'><i className="bi bi-geo-alt me-2 text-danger"></i>Modelo de trabalho:</label> {item.presencial}</p>
+
+                                                    <br />
+
+                                                    <p className='text-muted small'><i className="bi bi-calendar-event me-2"></i>Data de publicação: {formataData(item.criado_em)}</p>
+
+                                                </div>
+
+                                                <div className="modal-footer">
+                                                    <button
+                                                        className="btn-padrao"
+                                                        data-bs-dismiss="modal"
+                                                        onClick={() => confirmacao(item.id)}
+                                                    >
+                                                        Candidatar-se
+                                                    </button>
+                                                </div>
+
                                             </div>
                                         </div>
                                     </div>
 
                                 </div>
-
-                                {/* Modal da vaga */}
-                                <div className="modal fade" id={`modal_perfil_${item.id}`}>
-                                    <div className="modal-dialog">
-                                        <div className="modal-content">
-                                            <div className="modal-header">
-                                                <button className="btn-close" data-bs-dismiss="modal"></button>
-                                            </div>
-                                            <div className="modal-body">
-
-                                                <div className="d-flex justify-content-center">
-                                                    <img src={PegaFotoPerfilPeloIDUsuario(item.id)} style={{ width: "80px" }} className="rounded-circle"
-                                                        onError={(e) => {
-                                                            e.target.onerror = null
-                                                            e.target.src = "https://ui-avatars.com/api/?background=random&name=" + item.id_empresa.nome
-                                                            e.target.style.width = "90px"
-                                                        }} />
-                                                </div>
-
-                                                <p className='text-center mt-3'><strong> {item.id_empresa.nome} </strong></p>
-
-                                                <p className='text-center'><strong> Título: </strong> {item.titulo} </p>
-
-                                                <br />
-
-                                                <p><strong>Área: </strong> {item.area} </p>
-                                                <p><strong>Descrição: </strong> {item.descricao} </p>
-
-                                                <br />
-
-                                                <p><strong>Salário: </strong> R${item.salario} </p>
-                                                <p><strong>Tipo de contratação: </strong> {item.efetivo} </p>
-                                                <p><strong>Modelo de trabalho: </strong> {item.presencial} </p>
-
-                                                <br />
-
-                                                <p>Data de publicação: {formataData(item.criado_em)}</p>
-
-                                            </div>
-                                            <div className="modal-footer">
-                                                <button className="btn-padrao" data-bs-dismiss="modal" onClick={() => confirmacao(item.id)}> Candidatar-se </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                    )
+                            )
+                        }
+                    </div>
             }
 
         </div>
