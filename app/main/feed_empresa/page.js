@@ -249,6 +249,12 @@ function Empresa() {
 
         <div>
 
+         <div className="titulo">
+                <h2> Bem-Vindo </h2>
+                <br />
+                <p> Crie vagas para que candidatos possam encontrar suas oportunidades. </p>
+            </div>
+
             <div>
 
                 <br />
@@ -293,17 +299,21 @@ function Empresa() {
                                             <div className='card shadow-sm h-100 border-20'>
                                                 <h5 className="card-header d-flex justify-content-between align-items-center fw-bold">{item.titulo}</h5>
                                                 <div className="card-body">
-                                                    <p> Área: {item.area} </p>
+                                                    <p > Área: {item.area} </p>
                                                     <p> Descrição da vaga: {item.descricao}</p>
+                                                    <p> Salário: R${item.salario}</p>
+                                                    <p> Contrato: {item.efetivo}</p>
+                                                    <p> Modo: {item.presencial}</p>
+                                                    <p> Turno: {item.turno}</p>
                                                     <div className='col-12 d-flex justify-content-end'>
-                                                        <div class="btn-group dropend text-end">
-                                                            <button type="button" class="btn-acao text-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <div className="btn-group dropend text-end">
+                                                            <button type="button" className="btn-acao text-light dropdown-toggle btn btn-outline-primary" data-bs-toggle="dropdown" aria-expanded="false">
                                                                 Ações
                                                             </button>
-                                                            <ul class="dropdown-menu">
-                                                                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalCandidatos" onClick={() => VerCandidatos(item.id)} >Ver candidatos</a></li>
-                                                                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalVaga" onClick={() => editar(item.id)}>Editar vaga</a></li>
-                                                                <li><a class="dropdown-item" onClick={() => encerrarVaga(item.id)} >Encerrar Vaga</a></li>
+                                                            <ul className="dropdown-menu">
+                                                                <li><a className="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalCandidatos" onClick={() => VerCandidatos(item.id)} >Ver candidatos</a></li>
+                                                                <li><a className="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalVaga" onClick={() => editar(item.id)}>Editar vaga</a></li>
+                                                                <li><a className="dropdown-item" onClick={() => encerrarVaga(item.id)} >Encerrar Vaga</a></li>
                                                             </ul>
                                                         </div>
                                                     </div>

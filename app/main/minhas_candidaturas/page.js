@@ -84,11 +84,12 @@ export default function MinhasCandidaturas() {
                                             <div className="row">
                                                 <div className="col-1">
                                                     <div className="justify-content-center">
-                                                        <img src={PegaFotoPerfilPeloIDUsuario(item.id_vaga.id_empresa.id)} style={{ width: "80px" }} className="rounded-circle"
+                                                        <img src={PegaFotoPerfilPeloIDUsuario(item.id_vaga.id_empresa.id)} style={{ width: "90px" }} className="rounded-circle"
                                                             onError={(e) => {
                                                                 e.target.onerror = null
                                                                 e.target.src = "https://ui-avatars.com/api/?background=random&name=" + item.id_vaga.id_empresa.nome
-                                                            }} />{console.log(" aquiiiiiiiiiiiiiiiii:",item.id_vaga.id_empresa.id)}
+                                                                e.target.style.width = "90px"
+                                                            }} />
                                                     </div>
                                                 </div>
 

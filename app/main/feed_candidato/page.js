@@ -150,6 +150,7 @@ export default function Feed() {
                                                         onError={(e) => {
                                                             e.target.onerror = null
                                                             e.target.src = "https://ui-avatars.com/api/?background=random&name=" + item.id_empresa.nome
+                                                            e.target.style.width = "80px"
                                                         }} />
                                                 </div>
                                                 </div>
@@ -190,11 +191,12 @@ export default function Feed() {
                                             </div>
                                             <div className="modal-body">
 
-                                                <div className="justify-content-center">
+                                                <div className="d-flex justify-content-center">
                                                     <img src={PegaFotoPerfilPeloIDUsuario(item.id)} style={{ width: "80px" }} className="rounded-circle"
                                                         onError={(e) => {
                                                             e.target.onerror = null
                                                             e.target.src = "https://ui-avatars.com/api/?background=random&name=" + item.id_empresa.nome
+                                                            e.target.style.width = "90px"
                                                         }} />
                                                 </div>
 
