@@ -42,7 +42,7 @@ export default function MenuLateral() {
                     <img src={PegaFotoPerfilPeloIDUsuario(id_usuario)} style={{ width: "110px" }} className="rounded-circle"
                         onError={(e) => {
                             e.target.onerror = null
-                            e.target.src = "https://ui-avatars.com/api/?background=random&name=" + nome_usuario 
+                            e.target.src = "https://ui-avatars.com/api/?background=random&name=" + nome_usuario
                             e.target.style.width = "100px"
                         }} />
                 }
@@ -50,46 +50,46 @@ export default function MenuLateral() {
                 <h2 className="fs-5"> {nomeUsuario} </h2>
             </div>
             <hr />
-            <div className="col-12 fs-5 text-center">
+            <div className="col-12 fs-5">
                 {
                     role == "1" ?
                         <div className="row">
-                            <button onClick={() => window.location.href = "/main/feed_candidato"} type="button" className="btn btn-lg opcao" aria-current="true" data-bs-toggle="tooltip" title="Início">
-                                <i className="bi bi-house"></i>
+                            <button onClick={() => window.location.href = "/main/feed_candidato"} type="button" className="btn btn-lg opcao" aria-current="true">
+                                <span><i className="bi bi-house"></i></span>
                             </button>
-                            <button onClick={() => window.location.href = "/main/minhas_candidaturas"} type="button" className="btn btn-lg opcao" data-bs-toggle="tooltip" title="Minhas Candidaturas">
-                                <i className="bi bi-card-checklist"></i>
+                            <button onClick={() => window.location.href = "/main/minhas_candidaturas"} type="button" className="btn btn-lg opcao">
+                                <span><i className="bi bi-card-checklist"></i></span>
                             </button>
-                            <button onClick={() => window.location.href = "/main/banco_talentos_candidato"} type="button" className="btn btn-lg opcao" data-bs-toggle="tooltip" title="Banco de Talentos">
-                                <i className="bi bi-stars"></i>
+                            <button onClick={() => window.location.href = "/main/banco_talentos_candidato"} type="button" className="btn btn-lg opcao">
+                                <span><i className="bi bi-stars"></i></span>
                             </button>
-                            <button onClick={() => window.location.href = "/main/editar_perfil_candidato"} type="button" className="btn btn-lg opcao" data-bs-toggle="tooltip" title="Editar Perfil">
-                                <i className="bi bi-person"></i>
+                            <button onClick={() => window.location.href = "/main/editar_perfil_candidato"} type="button" className="btn btn-lg opcao">
+                                <span><i className="bi bi-person"></i></span>
                             </button>
                             <button onClick={() => window.location.href = "/main/ajuda_candidato"} type="button" className="btn btn-lg opcao" data-bs-toggle="tooltip" title="Precisando de Ajuda?">
-                                <i className="bi bi-info-circle"></i>
+                                <span><i className="bi bi-info-circle"></i></span>
                             </button>
                         </div>
                         : role == "2" ?
                             <div className="row">
                                 <button onClick={() => window.location.href = "/main/feed_empresa"} type="button" className="btn btn-lg opcao" aria-current="true" data-bs-toggle="tooltip" title="Início">
-                                    <i className="bi bi-house"></i>
+                                    <span><i className="bi bi-house"></i>- Início</span>
                                 </button>
 
-                                <button onClick={() => window.location.href = "/main/banco_talentos_empresa"} type="button" className="btn btn-lg opcao" data-bs-toggle="tooltip" title="Ver banco de talentos">
-                                    <i className="bi bi-stars"></i>
+                                <button onClick={() => window.location.href = "/main/banco_talentos_empresa"} type="button" className="btn btn-lg opcao">
+                                    <span><i className="bi bi-stars"></i>- Banco de talentos</span>
                                 </button>
 
-                                <button onClick={() => window.location.href = "/main/premium"} type="button" className="btn btn-lg opcao" data-bs-toggle="tooltip" title="Premium">
-                                    <i className="bi bi-brightness-low"></i>
+                                <button onClick={() => window.location.href = "/main/premium"} type="button" className="btn btn-lg opcao">
+                                    <span><i className="bi bi-brightness-low">- Premium</i></span>
                                 </button>
 
-                                <button onClick={() => window.location.href = "/main/editar_perfil_empresa"} type="button" className="btn btn-lg opcao" data-bs-toggle="tooltip" title="Editar perfil">
-                                    <i className="bi bi-building"></i>
+                                <button onClick={() => window.location.href = "/main/editar_perfil_empresa"} type="button" className="btn btn-lg opcao">
+                                    <span><i className="bi bi-building"></i>- Perfil</span>
                                 </button>
 
                                 <button onClick={() => window.location.href = "/main/ajuda_empresa"} type="button" className="btn btn-lg opcao" data-bs-toggle="tooltip" title="Ajuda">
-                                    <i className="bi bi-info-circle"></i>
+                                    <span><i className="bi bi-info-circle"></i></span>
                                 </button>
                             </div>
                             : //role == 0?
