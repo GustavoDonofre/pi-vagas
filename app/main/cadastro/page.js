@@ -55,6 +55,7 @@ export default function CadastroUsuario() {
                 email: email,
                 endereco: endereco,
                 data_nasc: dataNasc,
+                curriculo: curriculo,
                 cpf: cpf.replace(/\D/g, ""),
                 area_atuacao: area,
                 contato: tel,
@@ -186,10 +187,10 @@ export default function CadastroUsuario() {
                         <div className="container-fluid">
                             <div id="navbarNav">
                                 <ul className="navbar-nav d-flex flex-row">
-                                    <li className="nav-item pe-2">
+                                    <li className="nav-item pe-2 fs-5">
                                         <a className="nav-link active" aria-current="page" href="#secao-candidato" data-bs-toggle="tab" role="tab" onClick={() => setCadastro(false)}>Candidato</a>
                                     </li>
-                                    <li className="nav-item">
+                                    <li className="nav-item fs-5">
                                         <a className="nav-link" href="#secao-empresa" data-bs-toggle="tab" role="tab" onClick={() => setCadastro(true)}>Empresa</a>
                                     </li>
                                 </ul>
@@ -267,23 +268,30 @@ export default function CadastroUsuario() {
                                 {/* Área */}
                                 <div className="col-md-8 mb-3">
                                     <label htmlFor="areaAtuacao" className="form-label">
-                                        Diga qual sua Área de atuação *
+                                        Qual sua Área de atuação *
                                     </label>
                                     <input type="text" id="areaAtuacao" onChange={e => setArea(e.target.value)} className="form-control" />
                                 </div>
 
                                 {/* Telefone */}
-                                <div className="col-md-8 mb-3">
+                                <div className="col-md-4 mb-3">
                                     <label htmlFor="telefone" className="form-label">
-                                        Diga seu telefone *
+                                        Digite seu telefone *
                                     </label>
-                                    <input type="text" id="telefone" placeholder="EX:(XX) XXXXX-XXXX" onChange={e => setTel(e.target.value)} className="form-control" />
+                                    <input type="text" id="telefone" onChange={e => setTel(e.target.value)} className="form-control" />
+                                </div>
+
+                                {/* Currículo */}
+                                <div className="col-md-10 mb-3">
+                                    <label>Currículo: </label>
+                                    <input className="form-control" type="file" accept=".pdf" onChange={e => alteraCurriculo(e.target.files[0])} />
+                                    <p className="text-body-tertiary"> PDF </p>
                                 </div>
 
 
                                 {/* Botões */}
                                 <div className="col-12 d-flex justify-content-between">
-                                    <button type="reset" className="btn btn-outline-dark">
+                                    <button onClick={() => window.location.href = './'} type='button' className="btn btn-acao">
                                         Cancelar
                                     </button>
 
@@ -397,7 +405,7 @@ export default function CadastroUsuario() {
 
                                 {/* Botões */}
                                 <div className="col-12 d-flex justify-content-between">
-                                    <button type="reset" className="btn btn-outline-dark">
+                                    <button onClick={() => window.location.href = './'} type="button" className="btn btn-acao">
                                         Cancelar
                                     </button>
 
