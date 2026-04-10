@@ -1,10 +1,12 @@
+
 .menulateral {
     background-color: #ffffff;
-    margin-left: 20px;
-    padding: 20px;
+    margin-left: 10px;
+    padding: 10px;
     /* height: 100vh; */
     border-radius: 20px;
     border: 1px solid #c9c9c9;
+    position: fixed;
 }
 
 .menulateral .list-group a {
@@ -45,7 +47,7 @@
     height: 100%;
     background: linear-gradient(#ff9f328e, #ffb66383) ;
 
-    transform: skewX(-20deg);
+    transform: skewX(-10deg);
     transition: all 0.5s ease;
     z-index: 0;
 }
