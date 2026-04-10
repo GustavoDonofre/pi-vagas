@@ -1,107 +1,400 @@
-.premium-container {
-  padding: 40px;
-  color: #333;
+/* ═══════════════════════════════════════════════════
+   premium.module.css  —  Next.js + Bootstrap + CSS
+   ═══════════════════════════════════════════════════ */
+
+/* ── ANIMAÇÃO DE ENTRADA ─────────────────────────── */
+.fadeUp {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+.fadeUp.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-/* HERO */
-.premium-hero {
+/* ── PÁGINA ──────────────────────────────────────── */
+.pg {
+  padding: 0 0 3rem;
+  color: #212529;
+}
+
+/* ── HERO ────────────────────────────────────────── */
+.hero {
+  background: linear-gradient(135deg, #FF6B00 0%, #FF8C38 60%, #FFB26B 100%);
+  border-radius: 16px;
+  padding: 3.5rem 2rem 3rem;
   text-align: center;
-  margin-bottom: 60px;
+  margin-bottom: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 220px; height: 220px;
+  background: rgba(255,255,255,0.07);
+  border-radius: 50%;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -80px; left: -40px;
+  width: 280px; height: 280px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 50%;
+}
+.heroBadge {
+  display: inline-block;
+  background: rgba(255,255,255,0.2);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 5px 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.35);
+  margin-bottom: 1.2rem;
+}
+.hero h1 {
+  font-size: 32px;
+  font-weight: 500;
+  color: #fff;
+  line-height: 1.25;
+  margin-bottom: 0.75rem;
+}
+.hero p {
+  font-size: 15px;
+  color: rgba(255,255,255,0.88);
+  margin-bottom: 2rem;
+  max-width: 420px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+.heroSub {
+  font-size: 12px;
+  color: rgba(255,255,255,0.6);
+  margin-top: 0.75rem;
 }
 
-.premium-hero h1 {
-  font-size: 36px;
-  margin-bottom: 10px;
-}
-
-.premium-hero p {
-  font-size: 18px;
-  margin-bottom: 20px;
-}
-
-/* BOTÕES */
-.btn-primary {
-  background: #4f46e5;
-  color: white;
+/* ── BOTÕES ──────────────────────────────────────── */
+.btnHero {
+  background: #fff;
+  color: #D45E00;
   border: none;
-  padding: 12px 25px;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.btn-secondary {
-  background: transparent;
-  border: 1px solid #4f46e5;
-  color: #4f46e5;
-  padding: 10px 20px;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-/* BENEFÍCIOS */
-.premium-beneficios {
-  text-align: center;
-  margin-bottom: 60px;
-}
-
-.cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
-  margin-top: 20px;
-}
-
-.card {
-  padding: 20px;
-  border-radius: 10px;
-  border: 1px solid #eee;
-  background: #fafafa;
-}
-
-/* PLANOS */
-.premium-planos {
-  text-align: center;
-  margin-bottom: 60px;
-}
-
-.planos {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-
-.plano {
-  border: 1px solid #ddd;
-  padding: 25px;
+  padding: 13px 32px;
   border-radius: 12px;
-  width: 250px;
-  background: white;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.btnHero:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
+.btnCtaFinal {
+  background: #fff;
+  color: #D45E00;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 0.15s;
+}
+.btnCtaFinal:hover {
+  transform: translateY(-1px);
 }
 
-.plano .preco {
-  font-size: 28px;
-  margin: 15px 0;
+/* ── STATS ───────────────────────────────────────── */
+.statCard {
+  background: #f8f9fa;
+  border-radius: 10px;
+  padding: 1rem;
+  text-align: center;
+}
+.statNum {
+  font-size: 22px;
+  font-weight: 500;
+  color: #FF6B00;
+}
+.statLabel {
+  font-size: 12px;
+  color: #6c757d;
+  margin-top: 3px;
 }
 
-.plano ul {
+/* ── TIPOGRAFIA SEÇÃO ────────────────────────────── */
+.secTitle {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+.secSub {
+  font-size: 13px;
+  color: #6c757d;
+  margin-bottom: 1.25rem;
+  line-height: 1.5;
+}
+
+/* ── BENEFÍCIOS ──────────────────────────────────── */
+.benefitCard {
+  background: #fff;
+  border: 0.5px solid #dee2e6;
+  border-radius: 12px;
+  padding: 1.1rem 1rem;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  height: 100%;
+  transition: border-color 0.15s;
+}
+.benefitCard:hover {
+  border-color: #FF8C38;
+}
+.benefitIcon {
+  width: 36px; height: 36px;
+  background: #FFF3E8;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.benefitTitle {
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 3px;
+}
+.benefitDesc {
+  font-size: 12px;
+  color: #6c757d;
+  line-height: 1.4;
+}
+
+/* ── PLANOS ──────────────────────────────────────── */
+.planoCard {
+  background: #fff;
+  border: 0.5px solid #dee2e6;
+  border-radius: 12px;
+  padding: 1.25rem;
+  position: relative;
+  cursor: pointer;
+  transition: border-color 0.15s, transform 0.15s;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.planoCard:hover {
+  transform: translateY(-2px);
+  border-color: #FF8C38;
+}
+.planoCard.featured {
+  border: 2px solid #FF6B00;
+}
+.planoPopular {
+  position: absolute;
+  top: -11px; left: 50%;
+  transform: translateX(-50%);
+  background: #FF6B00;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 3px 12px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+.planoName {
+  font-size: 13px;
+  color: #6c757d;
+  margin-bottom: 6px;
+}
+.planoPrice {
+  font-size: 26px;
+  font-weight: 500;
+  color: #212529;
+}
+.planoPrice span {
+  font-size: 13px;
+  font-weight: 400;
+  color: #6c757d;
+}
+.planoBilling {
+  font-size: 12px;
+  color: #6c757d;
+  margin: 6px 0 0;
+}
+.planoEcon {
+  font-size: 11px;
+  background: #FFF0E0;
+  color: #B85000;
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 20px;
+  margin: 6px 0 0;
+}
+
+/* caixa comparação — mensal */
+.compareBox {
+  background: #f8f9fa;
+  border: 0.5px solid #dee2e6;
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin: 12px 0;
+}
+.compareTitle {
+  font-size: 11px;
+  color: #6c757d;
+  margin-bottom: 8px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+.compareRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+.compareRow:last-of-type {
+  margin-bottom: 0;
+}
+.compareLabel {
+  font-size: 12px;
+  color: #6c757d;
+}
+.compareVal {
+  font-size: 12px;
+  font-weight: 500;
+  color: #212529;
+}
+.compareVal.neg {
+  color: #cc3300;
+}
+.compareDivider {
+  border: none;
+  border-top: 0.5px solid #dee2e6;
+  margin: 7px 0;
+}
+.compareNote {
+  font-size: 11px;
+  color: #6c757d;
+  text-align: center;
+  margin-top: 6px;
+}
+
+/* caixa total — anual */
+.totalBox {
+  background: #FFF8F2;
+  border: 1px solid #FFD4A8;
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin: 12px 0;
+}
+.totalRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.totalLabel {
+  font-size: 12px;
+  color: #B85000;
+}
+.totalValue {
+  font-size: 15px;
+  font-weight: 500;
+  color: #D45E00;
+}
+.totalDivider {
+  border: none;
+  border-top: 0.5px solid #FFD4A8;
+  margin: 7px 0;
+}
+.totalSaving {
+  font-size: 13px;
+  font-weight: 500;
+  color: #B85000;
+}
+.totalParcelas {
+  font-size: 11px;
+  color: #B85000;
+  margin-top: 4px;
+  text-align: center;
+}
+
+/* features */
+.dividerFeatures {
+  border: none;
+  border-top: 0.5px solid #dee2e6;
+  margin: 10px 0;
+}
+.planoFeatures {
   list-style: none;
   padding: 0;
-  margin-bottom: 20px;
+  margin: 0;
+  flex: 1;
 }
-
-.plano ul li {
-  margin: 8px 0;
+.planoFeatures li {
+  font-size: 12px;
+  color: #6c757d;
+  padding: 5px 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
-
-/* DESTAQUE */
-.plano.destaque {
-  border: 2px solid #4f46e5;
-  transform: scale(1.05);
+.planoFeatures li.disabled {
+  color: #adb5bd;
 }
+.check { color: #FF6B00; font-size: 13px; }
+.cross { color: #adb5bd; font-size: 13px; }
 
-/* CTA FINAL */
-.premium-cta {
+.btnPlano {
+  width: 100%;
+  margin-top: 1rem;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+  border: none;
+}
+.btnPlano.primary {
+  background: #FF6B00;
+  color: #fff;
+}
+.btnPlano.primary:hover { background: #E05A00; }
+.btnPlano.secondary {
+  background: #f8f9fa;
+  color: #212529;
+  border: 0.5px solid #ced4da;
+}
+.btnPlano.secondary:hover { border-color: #FF8C38; }
+
+/* ── CTA FINAL ───────────────────────────────────── */
+.ctaFinal {
+  background: #FF6B00;
+  border-radius: 12px;
+  padding: 2.5rem 2rem;
   text-align: center;
-  margin-top: 40px;
+}
+.ctaFinal h2 {
+  font-size: 22px;
+  font-weight: 500;
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+.ctaFinal p {
+  font-size: 14px;
+  color: rgba(255,255,255,0.85);
+  margin-bottom: 1.5rem;
+}
+
+/* ── RESPONSIVO ──────────────────────────────────── */
+@media (max-width: 576px) {
+  .hero h1 { font-size: 24px; }
+  .planoCard { padding: 1rem; }
 }
