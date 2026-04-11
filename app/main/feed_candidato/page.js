@@ -22,15 +22,47 @@ export default function Feed() {
             .select('id_vaga')
             .eq('id_candidato', id_candidato)
 
-        const idsInscritos = inscricoes.map(vaga => vaga.id_vaga)
+        const idsInscritos = inscricoes?.map(vaga => vaga.id_vaga) || []
 
-        const { data, error } = await supabase
+        let query = supabase
             .from('cadastro_vagas')
             .select(`*, id_empresa(*)`)
             .eq('ativo', true)
-            .not('id', 'in', `(${idsInscritos.join(',') || 0})`)
 
-        alteraFeedCandidato(data)
+        if (idsInscritos.length > 0) {
+            query = query.not('id', 'in', `(${idsInscritos.join(',')})`)
+        }
+        console.log(busca);
+        console.log(turno);
+        console.log(tipo);
+
+        if (turno && turno !== "Todos") {
+            query = query.eq('turno', turno)
+        }
+
+        if (tipo && tipo !== "Todos") {
+            query = query.eq('efetivo', tipo)
+        }
+
+        const { data, error } = await query
+
+        if (error) {
+            console.error("Erro ao buscar vagas:", error)
+        } if (busca) {
+            const termo = busca.toLowerCase()
+            const filtrados = data.filter(item => {
+                return (
+                    item.titulo?.toLowerCase().includes(termo) ||
+                    item.descricao?.toLowerCase().includes(termo) ||
+                    item.area?.toLowerCase().includes(termo) ||
+                    item.turno?.toLowerCase().includes(termo) ||
+                    item.id_empresa?.nome?.toLowerCase().includes(termo) // BUSCA NO NOME DA EMPRESA
+                )
+            })
+            alteraFeedCandidato(filtrados)
+        } else {
+            alteraFeedCandidato(data)
+        }
     }
 
     async function confirmacao(id) {
@@ -76,7 +108,7 @@ export default function Feed() {
 
     useEffect(() => {
         buscarVagas()
-    }, [])
+    }, [busca, turno, tipo]) // Sempre que um desses mudar, a função será executada
 
 
     return (
@@ -100,14 +132,14 @@ export default function Feed() {
                         <label className="form-label"> Barra de pesquisa </label>
                         <div className="input-group">
                             <span className="input-group-text">🔍</span>
-                            <input type="text" className="form-control" placeholder="Buscar vagas..." onChange={(e) => alteraBusca(e.target.value)} />
+                            <input type="text" className="form-control" placeholder="Buscar vagas..." value={busca} onChange={(e) => alteraBusca(e.target.value)} />
                         </div>
                     </form>
 
                     <div className="col-4">
                         <label className="form-label"> Turno </label>
                         <select className="form-select" value={turno} onChange={(e) => alteraTurno(e.target.value)}>
-                            <option hidden> Todos </option>
+                            <option value=""> Todos </option>
                             <option value="matutino"> Matutino </option>
                             <option value="vespertino"> Vespertino </option>
                             <option value="noturno"> Noturno </option>
@@ -117,9 +149,9 @@ export default function Feed() {
                     <div className="col-4">
                         <label className="form-label"> Tipo de contratação </label>
                         <select className="form-select" value={tipo} onChange={(e) => alteraTipo(e.target.value)}>
-                            <option hidden> Todos </option>
-                            <option value="efetivo"> Efetivo </option>
-                            <option value="temporario"> Temporário </option>
+                            <option value=""> Todos </option>
+                            <option value="efetiva"> Efetivo </option>
+                            <option value="freelancer"> Temporário </option>
                         </select>
                     </div>
 
@@ -180,7 +212,7 @@ export default function Feed() {
                                                             </div>
 
                                                         </div>
-                                                        
+
                                                     </div>
 
                                                 </div>
