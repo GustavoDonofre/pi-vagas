@@ -252,7 +252,7 @@ function Empresa() {
          <div className="titulo">
                 <h2> Bem-Vindo </h2>
                 <br />
-                <p> Crie vagas para que candidatos possam encontrar suas oportunidades. </p>
+                <p> Publique vagas e descubra novos talentos. </p>
             </div>
 
             <div>
