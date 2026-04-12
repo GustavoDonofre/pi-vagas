@@ -100,11 +100,9 @@ export default function EditarPerfil() {
         <div>
 
             <div className="titulo foto mb-4">
-                <h2>Editar Perfil</h2>
-                <p>Atualize suas informações pessoais.</p> <br />
-                {/* <img src={PegaFotoPerfilPeloIDUsuario(id_candidato)} style={{ width: "110px" }} className="rounded-circle" />
+                <h2>Perfil</h2>
+                <p>Confira seus dados e mantenha suas informações sempre atualizadas.</p> 
                 <br />
-                <label className="btn-padrao mt-3"> Editar foto <input type="file" accept="image/*" style={{ display: "none" }} onChange={e => alteraFoto(e.target.files[0])} disabled /> </label> */}
             </div>
 
 
@@ -121,18 +119,13 @@ export default function EditarPerfil() {
                                         <div className="d-flex flex-column align-items-center mb-3">
 
                                             {
-                                                <img src={PegaFotoPerfilPeloIDUsuario(id_candidato)} style={{ width: "100px" }} className="rounded-circle"
+                                                <img src={PegaFotoPerfilPeloIDUsuario(id_candidato)} style={{ width: "90px" }} className="rounded-circle"
                                                     onError={(e) => {
                                                         e.target.onerror = null
                                                         e.target.src = "https://ui-avatars.com/api/?background=random&name=" + nome
-                                                        e.target.style.width = "100px"
+                                                        e.target.style.width = "90px"
                                                     }} />
                                             }
-
-                                            <br />
-                                            <p>
-                                                Editar foto
-                                            </p>
 
                                         </div>
 

@@ -43,6 +43,7 @@ export default function EditarPerfilEmpresa() {
 
     function cancelaEdicao() {
 
+        editar(listaUsuarios[0])
         alteraPerfil(true)
 
     }
@@ -97,8 +98,8 @@ export default function EditarPerfilEmpresa() {
         <div>
 
             <div className="titulo foto mb-4">
-                <h2>Editar Perfil</h2>
-                <p>Atualize suas informações pessoais.</p> <br />
+                <h2>Perfil</h2>
+                <p>Confira seus dados e mantenha suas informações sempre atualizadas.</p> <br />
             </div>
 
             {
@@ -113,9 +114,7 @@ export default function EditarPerfilEmpresa() {
                                     <div className="card-body">
 
                                         <div className="d-flex flex-column align-items-center mb-3">
-                                            <img src={PegaFotoPerfilPeloIDUsuario(id_empresa)} style={{ width: "110px" }} className="rounded-circle" />
-                                            <br />
-                                            <p> Editar foto</p>
+                                            <img src={PegaFotoPerfilPeloIDUsuario(id_empresa)} style={{ width: "90px" }} className="rounded-circle" />
                                         </div>
 
                                         <h5 className="mb-4 text-center">Dados Gerais</h5>
@@ -190,11 +189,11 @@ export default function EditarPerfilEmpresa() {
 
                                             <div className="d-flex flex-column align-items-center mb-3">
                                             
-                                                <img src={PegaFotoPerfilPeloIDUsuario(id_empresa)} style={{ width: "100px" }} className="rounded-circle"
+                                                <img src={PegaFotoPerfilPeloIDUsuario(id_empresa)} style={{ width: "90px" }} className="rounded-circle"
                                                     onError={(e) => {
                                                         e.target.onerror = null
                                                         e.target.src = "https://ui-avatars.com/api/?background=random&name=" + nome
-                                                        e.target.style.width = "100px"
+                                                        e.target.style.width = "90px"
                                                     }} />
                                                     
                                                 <label className="btn-padrao mt-3"> Editar foto <input type="file" accept="image/*" style={{ display: "none" }} onChange={e => alteraFoto(e.target.files[0])} /> </label>

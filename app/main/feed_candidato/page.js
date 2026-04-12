@@ -96,16 +96,6 @@ export default function Feed() {
         return data_formatada;
     }
 
-    /*async function alteraBusca() {
-        const { data, error } = await supabase
-            .from('cadastro_vagas')
-            .select(`*, id_empresa(*)`)
-            .ilike('', '%' + alteraBusca + '%') //like, como, parecido, no meio. % no começo e no final serve para pesquisar a palavra em qualquer posição
-
-        alteraFeedCandidato(data)
-    }*/
-
-
     useEffect(() => {
         buscarVagas()
     }, [busca, turno, tipo]) // Sempre que um desses mudar, a função será executada
@@ -183,14 +173,14 @@ export default function Feed() {
                                                             onError={(e) => {
                                                                 e.target.onerror = null
                                                                 e.target.src = "https://ui-avatars.com/api/?background=random&name=" + item.id_empresa.nome
-                                                                e.target.style.width = "80px"
+                                                                e.target.style.width = "90px"
                                                             }}
                                                         />
                                                     </div>
 
                                                     <div className="col-11">
 
-                                                        <div className="col-10">
+                                                        <div className="col-6">
                                                             <div className="topo">
                                                                 <h5 className="nome">{item.id_empresa.nome}</h5>
                                                                 <p className="contratacao">{item.turno}</p>
@@ -233,7 +223,7 @@ export default function Feed() {
                                                     <div className="d-flex justify-content-center">
                                                         <img
                                                             src={PegaFotoPerfilPeloIDUsuario(item.id_empresa.id)}
-                                                            style={{ width: "80px" }}
+                                                            style={{ width: "100px" }}
                                                             className="rounded-circle"
                                                             onError={(e) => {
                                                                 e.target.onerror = null
@@ -244,7 +234,9 @@ export default function Feed() {
                                                     </div>
 
                                                     <h3 className='text-center mt-3'><strong>{item.id_empresa.nome}</strong></h3>
+
                                                     <br />
+
                                                     <p className='text-center'><label className='text-muted'><i className="bi bi-briefcase me-2"></i> Título:</label> {item.titulo}</p>
                                                     <p className='text-center'> <label className='text-muted small'><i className="bi bi-briefcase me-2"></i> Localização:</label> {item.id_empresa.endereco}</p>
 
@@ -256,6 +248,7 @@ export default function Feed() {
                                                     <br />
 
                                                     <p><label className='text-muted small'><i className="bi bi-cash-coin me-2 text-success"></i>Salário:</label> R${item.salario}</p>
+                                                    <p><label className='text-muted small'><i className="bi bi-hourglass me-2 text-success"></i>Turno:</label> R${item.turno}</p>
                                                     <p><label className='text-muted small'><i className="bi bi-file-earmark-check me-2 text-warning"></i>Tipo de contratação:</label> {item.efetivo}</p>
                                                     <p><label className='text-muted small'><i className="bi bi-geo-alt me-2 text-danger"></i>Modelo de trabalho:</label> {item.presencial}</p>
 
