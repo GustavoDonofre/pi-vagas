@@ -148,7 +148,7 @@ export default function Vagas() {
   return (
 
     <div>
-      <div className="container d-flex justify-content-center align-items-center min-vh-100">
+      <div className="container d-flex justify-content-center align-items-center min-vh-100 mb-5">
         <div className="card shadow-lg p-4 col-md-6">
 
           <h1 className="text-center mb-4">Cadastro de Vagas</h1>
@@ -166,12 +166,12 @@ export default function Vagas() {
             </div>
             <div className="mb-3">
               <label className="form-label">Área de Atuação</label>
-              <textarea value={area} className="form-control" rows="3" onChange={(e) => alteraArea(e.target.value)}></textarea>
+              <input value={area} className="form-control" rows="3" onChange={(e) => alteraArea(e.target.value)}></input>
             </div>
 
             <div className="mb-3">
               <label className="form-label">Descrição da Vaga</label>
-              <textarea value={descricao} className="form-control" rows="3" onChange={(e) => alteraDescricao(e.target.value)}></textarea>
+              <input value={descricao} className="form-control" rows="3" onChange={(e) => alteraDescricao(e.target.value)}></input>
             </div>
 
             <div className="mb-3">
@@ -215,19 +215,23 @@ export default function Vagas() {
                 <div className="col-6">
 
 
-                  <div className="col-6 d-flex justify-content-end">
+                  <div className="col-md-6 d-flex justify-content-center">
                     <div>
                       {
                         editando == true ?
                           <div>
-                            <button onClick={() => atualizar()}>Atualizar</button>
-                            <button onClick={() => cancelaEdicao()}>Cancelar</button>
+                            <button className="btn btn padrao" onClick={atualizar}>Atualizar</button>
+                            <button className="btn btn-outiline-padrao" onClick={cancelaEdicao}>Cancelar</button>
                           </div>
                           :
-                          <div>
-                        <button type="submit" className="btn btn-padrao" onClick={() => window.location.href = "/main/feed_empresa"}>Cadastrar Vaga</button>
+                        <div>
+                      
+                        <button type="button" className="btn btn-padrao" onClick={() => window.location.href = "/main/feed_empresa"}>Cadastrar Vaga</button>
+                
                         <button type="button" className='btn btn-lg btn-outline-dark' onClick={() => window.location.href = "/main/feed_empresa"}> Cancelar </button>
+
                         </div>
+                      
                       }
                     </div>
                   </div>
