@@ -5,19 +5,6 @@ import "./ajuda_emp.css"
 
 export default function AjudaEmpresa() {
 
-    useEffect(() => {
-        if (typeof window === "undefined") return null;
-        async function loadBootstrap() {
-            const bootstrap = await import("bootstrap/dist/js/bootstrap.bundle.min.js");
-
-            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
-            tooltipTriggerList.forEach((el) => {
-                new bootstrap.Tooltip(el);
-            });
-        }
-
-        loadBootstrap();
-    }, []);
 
     return (
         <div>

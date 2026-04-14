@@ -4,19 +4,6 @@ import './ajuda_candidato.css'
 
 function AjudaCandidato() {
 
-    useEffect(() => {
-        if (typeof window === "undefined") return;
-        async function loadBootstrap() {
-            const bootstrap = await import("bootstrap/dist/js/bootstrap.bundle.min.js");
-
-            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
-            tooltipTriggerList.forEach((el) => {
-                new bootstrap.Tooltip(el);
-            });
-        }
-
-        loadBootstrap();
-    }, []);
 
     return (
         <div>
