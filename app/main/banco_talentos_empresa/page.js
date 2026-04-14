@@ -137,7 +137,7 @@ export default function bancoTalentosEmp() {
                                                                         <img src={PegaFotoPerfilPeloIDUsuario(candidatoInscrito.id_candidato.nome)} style={{ width: "90px" }} className="rounded-circle"
                                                                             onError={(e) => {
                                                                                 e.target.onerror = null
-                                                                                e.target.src = "https://ui-avatars.com/api/?background=random&name=" + item.id_candidato.nome
+                                                                                e.target.src = "https://ui-avatars.com/api/?background=random&name=" + candidatoInscrito.id_candidato.nome
                                                                                 e.target.style.width = "90px"
                                                                             }} />
                                                                     </div>
