@@ -1,8 +1,22 @@
+'use client'
+import { useEffect } from 'react';
 import './ajuda_candidato.css'
 
 function AjudaCandidato() {
 
     //if(typeof window === "undefined") return null
+    useEffect(() => {
+        async function loadBootstrap() {
+            const bootstrap = await import("bootstrap/dist/js/bootstrap.bundle.min.js");
+
+            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+            tooltipTriggerList.forEach((el) => {
+                new bootstrap.Tooltip(el);
+            });
+        }
+
+        loadBootstrap();
+    }, []);
 
     return (
         <div>
@@ -90,7 +104,7 @@ function AjudaCandidato() {
 
                 <p> <strong> Fale conosco </strong> <br /> contato@tramposc.com.br </p>
 
-                <p> <strong>  Reportar vaga ou perfil suspeito </strong> <br/> reportar@tramposc.com.br </p>
+                <p> <strong>  Reportar vaga ou perfil suspeito </strong> <br /> reportar@tramposc.com.br </p>
             </div>
 
         </div>
