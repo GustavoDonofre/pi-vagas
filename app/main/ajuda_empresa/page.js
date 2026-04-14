@@ -5,19 +5,6 @@ import "./ajuda_emp.css"
 
 export default function AjudaEmpresa() {
 
-    // if (typeof window === "undefined") return null
-    useEffect(() => {
-        async function loadBootstrap() {
-            const bootstrap = await import("bootstrap/dist/js/bootstrap.bundle.min.js");
-
-            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
-            tooltipTriggerList.forEach((el) => {
-                new bootstrap.Tooltip(el);
-            });
-        }
-
-        loadBootstrap();
-    }, []);
 
     return (
         <div>
@@ -36,7 +23,7 @@ export default function AjudaEmpresa() {
                     </h2>
                     <div id="collapseOne" className="accordion-collapse collapse" data-bs-parent="#accordionExample">
                         <div className="accordion-body">
-                            No início do menu lateral, clique no botão "Criar Vaga". Preencha as informações da vaga e clique em "Publicar". Sua vaga ficará visível para todos os candidatos.
+                            <p>No início do menu lateral, clique no botão "Criar Vaga". Preencha as informações da vaga e clique em "Publicar". Sua vaga ficará visível para todos os candidatos.</p>
                         </div>
                     </div>
                 </div>
