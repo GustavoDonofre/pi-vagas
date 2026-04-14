@@ -305,7 +305,7 @@ export default function BancoTalentos() {
                                     <label className="form-label"><strong>Tipo de contratação</strong></label>
                                     <select className="form-select" value={contratacao} onChange={e => alteraContratacao(e.target.value)}>
                                         <option value="" hidden> Selecione </option>
-                                        <option value="Aberto a todos os regimes de contratação."> Todos </option>
+                                        <option value="Regime flexível."> Todos </option>
                                         <option value="Efetivo."> Efetivo </option>
                                         <option value="Freelancer."> Freelancer </option>
                                     </select>
@@ -315,7 +315,7 @@ export default function BancoTalentos() {
                                     <label className="form-label"> <strong>Turno de preferência</strong> </label>
                                     <select className="form-select" value={turno} onChange={e => alteraTurno(e.target.value)}>
                                         <option value="" hidden> Selecione </option>
-                                        <option value="Disponibilidade para qualquer turno."> Todos </option>
+                                        <option value="Turno flexível."> Todos </option>
                                         <option value="Matutino."> Matutino </option>
                                         <option value="Vespertino."> Vespertino </option>
                                         <option value="Noturno."> Noturno </option>
