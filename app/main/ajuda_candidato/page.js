@@ -4,8 +4,8 @@ import './ajuda_candidato.css'
 
 function AjudaCandidato() {
 
-    //if(typeof window === "undefined") return null
     useEffect(() => {
+        if (typeof window === "undefined") return;
         async function loadBootstrap() {
             const bootstrap = await import("bootstrap/dist/js/bootstrap.bundle.min.js");
 
