@@ -1,5 +1,5 @@
 body{
-    background-color: #f6f6f6;
+    background-color: #f6f6f6 !Important;
 }
 
 .titulo{
@@ -41,3 +41,10 @@ body{
     background-color: #ffa742;
     color: white;
 }
+
+.card-header {
+    color: white !important;
+    border-radius: 15px 15px 0px 0px !important;
+    background-color: #ff8945 !important;
+}
+
