@@ -4,7 +4,7 @@ import './empresa.css'
 import supabase from '../conexao/supabase'
 import { useParams } from 'next/navigation'
 import { PegaCurriculoPeloIDUsuario } from '../conexao/bucket'
-import 'bootstrap/js/dist/dropdown.js'
+
 import { Router } from 'next/router'
 import { Tiro_Bangla } from 'next/font/google'
 
