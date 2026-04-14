@@ -7,7 +7,7 @@ import { PegaFotoPerfilPeloIDUsuario } from '../conexao/bucket'
 
 export default function EditarPerfilEmpresa() {
 
-    const id_empresa = localStorage.getItem("id_usuario")
+    const id_empresa = typeof window !== 'undefined' ? localStorage.getItem("id_usuario") : null;
 
     const [nome, alteraNome] = useState("")
     const [contato, alteraContato] = useState("")

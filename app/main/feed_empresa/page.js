@@ -30,7 +30,7 @@ function Empresa() {
     const [inscricoesExibir, alteraInscricoesExibir] = useState([])
     const [editando, alteraEditando] = useState(null)
 
-    const id_empresa = localStorage.getItem("id_usuario")
+    const id_empresa = typeof window !== 'undefined' ? localStorage.getItem("id_usuario") : null;
     const [id_vaga, alteraId_vaga] = useState([])
 
     async function buscaTodasVagas() {

@@ -7,7 +7,7 @@ import { PegaCurriculoPeloIDUsuario, PegaFotoPerfilPeloIDUsuario } from '../cone
 
 export default function bancoTalentosEmp() {
 
-    const id_empresa = localStorage.getItem("id_usuario")
+    const id_empresa = typeof window !== 'undefined' ? localStorage.getItem("id_usuario") : null;
 
     const [bancoTalentos, alteraBancoTalentos] = useState([])
     const [candidatoInscrito, alteraCandidatoInscrito] = useState(null)

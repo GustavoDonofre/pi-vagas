@@ -1,32 +1,30 @@
 'use client'
 import Link from "next/link"
 import "./MenuLateral.css"
-import * as bootstrap from "bootstrap/dist/js/bootstrap.bundle.min.js";
 import { useEffect, useState } from "react"
 import { PegaFotoPerfilPeloIDUsuario } from "../conexao/bucket";
 
 export default function MenuLateral() {
 
-    const id_usuario = localStorage.getItem("id_usuario")
-    const nome_usuario = localStorage.getItem("nome_usuario")
+    const id_usuario = typeof window !== 'undefined' ? localStorage.getItem("id_usuario") : null;
+    const nome_usuario = typeof window !== 'undefined' ? localStorage.getItem("nome_usuario") : null;
 
-    // const [nome_usuario, alteraNome_usuario] = useState(null)
     const [nomeUsuario, setNomeUsuario] = useState(null)
     const [role, setRole] = useState(null)
 
 
     function buscarInfo() {
-        setNomeUsuario(localStorage.getItem("nome_usuario"))
-        setRole(localStorage.getItem("role"))
+        setNomeUsuario(typeof window !== 'undefined' ? localStorage.getItem("nome_usuario") : null)
+        setRole(typeof window !== 'undefined' ? localStorage.getItem("role") : null)
     }
 
     useEffect(() => {
         buscarInfo()
 
-        if (typeof window !== "undefined") { // garante que estamos no cliente
+        if (typeof window !== "undefined" && window.bootstrap) { // garante que estamos no cliente e o bootstrap carregou
             const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
             tooltipTriggerList.forEach((el) => {
-                new bootstrap.Tooltip(el); // inicializa cada tooltip
+                new window.bootstrap.Tooltip(el); // inicializa cada tooltip
             });
         }
     }, [])

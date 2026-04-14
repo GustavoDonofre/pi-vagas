@@ -7,7 +7,7 @@ import { PegaFotoPerfilPeloIDUsuario } from '../conexao/bucket'
 
 export default function Feed() {
 
-    const id_candidato = localStorage.getItem("id_usuario")
+    const id_candidato = typeof window !== 'undefined' ? localStorage.getItem("id_usuario") : null;
     const [feedCandidato, alteraFeedCandidato] = useState([])
 
     const [busca, alteraBusca] = useState("")

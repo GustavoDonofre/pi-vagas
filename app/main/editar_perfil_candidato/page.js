@@ -7,7 +7,7 @@ import { PegaCurriculoPeloIDUsuario, PegaFotoPerfilPeloIDUsuario } from '../cone
 
 export default function EditarPerfil() {
 
-    const id_candidato = localStorage.getItem("id_usuario")
+    const id_candidato = typeof window !== 'undefined' ? localStorage.getItem("id_usuario") : null;
 
     const [nome, alteraNome] = useState("")
     const [dataNascimento, alteraDataNascimento] = useState("")

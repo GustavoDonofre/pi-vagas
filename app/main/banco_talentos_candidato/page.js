@@ -7,7 +7,7 @@ import { PegaCurriculoPeloIDUsuario } from '../conexao/bucket'
 
 export default function BancoTalentos() {
 
-    const id_candidato = localStorage.getItem("id_usuario")
+    const id_candidato = typeof window !== 'undefined' ? localStorage.getItem("id_usuario") : null;
 
     const [bancoTalentos, alteraBancoTalentos] = useState([])
     const [cadastroTalentos, alteraCadastroTalentos] = useState(null)

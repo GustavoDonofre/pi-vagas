@@ -19,8 +19,8 @@ export default function Vagas() {
 
   const [vagas, alteraVagas] = useState([])
 
-  const nome_usuario = localStorage.getItem("nome_usuario")
-  const id_empresa = localStorage.getItem("id_usuario")
+  const nome_usuario = typeof window !== 'undefined' ? localStorage.getItem("nome_usuario") : null;
+  const id_empresa = typeof window !== 'undefined' ? localStorage.getItem("id_usuario") : null;
 
   async function buscarEmpresa(id_editando) {
     const { data, error } = await supabase
