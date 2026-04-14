@@ -1,10 +1,23 @@
 'use client'
 
+import { useEffect } from "react";
 import "./ajuda_emp.css"
 
 export default function AjudaEmpresa() {
 
-    if(typeof window === "undefined") return null
+    // if (typeof window === "undefined") return null
+    useEffect(() => {
+        async function loadBootstrap() {
+            const bootstrap = await import("bootstrap/dist/js/bootstrap.bundle.min.js");
+
+            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+            tooltipTriggerList.forEach((el) => {
+                new bootstrap.Tooltip(el);
+            });
+        }
+
+        loadBootstrap();
+    }, []);
 
     return (
         <div>
@@ -88,7 +101,7 @@ export default function AjudaEmpresa() {
 
                 <p> <strong> Fale conosco </strong> <br /> contato@conecta_sanca.com.br </p>
 
-                <p> <strong>  Reportar vaga ou perfil suspeito </strong> <br/> reportar@tramposc.com.br </p>
+                <p> <strong>  Reportar vaga ou perfil suspeito </strong> <br /> reportar@tramposc.com.br </p>
             </div>
 
         </div>
