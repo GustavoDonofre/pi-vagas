@@ -249,7 +249,7 @@ function Empresa() {
 
         <div>
 
-         <div className="titulo">
+            <div className="titulo">
                 <h2> Bem-Vindo </h2>
                 <br />
                 <p> Publique vagas e descubra novos talentos. </p>
@@ -287,7 +287,7 @@ function Empresa() {
                 <br />
 
                 <div className='col-12'>
-                    <div className='row'>
+                    <div className='row me-5'>
                         {
                             vagasExibir.length == 0 ? (
                                 <p>Nenhuma vaga cadastrada...</p>
@@ -295,25 +295,25 @@ function Empresa() {
                                 :
                                 vagasExibir.map(
                                     item =>
-                                        <div className="col-md-6 mb-4">
-                                            <div className='card shadow-sm h-100 border-20'>
-                                                <h5 className="card-header d-flex justify-content-between align-items-center fw-bold">{item.titulo}</h5>
+                                        <div className="col-md-6">
+                                            <div className='card shadow-sm' style={{ borderRadius: "15px" }}>
+                                                <h5 className="card-header text-center fw-bold">{item.titulo}</h5>
                                                 <div className="card-body">
-                                                    <p > Área: {item.area} </p>
-                                                    <p> Descrição da vaga: {item.descricao}</p>
-                                                    <p> Salário: R${item.salario}</p>
-                                                    <p> Contrato: {item.efetivo}</p>
-                                                    <p> Modo: {item.presencial}</p>
-                                                    <p> Turno: {item.turno}</p>
+                                                    <p> <label className='text-muted small'><i className="bi bi-tags"></i> Área: </label> {item.area} </p>
+                                                    <p> <label className='text-muted small'><i className="bi bi-card-text me-1"></i> Descrição da vaga: </label> {item.descricao}</p>
+                                                    <p> <label className='text-muted small'><i className="bi bi-cash-coin me-2 text-success"></i> Salário:</label> R$ {item.salario}</p>
+                                                    <p> <label className='text-muted small'><i className="bi bi-file-earmark-check me-2 text-warning"></i> Contrato: </label> {item.efetivo}</p>
+                                                    <p> <label className='text-muted small'><i className="bi bi-geo-alt me-2 text-danger"></i> Modo: </label> {item.presencial}</p>
+                                                    <p> <label className='text-muted small'><i className="bi bi-hourglass me-2 text-success"></i>Turno: </label> {item.turno}</p>
                                                     <div className='col-12 d-flex justify-content-end'>
                                                         <div className="btn-group dropend text-end">
-                                                            <button type="button" className="btn-acao text-light dropdown-toggle btn btn-outline-primary" data-bs-toggle="dropdown" aria-expanded="false">
+                                                            <button type="button" className="btn-padrao" data-bs-toggle="dropdown" aria-expanded="false">
                                                                 Ações
                                                             </button>
                                                             <ul className="dropdown-menu">
-                                                                <li><a className="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalCandidatos" onClick={() => VerCandidatos(item.id)} >Ver candidatos</a></li>
-                                                                <li><a className="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalVaga" onClick={() => editar(item.id)}>Editar vaga</a></li>
-                                                                <li><a className="dropdown-item" onClick={() => encerrarVaga(item.id)} >Encerrar Vaga</a></li>
+                                                                <li> <a className="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalCandidatos" onClick={() => VerCandidatos(item.id)}> <i class="bi bi-person me-2"></i> Ver candidatos</a></li>
+                                                                <li><a className="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalVaga" onClick={() => editar(item.id)}> <i class="bi bi-pencil me-2"></i> Editar vaga</a></li>
+                                                                <li><a className="dropdown-item" onClick={() => encerrarVaga(item.id)}><i class="bi bi-trash me-2"></i>Encerrar Vaga</a></li>
                                                             </ul>
                                                         </div>
                                                     </div>

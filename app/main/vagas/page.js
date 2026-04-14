@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import supabase from "../conexao/supabase";
 import { useParams } from "next/navigation";
+import './vagas.css'
 // const supabase = createClient('https://qrcmtnxakmuwbunyoooc.supabase.co', 'sb_publishable_kD9z8OLZIlbh3yry6yNMDQ_LTAi81op')
 
 export default function Vagas() {
@@ -148,15 +149,19 @@ export default function Vagas() {
   return (
 
     <div>
-      <div className="container d-flex justify-content-center align-items-center min-vh-100 mb-5">
+      <div className="titulo">
+
+      <h2>Cadastro de Vagas</h2>
+      </div>
+
+      <div className="container d-flex justify-content-center align-items-center mb-5">
         <div className="card shadow-lg p-4 col-md-6">
 
-          <h1 className="text-center mb-4">Cadastro de Vagas</h1>
 
           <form onSubmit={salvar}>
 
-            <div className="mb-3">
-              <label className="form-label">{nome_usuario}</label>
+            <div className="mb-5">
+              <h2 className="form-label text-center">{nome_usuario}</h2>
               {/* <input value={empresa} type="text" className="form-control" disabled placeholder={localStorage.getItem('empresa')} /> */}
             </div>
 
@@ -212,10 +217,10 @@ export default function Vagas() {
 
             <div className="col-12">
               <div className="row">
-                <div className="col-6">
+                <div className="col-mb-6">
 
 
-                  <div className="col-md-6 d-flex justify-content-center">
+                  <div className="d-flex justify-content-end">
                     <div>
                       {
                         editando == true ?
@@ -224,11 +229,11 @@ export default function Vagas() {
                             <button className="btn btn-outiline-padrao" onClick={cancelaEdicao}>Cancelar</button>
                           </div>
                           :
-                        <div>
+                        <div className="d-flex justify-content-end gap-3">
                       
-                        <button type="button" className="btn btn-padrao" onClick={() => window.location.href = "/main/feed_empresa"}>Cadastrar Vaga</button>
+                        <button type="subimit" className="btn btn-padrao" onClick={() => window.location.href = "/main/feed_empresa"}>Cadastrar Vaga</button>
                 
-                        <button type="button" className='btn btn-lg btn-outline-dark' onClick={() => window.location.href = "/main/feed_empresa"}> Cancelar </button>
+                        <button type="button" className='btn btn-acao' onClick={() => window.location.href = "/main/feed_empresa"}> Cancelar </button>
 
                         </div>
                       
