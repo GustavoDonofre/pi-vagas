@@ -225,8 +225,8 @@ export default function Vagas() {
                       {
                         editando == true ?
                           <div>
-                            <button className="btn btn padrao" onClick={atualizar}>Atualizar</button>
-                            <button className="btn btn-outiline-padrao" onClick={cancelaEdicao}>Cancelar</button>
+                            <button className="btn btn padrao" onClick={() => atualizar ()}>Atualizar</button>
+                            <button className="btn btn-outiline-padrao" onClick={ () => cancelaEdicao ()}>Cancelar</button>
                           </div>
                           :
                         <div className="d-flex justify-content-end gap-3">

@@ -307,7 +307,7 @@ function Empresa() {
                                                     <p> <label className='text-muted small'><i className="bi bi-hourglass me-2 text-success"></i>Turno: </label> {item.turno}</p>
                                                     <div className='col-12 d-flex justify-content-end'>
                                                         <div className="btn-group dropend text-end">
-                                                            <button type="button" className="btn-padrao" data-bs-toggle="dropdown" aria-expanded="false">
+                                                            <button type="button" className="btn-branco" data-bs-toggle="dropdown" aria-expanded="false">
                                                                 Ações
                                                             </button>
                                                             <ul className="dropdown-menu">
