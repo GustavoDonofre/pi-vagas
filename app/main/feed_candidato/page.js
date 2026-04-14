@@ -183,7 +183,7 @@ export default function Feed() {
                                                         <div className="col-6">
                                                             <div className="topo">
                                                                 <h5 className="nome">{item.id_empresa.nome}</h5>
-                                                                <p className="contratacao">{item.turno}</p>
+                                                                <span className="contratacao">{item.turno}</span>
                                                             </div>
                                                         </div>
 
