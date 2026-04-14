@@ -188,14 +188,17 @@ export default function EditarPerfilEmpresa() {
                                         <div className="card-body">
 
                                             <div className="d-flex flex-column align-items-center mb-3">
-                                            
+
+                                                {
                                                 <img src={PegaFotoPerfilPeloIDUsuario(id_empresa)} style={{ width: "90px" }} className="rounded-circle"
                                                     onError={(e) => {
                                                         e.target.onerror = null
-                                                        e.target.src = "https://ui-avatars.com/api/?background=random&name=" + id_empresa.nome
+                                                        e.target.src = "https://ui-avatars.com/api/?background=random&name=" + nome
                                                         e.target.style.width = "90px"
                                                     }} />
-                                                    
+                                            }
+                                            
+                                               
                                                 <label className="btn-padrao mt-3"> Editar foto <input type="file" accept="image/*" style={{ display: "none" }} onChange={e => alteraFoto(e.target.files[0])} /> </label>
                                             </div>
 
