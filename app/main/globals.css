@@ -72,6 +72,73 @@ body {
 
 
 
+
+.btn-branco {
+    position: relative;
+    overflow: hidden;
+
+    background: #ffffff;
+    color: #ff8800;
+    border: 2px solid #ff8800;
+    border-radius: 12px;
+    padding: 12px 20px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+
+    box-shadow: 0 6px 15px rgba(129, 129, 129, 0.3);
+    transition: all 0.3s ease;
+}
+
+/* camada animada */
+.btn-branco::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #ff8800, #ff5500);
+
+    transition: left 0.4s ease;
+    z-index: 0;
+}
+
+/* hover → preenche */
+.btn-branco:hover::before {
+    left: 0;
+}
+
+/* texto acima */
+.btn-branco span {
+    position: relative;
+    z-index: 1;
+    transition: color 0.3s ease;
+}
+
+/* texto branco no hover */
+.btn-branco:hover span {
+    color: #ffffff;
+}
+
+/* animações extras */
+.btn-branco:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(129, 129, 129, 0.4);
+}
+
+.btn-branco:active {
+    transform: translateY(0px);
+    box-shadow: 0 4px 10px rgba(129, 129, 129, 0.3);
+}
+
+.btn-branco:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(255, 136, 0, 0.3);
+}
+
+
+
 /* PÁGINA INICIAL */
 
 .titulo_pg {
@@ -158,4 +225,3 @@ body {
 .margem_card {
     margin-left: 700px;
 }
-
