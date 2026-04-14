@@ -1,23 +1,23 @@
-body{
+body {
     background-color: #f6f6f6;
 }
 
-.titulo{
+.titulo {
     text-align: center;
     margin-bottom: 30px;
 }
 
-.titulo h2{
+.titulo h2 {
     color: #ff8945;
     font-weight: 900
 }
 
-.navbar{
+.navbar {
     background-color: #f6f6f6;
     margin-left: 350px;
 }
 
-.card_filtros{
+.card_filtros {
     background-color: #ffffff;
     padding: 20px;
     border-radius: 20px;
@@ -26,32 +26,33 @@ body{
     margin-right: 50px;
 }
 
-.card{
+.card {
     padding: 20px;
     border-radius: 20px;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
     margin-bottom: 20px;
 }
 
-.topo{
+.topo {
     display: flex;
     gap: 10px;
 }
 
-.nome{
+.nome {
     font-weight: bold;
     margin-left: 50px;
 }
 
-.contratacao{
+.contratacao {
     background: #fff3eb;
     color: #ff7a00;
     padding: 4px 10px;
     border-radius: 15px;
     font-size: 12px;
+    margin-bottom: auto;
 }
 
-.info{
+.info {
     display: flex;
     gap: 15px;
     color: #6c757d;
