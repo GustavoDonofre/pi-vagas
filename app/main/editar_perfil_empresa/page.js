@@ -192,7 +192,7 @@ export default function EditarPerfilEmpresa() {
                                                 <img src={PegaFotoPerfilPeloIDUsuario(id_empresa)} style={{ width: "90px" }} className="rounded-circle"
                                                     onError={(e) => {
                                                         e.target.onerror = null
-                                                        e.target.src = "https://ui-avatars.com/api/?background=random&name=" + id_empresa
+                                                        e.target.src = "https://ui-avatars.com/api/?background=random&name=" + id_empresa.nome
                                                         e.target.style.width = "90px"
                                                     }} />
                                                     
