@@ -308,7 +308,7 @@ function Empresa() {
                                                     <div className='col-12 d-flex justify-content-end'>
                                                         <div className="btn-group dropend text-end">
                                                             <button type="button" className="btn-branco" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                Ações
+                                                                <span>Ações</span>
                                                             </button>
                                                             <ul className="dropdown-menu">
                                                                 <li> <a className="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalCandidatos" onClick={() => VerCandidatos(item.id)}> <i class="bi bi-person me-2"></i> Ver candidatos</a></li>

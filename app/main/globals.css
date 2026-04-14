@@ -109,20 +109,16 @@ body {
     left: 0;
 }
 
-/* texto acima */
 .btn-branco span {
     position: relative;
     z-index: 1;
     transition: color 0.3s ease;
 }
 
-/* texto branco no hover */
-.btn-branco:hover span {
-    color: #ffffff;
-}
 
 /* animações extras */
 .btn-branco:hover {
+    color: white;
     transform: translateY(-3px);
     box-shadow: 0 10px 25px rgba(129, 129, 129, 0.4);
 }
@@ -133,6 +129,7 @@ body {
 }
 
 .btn-branco:focus {
+    color: white;
     outline: none;
     box-shadow: 0 0 0 4px rgba(255, 136, 0, 0.3);
 }
